@@ -13,7 +13,7 @@ import GoogleVector from "@/assets/vectors/introduce/GoogleVector";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { register } from "@/app/services/users";
+import { register } from "@/services/users";
 import { useRouter } from "expo-router";
 
 const schema = z.object({
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Medium",
   },
   bottomContainer: {
-    marginBottom: 12,
+    marginBottom: 33,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

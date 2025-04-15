@@ -13,7 +13,7 @@ import GoogleVector from "@/assets/vectors/introduce/GoogleVector";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { login } from "@/app/services/users";
+import { login } from "@/services/users";
 import { useRouter } from "expo-router";
 
 const schema = z.object({
@@ -45,8 +45,8 @@ const LoginForm = () => {
   const handleLogin = async (data: FormRegisterType) => {
     try {
       const res = await login(data);
-      if (res) {
-        console.log("login success");
+      if (res.length > 0) {
+        router.replace("/(tabs)/home/home"); // de la home thi duoc , de la index thi lai khong duoc
       }
     } catch (error) {
       console.error("Error:", error);
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Medium",
   },
   bottomContainer: {
-    marginBottom: 12,
+    marginBottom: 33,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

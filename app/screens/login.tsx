@@ -31,7 +31,7 @@ const Login = () => {
           <View style={styles.bannerContainer}>
             <Image
               style={styles.imageBanner}
-              source={require("../../assets/images/introduce/introduce-1.png")}
+              source={require("../../assets/images/login/login-banner.png")}
             />
             <Pressable onPress={handleBackScreen}>
               <View style={styles.vectorContainer}>
@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     top: -100,
-    right: -180,
   },
   formContainer: {
     height: "70%",

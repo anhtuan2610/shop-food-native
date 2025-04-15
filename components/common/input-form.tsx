@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 interface InputFormProps {
   labelName: string;
@@ -21,6 +21,10 @@ const InputForm = ({
   secureTextEntry,
 }: InputFormProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [isShow, setIsShow] = useState<boolean | undefined>(secureTextEntry);
+  const handleChangeShowPassword = () => {
+    setIsShow(!isShow);
+  };
 
   return (
     <View style={styles.container}>
@@ -40,9 +44,13 @@ const InputForm = ({
           placeholderTextColor="##A0A5BA"
           value={value}
           onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry ?? false}
+          secureTextEntry={isShow}
         />
-        {iconInput && <View>{iconInput}</View>}
+        {iconInput && (
+          <Pressable onPress={handleChangeShowPassword}>
+            <View>{iconInput}</View>
+          </Pressable>
+        )}
       </View>
       {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
     </View>
@@ -70,6 +78,7 @@ const styles = StyleSheet.create({
   inputForm: {
     flex: 1,
     fontSize: 16,
+    paddingVertical: 16,
   },
   inputFocused: {
     borderWidth: 1,

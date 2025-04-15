@@ -1,5 +1,14 @@
 import { get, post } from "./axios-config";
 
+type loginResponse = [
+  {
+    id: string;
+    fullName: string;
+    email: string;
+    password: string;
+  }
+];
+
 export const register = async ({
   fullName,
   email,
@@ -26,7 +35,7 @@ export const login = async ({
   email: string;
   password: string;
 }) => {
-  return await get({
+  return await get<loginResponse>({
     url: "users",
     params: {
       email,
