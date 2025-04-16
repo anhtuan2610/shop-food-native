@@ -1,5 +1,6 @@
 import DeliveryVector from "@/assets/vectors/home/delivery-vector";
 import StarVector from "@/assets/vectors/home/star-vector";
+import { useState } from "react";
 import {
   Image,
   ScrollView,
@@ -8,10 +9,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import FoodDetailsModal from "../food-details/food-details-modal";
+import { TFood } from "@/types";
 
-const offerSpecials = [
+export const offerSpecials: TFood[] = [
   {
-    id: 1,
+    id: "1",
     name: "Burger King",
     star: "4.5",
     price: "22.00",
@@ -21,7 +24,7 @@ const offerSpecials = [
     },
   },
   {
-    id: 2,
+    id: "2",
     name: "Pizza King",
     star: "4.4",
     price: "19.00",
@@ -33,6 +36,15 @@ const offerSpecials = [
 ];
 
 const SpecialOffers = () => {
+  const [isShowDetails, setIsShowDetails] = useState<boolean>(false);
+  const [productSelectedId, setProductSelectedId] = useState<
+    string | undefined
+  >(undefined);
+  const handleClickBuyNow = (id: string) => {
+    setIsShowDetails(true);
+    setProductSelectedId(id);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -43,6 +55,7 @@ const SpecialOffers = () => {
         <View style={styles.specialOffersContainer}>
           {offerSpecials.map((offer) => (
             <View
+              key={offer.id}
               style={[styles.specialOffersCard, offer.backgroundColorOffer]}
             >
               <Image
@@ -60,7 +73,10 @@ const SpecialOffers = () => {
                   <Text style={styles.deliveryText}>Free delivery</Text>
                 </View>
                 <View style={styles.buyContainer}>
-                  <TouchableOpacity style={styles.buyButton}>
+                  <TouchableOpacity
+                    style={styles.buyButton}
+                    onPress={() => handleClickBuyNow(offer.id)}
+                  >
                     <Text style={styles.buyButtonText}>Buy Now</Text>
                   </TouchableOpacity>
                   <View style={styles.priceContainer}>
@@ -73,6 +89,13 @@ const SpecialOffers = () => {
           ))}
         </View>
       </ScrollView>
+      {isShowDetails && productSelectedId && (
+        <FoodDetailsModal
+          isShowDetails={isShowDetails}
+          setIsShowDetails={setIsShowDetails}
+          productSelectedId={productSelectedId}
+        />
+      )}
     </View>
   );
 };

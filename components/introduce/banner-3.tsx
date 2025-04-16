@@ -1,20 +1,20 @@
-import IntroduceVector1 from "@/assets/vectors/introduce/IntroduceVector1";
+import IntroduceVector3 from "@/assets/vectors/introduce/IntroduceVector3";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 const Banner3 = () => {
   return (
     <View style={styles.container}>
       <Image
-        style={styles.image1}
-        source={require("../../assets/images/introduce/introduce-1.png")}
+        style={styles.image3}
+        source={require("../../assets/images/introduce/introduce-3.png")}
       />
 
-      <View style={styles.vector1}>
-        <IntroduceVector1 />
+      <View style={styles.vector3}>
+        <IntroduceVector3 />
       </View>
 
       <Text style={styles.textMain}>
-        I don't feel like{"\n"}cooking. Let's{"\n"}order food{"\n"}delivery.
+        Good music and{"\n"}good food{"\n"}makes me{"\n"}happy.
       </Text>
     </View>
   );
@@ -24,18 +24,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    backgroundColor: "#FF6B57",
+    backgroundColor: "#FFC529",
   },
-  image1: {
+  image3: {
     position: "absolute",
     top: -190,
     left: 15,
     width: 763,
     height: 763,
   },
-  vector1: {
+  vector3: {
     position: "absolute",
-    bottom: -30,
+    bottom: -100,
     left: 0,
     width: 400,
     height: 500,

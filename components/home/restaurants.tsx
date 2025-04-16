@@ -31,7 +31,7 @@ const Restaurants = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
           {restaurants.map((restaurant) => (
-            <View style={styles.restaurantCard}>
+            <View key={restaurant.id} style={styles.restaurantCard}>
               <View style={{ position: "relative" }}>
                 <Image
                   style={styles.restaurantImage}

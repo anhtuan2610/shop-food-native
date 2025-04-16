@@ -30,7 +30,7 @@ const IntroduceScreen = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % BANNERS.length;
+      const nextIndex = currentIndex + 1 < 3 ? currentIndex + 1 : 0;
       setCurrentIndex(nextIndex);
       scrollRef.current?.scrollTo({ x: nextIndex * width, animated: true }); // lay index phan tu tiep theo nhan voi chieu dai (vi du phan tu tiep theo la 1 va man hinh 1000px thi` de scroll toi phan tu 1 thi` lay 1 * voi chieu dai man hinh de scroll toi no)
     }, 2000);

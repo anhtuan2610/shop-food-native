@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     backgroundColor: "#7BD3A5",
+    overflow: "hidden",
   },
   image: {
     width: 1100, // 70% chiều rộng màn hình

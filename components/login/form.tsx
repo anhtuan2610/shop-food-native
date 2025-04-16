@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { login } from "@/services/users";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 
 const schema = z.object({
   email: z
@@ -29,6 +30,7 @@ const schema = z.object({
 export type FormRegisterType = z.infer<typeof schema>;
 
 const LoginForm = () => {
+  const [message, setMessage] = useState<string | undefined>();
   const router = useRouter();
   const {
     control,
@@ -47,7 +49,9 @@ const LoginForm = () => {
       const res = await login(data);
       if (res.length > 0) {
         router.replace("/(tabs)/home/home"); // de la home thi duoc , de la index thi lai khong duoc
+        return;
       }
+      setMessage("Your email or password is incorrect");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -84,6 +88,11 @@ const LoginForm = () => {
             />
           )}
         />
+        {message && (
+          <View>
+            <Text style={styles.textMessage}>{message}</Text>
+          </View>
+        )}
         <View>
           <Text style={styles.textForgotPassword}>Forgot Password</Text>
         </View>
@@ -126,6 +135,12 @@ const styles = StyleSheet.create({
   formContent: {
     flex: 1,
     gap: 20,
+  },
+  textMessage: {
+    textAlign: "center",
+    color: "red",
+    fontSize: 12,
+    fontFamily: "Poppins-Regular",
   },
   textForgotPassword: {
     textAlign: "center",
