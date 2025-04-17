@@ -4,17 +4,14 @@ import Address from "@/components/cart/address";
 import FoodCard from "@/components/cart/food-card";
 import InputPromo from "@/components/cart/input-promo";
 import PriceDetails from "@/components/cart/price-details";
+import { CartContext } from "@/context/cart-context";
 import { useRouter } from "expo-router";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useContext } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const Cart = () => {
   const router = useRouter();
+  const cartContext = useContext(CartContext);
 
   const handleBackScreen = () => {
     router.back();
@@ -30,7 +27,7 @@ const Cart = () => {
             </View>
           </TouchableOpacity>
           <Text style={styles.textTitle}>Cart</Text>
-          <View style={[styles.vectorContainer, { opacity: 0 }]}></View>
+          <View style={[styles.vectorContainer, { opacity: 0 }]} />
         </View>
         <View style={styles.foodCardsContainer}>
           <FoodCard />

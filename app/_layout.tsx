@@ -1,3 +1,5 @@
+import { CartContext } from "@/context/cart-context";
+import { TFoodInCart } from "@/types";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -29,6 +31,7 @@ export default function RootLayout() {
   });
 
   const [isReady, setIsReady] = useState(false);
+  const [cart, setCart] = useState<TFoodInCart[]>([]);
 
   useEffect(() => {
     if (loaded) {
@@ -50,16 +53,21 @@ export default function RootLayout() {
   }
 
   return (
-    <>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="screens/signup" options={{ headerShown: false }} />
-        <Stack.Screen name="screens/login" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </>
+    <CartContext.Provider value={{ cart, setCart }}>
+      <>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="screens/signup"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="screens/login" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </>
+    </CartContext.Provider>
   );
 }
 

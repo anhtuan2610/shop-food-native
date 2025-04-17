@@ -6,9 +6,10 @@ import {
   View,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TFood } from "@/types";
 import { useRouter } from "expo-router";
+import { CartContext } from "@/context/cart-context";
 
 const FoodActionBar = ({
   food,
@@ -18,6 +19,7 @@ const FoodActionBar = ({
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
+  const cartContext = useContext(CartContext);
   const [quantity, setQuantity] = useState<number>(1);
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -30,6 +32,13 @@ const FoodActionBar = ({
   };
 
   const handleAddToCart = () => {
+    if (!food) {
+      return;
+    }
+    cartContext?.setCart((prev) => [
+      ...prev,
+      { product: food, quantity: quantity },
+    ]);
     setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
     router.navigate("/cart/cart");
   };

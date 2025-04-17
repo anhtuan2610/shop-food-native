@@ -11,8 +11,7 @@ export type TFood = {
   };
 };
 
-export type TFoodCart = {
+export type TFoodInCart = {
   product: TFood,
   quantity: number,
-  totalPrice: string,
 }
