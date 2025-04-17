@@ -7,10 +7,10 @@ import { TFood } from "@/types";
 import StarVector from "@/assets/vectors/details/star-vector";
 
 const FoodInformation = ({
-  product,
+  food,
   setIsShowDetails,
 }: {
-  product: TFood | undefined;
+  food: TFood | undefined;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
@@ -22,15 +22,15 @@ const FoodInformation = ({
         >
           <CloseVector />
         </Pressable>
-        <Image style={styles.imageDetails} source={product?.imageUrl} />
+        <Image style={styles.imageDetails} source={food?.imageUrl} />
         <View style={styles.favoriteIconContainer}>
           <HeartVector />
         </View>
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.mainText}>{product?.name}</Text>
-          <Text style={styles.priceText}>${product?.price}</Text>
+          <Text style={styles.mainText}>{food?.name}</Text>
+          <Text style={styles.priceText}>${food?.price}</Text>
         </View>
         <View style={styles.informationDeliveryRate}>
           <View style={{ flexDirection: "row", gap: 16 }}>

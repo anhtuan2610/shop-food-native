@@ -9,19 +9,17 @@ import FoodActionBar from "./action-bar";
 const FoodDetailsModal = ({
   isShowDetails,
   setIsShowDetails,
-  productSelectedId,
+  foodSelectedId,
 }: {
   isShowDetails: boolean;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  productSelectedId: string;
+  foodSelectedId: string;
 }) => {
-  const [product, setProduct] = useState<TFood>();
+  const [food, setFood] = useState<TFood>();
   useEffect(() => {
-    const findProduct = offerSpecials.find(
-      (food) => food.id === productSelectedId
-    );
-    setProduct(findProduct);
-  }, [productSelectedId]);
+    const findFood = offerSpecials.find((food) => food.id === foodSelectedId);
+    setFood(findFood);
+  }, [foodSelectedId]);
 
   return (
     <Modal
@@ -32,12 +30,9 @@ const FoodDetailsModal = ({
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <FoodInformation
-            product={product}
-            setIsShowDetails={setIsShowDetails}
-          />
+          <FoodInformation food={food} setIsShowDetails={setIsShowDetails} />
           <FoodTopping />
-          <FoodActionBar product={product} />
+          <FoodActionBar food={food} setIsShowDetails={setIsShowDetails} />
         </View>
       </View>
     </Modal>

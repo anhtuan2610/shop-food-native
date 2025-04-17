@@ -8,8 +8,16 @@ import {
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useState } from "react";
 import { TFood } from "@/types";
+import { useRouter } from "expo-router";
 
-const FoodActionBar = ({ product }: { product: TFood | undefined }) => {
+const FoodActionBar = ({
+  food,
+  setIsShowDetails,
+}: {
+  food: TFood | undefined;
+  setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const router = useRouter();
   const [quantity, setQuantity] = useState<number>(1);
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -19,6 +27,11 @@ const FoodActionBar = ({ product }: { product: TFood | undefined }) => {
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
+  };
+
+  const handleAddToCart = () => {
+    setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
+    router.navigate("/cart/cart");
   };
 
   return (
@@ -40,12 +53,15 @@ const FoodActionBar = ({ product }: { product: TFood | undefined }) => {
           />
         </Pressable>
       </View>
-      <TouchableOpacity style={styles.buttonAddToCart}>
+      <TouchableOpacity
+        style={styles.buttonAddToCart}
+        onPress={handleAddToCart}
+      >
         <Text style={styles.buttonText1}>
           Add <Text style={styles.quantityText}>{quantity}</Text> to cart
         </Text>
         <Text style={styles.buttonText2}>
-          ${Number(product?.price) * quantity}
+          ${Number(food?.price) * quantity}
         </Text>
       </TouchableOpacity>
     </View>
@@ -58,7 +74,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     backgroundColor: "rgba(24, 25, 29, 1)",
-    padding: 25,
+    padding: 24,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

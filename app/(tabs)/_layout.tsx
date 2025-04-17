@@ -1,6 +1,6 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import HomeVector from "@/assets/vectors/tab/HomeVector";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -64,7 +64,20 @@ export default function TabLayout() {
       <Tabs.Screen
         name="cart/cart"
         options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
           title: "",
+          tabBarButton: ({ onPress, ...props }) => {
+            const router = useRouter();
+            return (
+              <Pressable
+                {...props} // giu nguyen thuoc tinh cu (khong thi no ko hien thi ui)
+                onPress={() => {
+                  router.push("/cart/cart");
+                }}
+              />
+            );
+          },
           tabBarIcon: ({ focused }) => (
             <View
               style={[styles.iconContainer, focused && styles.bottomHighlight]}
@@ -77,7 +90,7 @@ export default function TabLayout() {
             </View>
           ),
         }}
-      />{" "}
+      />
       <Tabs.Screen
         name="profile/profile"
         options={{

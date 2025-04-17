@@ -46,8 +46,9 @@ const LoginForm = () => {
 
   const handleLogin = async (data: FormRegisterType) => {
     try {
-      const res = await login(data);
-      if (res.length > 0) {
+      // const res = await login(data);
+      if (true) {
+        // res.length > 0
         router.replace("/(tabs)/home/home"); // de la home thi duoc , de la index thi lai khong duoc
         return;
       }

@@ -10,3 +10,9 @@ export type TFood = {
     backgroundColor: string;
   };
 };
+
+export type TFoodCart = {
+  product: TFood,
+  quantity: number,
+  totalPrice: string,
+}

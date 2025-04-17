@@ -1,16 +1,8 @@
-import DeliveryVector from "@/assets/vectors/home/delivery-vector";
-import StarVector from "@/assets/vectors/home/star-vector";
 import { useState } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import FoodDetailsModal from "../food-details/food-details-modal";
 import { TFood } from "@/types";
+import SpecialFoodCard from "./special-food-card";
 
 export const offerSpecials: TFood[] = [
   {
@@ -37,13 +29,9 @@ export const offerSpecials: TFood[] = [
 
 const SpecialOffers = () => {
   const [isShowDetails, setIsShowDetails] = useState<boolean>(false);
-  const [productSelectedId, setProductSelectedId] = useState<
-    string | undefined
-  >(undefined);
-  const handleClickBuyNow = (id: string) => {
-    setIsShowDetails(true);
-    setProductSelectedId(id);
-  };
+  const [foodSelectedId, setFoodSelectedId] = useState<string | undefined>(
+    undefined
+  );
 
   return (
     <View style={styles.container}>
@@ -53,47 +41,21 @@ const SpecialOffers = () => {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.specialOffersContainer}>
-          {offerSpecials.map((offer) => (
-            <View
-              key={offer.id}
-              style={[styles.specialOffersCard, offer.backgroundColorOffer]}
-            >
-              <Image
-                style={styles.specialOffersImage}
-                source={offer.imageUrl}
-              />
-              <View style={styles.specialOffersDescription}>
-                <View style={styles.rateContainer}>
-                  <StarVector />
-                  <Text style={{ color: "#FFB8AE" }}>{offer.star}</Text>
-                </View>
-                <Text style={styles.offerName}>{offer.name}</Text>
-                <View style={styles.deliveryContainer}>
-                  <DeliveryVector />
-                  <Text style={styles.deliveryText}>Free delivery</Text>
-                </View>
-                <View style={styles.buyContainer}>
-                  <TouchableOpacity
-                    style={styles.buyButton}
-                    onPress={() => handleClickBuyNow(offer.id)}
-                  >
-                    <Text style={styles.buyButtonText}>Buy Now</Text>
-                  </TouchableOpacity>
-                  <View style={styles.priceContainer}>
-                    <Text style={{ color: "#FFB8AE" }}>$</Text>
-                    <Text style={{ color: "#FFFFFF" }}>{offer.price}</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
+          {offerSpecials.map((food) => (
+            <SpecialFoodCard
+              key={food.id}
+              setIsShowDetails={setIsShowDetails}
+              setFoodSelectedId={setFoodSelectedId}
+              food={food}
+            />
           ))}
         </View>
       </ScrollView>
-      {isShowDetails && productSelectedId && (
+      {isShowDetails && foodSelectedId && (
         <FoodDetailsModal
           isShowDetails={isShowDetails}
           setIsShowDetails={setIsShowDetails}
-          productSelectedId={productSelectedId}
+          foodSelectedId={foodSelectedId}
         />
       )}
     </View>
@@ -122,75 +84,6 @@ const styles = StyleSheet.create({
   specialOffersContainer: {
     flexDirection: "row",
     gap: 8,
-  },
-  specialOffersCard: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FF6B57",
-    borderRadius: 15,
-
-    // iOS shadow
-    shadowColor: "rgba(254, 117, 76, 1)", // màu tương ứng
-    shadowOffset: {
-      width: 10,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 30,
-
-    // Android shadow
-    elevation: 10, // tăng số nếu muốn bóng đậm hơn
-  },
-
-  specialOffersImage: {
-    width: 120,
-    height: 110,
-  },
-  specialOffersDescription: {
-    padding: 15,
-  },
-  rateContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  offerName: {
-    fontFamily: "Poppins-SemiBold",
-    color: "#FFFFFF",
-    fontSize: 16,
-  },
-  deliveryContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-  },
-  deliveryText: {
-    fontSize: 12,
-    color: "#FFB8AE",
-    fontWeight: 400,
-  },
-  buyContainer: {
-    marginTop: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  buyButton: {
-    backgroundColor: "#E54630",
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buyButtonText: {
-    fontFamily: "Poppins-SemiBold",
-    fontSize: 10,
-    color: "#FFFFFF",
-  },
-  priceContainer: {
-    flexDirection: "row",
   },
 });
 
