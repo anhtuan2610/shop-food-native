@@ -35,10 +35,7 @@ const FoodActionBar = ({
     if (!food) {
       return;
     }
-    cartContext?.setCart((prev) => [
-      ...prev,
-      { product: food, quantity: quantity },
-    ]);
+    cartContext?.setCart((prev) => [...prev, { food, quantity: quantity }]);
     setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
     router.navigate("/cart/cart");
   };

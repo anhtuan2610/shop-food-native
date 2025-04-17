@@ -1,31 +1,39 @@
-import BackScreenVector from "@/assets/vectors/introduce/BackScreenVector";
 import ActionBar from "@/components/cart/action-bar";
 import Address from "@/components/cart/address";
+import CartEmpty from "@/components/cart/cart-empty";
 import FoodCard from "@/components/cart/food-card";
 import CartHeader from "@/components/cart/header";
 import InputPromo from "@/components/cart/input-promo";
 import PriceDetails from "@/components/cart/price-details";
 import { CartContext } from "@/context/cart-context";
-import { useRouter } from "expo-router";
-import { useContext } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useContext, useState } from "react";
+import { StyleSheet, View } from "react-native";
 
 const Cart = () => {
   const cartContext = useContext(CartContext);
+  const subTotal = cartContext?.cart.reduce((subTotal, item) => {
+    const total = parseFloat(item.food.price) * item.quantity;
+    return subTotal + total;
+  }, 0);
+
+  if (cartContext?.cart.length == 0) {
+    return <CartEmpty />;
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <CartHeader />
         <View style={styles.foodCardsContainer}>
-          <FoodCard />
-          <FoodCard />
+          {cartContext?.cart.map((item) => (
+            <FoodCard key={item.food.id} item={item} />
+          ))}
         </View>
         <InputPromo />
-        <PriceDetails />
+        <PriceDetails subTotal={subTotal} />
       </View>
       <Address />
-      <ActionBar />
+      <ActionBar subTotal={subTotal} />
     </View>
   );
 };

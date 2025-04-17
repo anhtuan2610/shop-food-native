@@ -1,29 +1,70 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import CloseVector from "@/assets/vectors/cart/close-vector";
 import Entypo from "@expo/vector-icons/Entypo";
+import { TFoodInCart } from "@/types";
+import { useContext } from "react";
+import { CartContext } from "@/context/cart-context";
 
-const FoodCard = () => {
+const FoodCard = ({ item }: { item: TFoodInCart }) => {
+  const cartContext = useContext(CartContext);
+
+  const decreaseQuantity = (foodId: string) => {
+    cartContext?.setCart((prev) => {
+      const findItem = prev.find((item) => item.food.id === foodId);
+      if (!findItem) return prev;
+      const newQuantity = findItem.quantity - 1;
+      if (newQuantity <= 0) {
+        removeFoodFromCart(foodId);
+      }
+      return prev.map((item) =>
+        item.food.id === foodId ? { ...item, quantity: newQuantity } : item
+      );
+    });
+  };
+
+  const increaseQuantity = (foodId: string) => {
+    cartContext?.setCart((prev) =>
+      prev.map((item) =>
+        item.food.id === foodId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
+
+  const removeFoodFromCart = (foodId: string) => {
+    const updateCart = cartContext?.cart.filter(
+      (item) => item.food.id !== foodId
+    );
+    if (updateCart) {
+      cartContext?.setCart(updateCart);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.foodImage}
-        source={require("../../assets/images/home/special-1.png")}
-      />
+      <Image style={styles.foodImage} source={item.food.imageUrl} />
       <View style={styles.contentContainer}>
         <View style={styles.titleRow}>
           <Text style={styles.foodName}>Pizza margarita European</Text>
-          <Pressable>
+          <Pressable onPress={() => removeFoodFromCart(item.food.id)}>
             <CloseVector />
           </Pressable>
         </View>
         <View style={styles.actionRow}>
-          <Text style={styles.priceText}>$9.00</Text>
+          <Text style={styles.priceText}>${item.food.price}</Text>
           <View style={styles.quantityContainer}>
-            <Pressable style={styles.quantityBtn}>
+            <Pressable
+              style={styles.quantityBtn}
+              onPress={() => decreaseQuantity(item.food.id)}
+            >
               <Entypo name="minus" size={22} color="black" />
             </Pressable>
-            <Text style={styles.quantityText}>2</Text>
-            <Pressable style={styles.quantityBtn}>
+            <Text style={styles.quantityText}>{item.quantity}</Text>
+            <Pressable
+              style={styles.quantityBtn}
+              onPress={() => increaseQuantity(item.food.id)}
+            >
               <Entypo name="plus" size={22} color="black" />
             </Pressable>
           </View>

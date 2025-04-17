@@ -1,19 +1,21 @@
+import { CartContext } from "@/context/cart-context";
+import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const PriceDetails = () => {
+const PriceDetails = ({ subTotal }: { subTotal: number | undefined }) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Subtotal</Text>
-          <Text style={styles.text}>$12.20</Text>
+          <Text style={styles.text}>${subTotal}</Text>
         </View>
         <View style={styles.horizontalBar} />
       </View>
       <View style={styles.titleContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Tax and Fees</Text>
-          <Text style={styles.text}>$4.10</Text>
+          <Text style={styles.text}>$2.00</Text>
         </View>
         <View style={styles.horizontalBar} />
       </View>

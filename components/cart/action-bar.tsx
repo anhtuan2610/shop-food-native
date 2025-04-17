@@ -1,11 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const ActionBar = () => {
+const ActionBar = ({ subTotal }: { subTotal: number | undefined }) => {
+  const finalTotal = (subTotal ?? 0) + 2.0 + 1.0;
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.textTotal}>Total</Text>
-        <Text style={styles.textPrice}>$17.30</Text>
+        <Text style={styles.textPrice}>${finalTotal}</Text>
       </View>
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.buttonText}>Go to checkout</Text>
