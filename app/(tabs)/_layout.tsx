@@ -16,37 +16,13 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: true,
         header: () => (
-          <View
-            style={{
-              paddingTop: 50,
-              width: "100%",
-              paddingHorizontal: 25,
-              backgroundColor: "white",
-            }}
-          >
+          <View style={styles.header}>
             <HeaderTabs />
           </View>
         ),
         tabBarBackground: TabBarBackground,
-        tabBarStyle: {
-          height: 59,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#242731",
-          paddingVertical: 16,
-          paddingHorizontal: 22,
-          marginBottom: 20,
-          marginHorizontal: 20,
-          borderTopWidth: 0,
-          borderTopColor: "transparent",
-          borderRadius: 16,
-          position: "absolute",
-        },
-        tabBarItemStyle: {
-          marginTop: 10,
-          justifyContent: "center",
-          alignItems: "center",
-        },
+        tabBarStyle: styles.tabBarContainer,
+        tabBarItemStyle: styles.tabBarItems,
       }}
       initialRouteName="home/home"
     >
@@ -90,27 +66,8 @@ export default function TabLayout() {
                 color={!focused ? "#747785" : "#FF6B57"}
               />
               {(cartContext?.cart.length ?? 0) > 0 && (
-                <View
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    right: -10,
-                    backgroundColor: "rgba(255, 197, 41, 1)",
-                    borderRadius: 6,
-                    paddingHorizontal: 4,
-                    minWidth: 18,
-                    height: 18,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 12,
-                      fontFamily: "Poppins-SemiBold",
-                    }}
-                  >
+                <View style={styles.cartIconContainer}>
+                  <Text style={styles.cartTextQuantity}>
                     {cartContext?.cart.length}
                   </Text>
                 </View>
@@ -154,6 +111,12 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    paddingTop: 50,
+    width: "100%",
+    paddingHorizontal: 25,
+    backgroundColor: "white",
+  },
   iconContainer: {
     height: 59,
     width: 42,
@@ -163,5 +126,41 @@ const styles = StyleSheet.create({
   bottomHighlight: {
     borderBottomWidth: 3,
     borderBottomColor: "#FF6B57",
+  },
+  tabBarContainer: {
+    height: 59,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#242731",
+    paddingVertical: 16,
+    paddingHorizontal: 22,
+    marginBottom: 20,
+    marginHorizontal: 20,
+    borderTopWidth: 0,
+    borderTopColor: "transparent",
+    borderRadius: 16,
+    position: "absolute",
+  },
+  tabBarItems: {
+    marginTop: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cartIconContainer: {
+    position: "absolute",
+    top: 0,
+    right: -10,
+    backgroundColor: "rgba(255, 197, 41, 1)",
+    borderRadius: 6,
+    paddingHorizontal: 4,
+    minWidth: 18,
+    height: 18,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cartTextQuantity: {
+    color: "white",
+    fontSize: 12,
+    fontFamily: "Poppins-SemiBold",
   },
 });
