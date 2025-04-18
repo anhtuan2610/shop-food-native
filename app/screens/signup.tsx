@@ -33,10 +33,11 @@ const SignUp = () => {
               style={styles.imageBanner}
               source={require("../../assets/images/introduce/introduce-1.png")}
             />
-            <Pressable onPress={handleBackScreen}>
-              <View style={styles.vectorContainer}>
-                <BackScreenVector />
-              </View>
+            <Pressable
+              style={styles.vectorContainer}
+              onPress={handleBackScreen}
+            >
+              <BackScreenVector />
             </Pressable>
             <View style={styles.textContainer}>
               <Text style={styles.textTitle}>Sign Up</Text>

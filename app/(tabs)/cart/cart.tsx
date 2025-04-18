@@ -6,7 +6,7 @@ import CartHeader from "@/components/cart/header";
 import InputPromo from "@/components/cart/input-promo";
 import PriceDetails from "@/components/cart/price-details";
 import { CartContext } from "@/context/cart-context";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
 const Cart = () => {

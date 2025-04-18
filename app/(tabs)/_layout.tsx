@@ -1,7 +1,6 @@
 import { Tabs, useRouter } from "expo-router";
 import React, { useContext } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import TabBarBackground from "@/components/ui/TabBarBackground";
 import HomeVector from "@/assets/vectors/tab/HomeVector";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import ProfileVector from "@/assets/vectors/tab/ProfileVector";

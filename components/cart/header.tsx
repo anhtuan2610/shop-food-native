@@ -10,10 +10,8 @@ const CartHeader = () => {
 
   return (
     <View style={styles.contentHeader}>
-      <Pressable onPress={handleBackScreen}>
-        <View style={styles.vectorContainer}>
-          <BackScreenVector />
-        </View>
+      <Pressable style={styles.vectorContainer} onPress={handleBackScreen}>
+        <BackScreenVector />
       </Pressable>
       <Text style={styles.textTitle}>Cart</Text>
       <View style={[styles.vectorContainer, { opacity: 0 }]} />

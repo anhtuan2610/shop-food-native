@@ -10,9 +10,9 @@ import {
 import BackScreenVector from "@/assets/vectors/introduce/BackScreenVector";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import LoginForm from "@/components/login/form";
+import ForgotPasswordForm from "@/components/forgot-password/form";
 
-const Login = () => {
+const ForgotPassword = () => {
   const router = useRouter();
 
   const handleBackScreen = () => {
@@ -23,15 +23,15 @@ const Login = () => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <LinearGradient
         colors={["rgba(32, 33, 36, 0)", "#191B2F"]}
-        start={{ x: 1, y: 0 }} // Tương ứng với góc 268.87 độ
-        end={{ x: 0, y: 0 }}
+        start={{ x: 1, y: 0.5 }}
+        end={{ x: 0, y: 0.5 }}
         style={styles.container}
       >
         <View style={styles.contentContainer}>
           <View style={styles.bannerContainer}>
             <Image
               style={styles.imageBanner}
-              source={require("../../assets/images/login/login-banner.png")}
+              source={require("../../assets/images/introduce/introduce-1.png")}
             />
             <Pressable
               style={styles.vectorContainer}
@@ -40,14 +40,14 @@ const Login = () => {
               <BackScreenVector />
             </Pressable>
             <View style={styles.textContainer}>
-              <Text style={styles.textTitle}>Login</Text>
+              <Text style={styles.textTitle}>Forgot Password</Text>
               <Text style={styles.textDescription}>
-                Please sign in to your{"\n"}existing account
+                Please enter your existing{"\n"}email address
               </Text>
             </View>
           </View>
           <View style={styles.formContainer}>
-            <LoginForm />
+            <ForgotPasswordForm />
           </View>
         </View>
       </LinearGradient>
@@ -95,10 +95,11 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     top: -100,
+    right: -180,
   },
   formContainer: {
     height: "70%",
   },
 });
 
-export default Login;
+export default ForgotPassword;

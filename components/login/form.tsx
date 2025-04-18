@@ -44,6 +44,10 @@ const LoginForm = () => {
     router.replace("/screens/signup");
   };
 
+  const redirectForgotPassword = async () => {
+    router.push("/screens/forgot-password");
+  };
+
   const handleLogin = async (data: FormRegisterType) => {
     try {
       // const res = await login(data);
@@ -94,9 +98,9 @@ const LoginForm = () => {
             <Text style={styles.textMessage}>{message}</Text>
           </View>
         )}
-        <View>
+        <TouchableOpacity onPress={redirectForgotPassword}>
           <Text style={styles.textForgotPassword}>Forgot Password</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.buttonContainer}>
           <ButtonForm name="Login" actionFunction={handleSubmit(handleLogin)} />
         </View>

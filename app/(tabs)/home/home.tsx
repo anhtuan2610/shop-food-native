@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import CategoriesFood from "@/components/home/categories-food";
 import SpecialOffers from "@/components/home/special-offers";
