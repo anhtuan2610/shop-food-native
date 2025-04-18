@@ -20,7 +20,6 @@ export default function TabLayout() {
             <HeaderTabs />
           </View>
         ),
-        tabBarBackground: TabBarBackground,
         tabBarStyle: styles.tabBarContainer,
         tabBarItemStyle: styles.tabBarItems,
       }}
