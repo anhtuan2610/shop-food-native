@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -28,6 +29,11 @@ const IntroduceScreen = () => {
     router.push("/screens/login");
   };
 
+  const handleClickCarouselDot = (index: number) => {
+    setCurrentIndex(index);
+    scrollRef.current?.scrollTo({ x: index * width, animated: true });
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       const nextIndex = currentIndex + 1 < 3 ? currentIndex + 1 : 0;
@@ -45,7 +51,6 @@ const IntroduceScreen = () => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        scrollEnabled={false}
       >
         {BANNERS.map((Banner, index) => (
           <View key={index} style={{ width }}>
@@ -53,7 +58,17 @@ const IntroduceScreen = () => {
           </View>
         ))}
       </ScrollView>
-
+      <View style={styles.carouselDotsContainer}>
+        {BANNERS.map((_, index) => (
+          <Pressable
+            style={[
+              styles.carouselDot,
+              currentIndex == index && styles.carouselDotSelected,
+            ]}
+            onPress={() => handleClickCarouselDot(index)}
+          />
+        ))}
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.buttonSignup} onPress={handleSignUp}>
           <Text style={styles.textButton}>Sign Up</Text>
@@ -69,6 +84,24 @@ const IntroduceScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  carouselDotsContainer: {
+    flexDirection: "row",
+    position: "absolute",
+    bottom: 140,
+    right: "50%",
+    transform: [{ translateX: "50%" }],
+    gap: 14,
+  },
+  carouselDot: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  carouselDotSelected: {
+    backgroundColor: "grey",
+    opacity: 0.4,
   },
   buttonContainer: {
     position: "absolute",
