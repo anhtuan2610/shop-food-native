@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   textDescription: {
     fontSize: 14,
     color: "#FFFFFF",
-    fontFamily: "Poppins-Regular",
+    fontFamily: "Poppins-Medium",
   },
   imageBanner: {
     position: "absolute",

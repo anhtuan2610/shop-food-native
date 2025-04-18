@@ -29,9 +29,7 @@ const categoryData = [
   },
 ];
 const CategoriesFood = () => {
-  const [selectedCatId, setSelectedCatId] = useState<string | undefined>(
-    undefined
-  );
+  const [selectedCatId, setSelectedCatId] = useState<string>("3");
 
   const handleOnClickCategory = (catId: string) => {
     setSelectedCatId(catId);
