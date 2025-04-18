@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-const InputOtp = () => {
+const InputOtp = ({
+  inputRef,
+  index,
+  handleOnChange,
+}: {
+  inputRef: React.RefObject<TextInput>;
+  index: number;
+  handleOnChange: (value: string, index: number) => void;
+}) => {
   const [isFocus, setIsFocus] = useState(false);
   return (
     <TextInput
@@ -10,6 +18,8 @@ const InputOtp = () => {
       maxLength={1}
       onFocus={() => setIsFocus(true)}
       onBlur={() => setIsFocus(false)}
+      onChangeText={(value) => handleOnChange(value, index)}
+      ref={inputRef}
     />
   );
 };

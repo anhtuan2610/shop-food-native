@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
   },
   cartIconContainer: {
     position: "absolute",
-    top: 0,
-    right: -10,
+    top: 10,
+    right: 0,
     backgroundColor: "rgba(255, 197, 41, 1)",
     borderRadius: 6,
     paddingHorizontal: 4,

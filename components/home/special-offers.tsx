@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   titleContainer: {
-    paddingRight: 24,
+    paddingHorizontal: 24,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     color: "#FF6B57",
   },
   specialOffersContainer: {
+    paddingHorizontal: 24,
     flexDirection: "row",
     gap: 8,
   },

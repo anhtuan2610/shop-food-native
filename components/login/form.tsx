@@ -98,7 +98,10 @@ const LoginForm = () => {
             <Text style={styles.textMessage}>{message}</Text>
           </View>
         )}
-        <TouchableOpacity onPress={redirectForgotPassword}>
+        <TouchableOpacity
+          style={{ alignSelf: "center" }}
+          onPress={redirectForgotPassword}
+        >
           <Text style={styles.textForgotPassword}>Forgot Password</Text>
         </TouchableOpacity>
         <View style={styles.buttonContainer}>

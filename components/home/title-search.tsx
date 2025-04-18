@@ -37,7 +37,7 @@ const TitleSearch = () => {
 const styles = StyleSheet.create({
   titleContainer: {
     gap: 7,
-    paddingRight: 24,
+    paddingHorizontal: 24,
   },
   title1: {
     fontFamily: "Poppins-Bold",

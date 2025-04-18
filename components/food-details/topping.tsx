@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 const toppings = [
   {
@@ -36,7 +43,11 @@ const FoodTopping = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Toping for you</Text>
-      <View style={{ gap: 10 }}>
+      <ScrollView
+        style={styles.scrollViewContainer}
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+      >
         {toppings.map((topping) => (
           <View key={topping.id} style={styles.toppingContainer}>
             <View style={styles.toppingInfoContainer}>
@@ -53,19 +64,27 @@ const FoodTopping = () => {
             />
           </View>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    height: 260,
     backgroundColor: "rgba(36, 39, 49, 1)",
     marginTop: 1,
-    paddingVertical: 20,
+    paddingTop: 20,
+    paddingBottom: 100,
     paddingHorizontal: 20,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+  },
+  scrollViewContainer: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    paddingBottom: 20, // Thêm padding bottom cho nội dung
   },
   title: {
     fontFamily: "Poppins-SemiBold",

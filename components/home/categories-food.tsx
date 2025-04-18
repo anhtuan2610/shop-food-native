@@ -62,7 +62,7 @@ const CategoriesFood = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingRight: 24,
+    paddingHorizontal: 24,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",

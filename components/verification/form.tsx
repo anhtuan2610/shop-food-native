@@ -1,14 +1,37 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useRouter } from "expo-router";
 import InputOtp from "../common/input-otp";
+import { useRef } from "react";
 
 const VerificationForm = () => {
+  const inputsRef = [
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+  ];
   const router = useRouter();
+
   const handleClickSendCode = () => {
     try {
       router.push("/screens/verification"); // thay the url hien tai (sign up) thanh` login
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+
+  const handleOnChange = (value: string, index: number) => {
+    if (value && index < inputsRef.length - 1) {
+      inputsRef[index + 1].current?.focus();
+    }
+    if (value === "" && index > 0) {
+      inputsRef[index - 1].current?.focus();
     }
   };
 
@@ -20,7 +43,12 @@ const VerificationForm = () => {
           {Array(4)
             .fill(null)
             .map((_, index) => (
-              <InputOtp key={index} />
+              <InputOtp
+                key={index}
+                inputRef={inputsRef[index]}
+                index={index}
+                handleOnChange={handleOnChange}
+              />
             ))}
         </View>
       </View>

@@ -29,7 +29,7 @@ const Restaurants = () => {
         <Text style={styles.title2}>View All</Text>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <View style={styles.restaurantsContainer}>
           {restaurants.map((restaurant) => (
             <View key={restaurant.id} style={styles.restaurantCard}>
               <View style={{ position: "relative" }}>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   titleContainer: {
-    paddingRight: 24,
+    paddingHorizontal: 24,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -90,6 +90,12 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Regular",
     fontSize: 11,
     color: "#FF6B57",
+  },
+  restaurantsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 24,
   },
   restaurantCard: {
     width: 267,

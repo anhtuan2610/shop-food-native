@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 20,
     paddingTop: 20, // dung` margin bi an mau cua thang cha
-    paddingLeft: 24,
     backgroundColor: "#ffffff",
   },
 });

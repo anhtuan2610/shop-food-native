@@ -74,7 +74,7 @@ export default function RootLayout() {
             name="(tabs)"
             options={{
               headerShown: false,
-              gestureEnabled: false,
+              // gestureEnabled: false,
             }}
           />
           <Stack.Screen name="+not-found" />
