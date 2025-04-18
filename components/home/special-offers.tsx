@@ -25,6 +25,26 @@ export const offerSpecials: TFood[] = [
       backgroundColor: "#72CF98",
     },
   },
+  {
+    id: "3",
+    name: "Sushi Queen",
+    star: "4.8",
+    price: "25.00",
+    imageUrl: require("../../assets/images/home/special-3.png"),
+    backgroundColorOffer: {
+      backgroundColor: "#5DA3FA",
+    },
+  },
+  {
+    id: "4",
+    name: "Taco Master",
+    star: "4.6",
+    price: "18.50",
+    imageUrl: require("../../assets/images/home/special-4.png"),
+    backgroundColorOffer: {
+      backgroundColor: "#FFC529",
+    },
+  },
 ];
 
 const SpecialOffers = () => {

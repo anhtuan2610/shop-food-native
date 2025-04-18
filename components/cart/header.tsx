@@ -1,6 +1,6 @@
 import BackScreenVector from "@/assets/vectors/introduce/BackScreenVector";
 import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const CartHeader = () => {
   const router = useRouter();
@@ -10,11 +10,11 @@ const CartHeader = () => {
 
   return (
     <View style={styles.contentHeader}>
-      <TouchableOpacity onPress={handleBackScreen}>
+      <Pressable onPress={handleBackScreen}>
         <View style={styles.vectorContainer}>
           <BackScreenVector />
         </View>
-      </TouchableOpacity>
+      </Pressable>
       <Text style={styles.textTitle}>Cart</Text>
       <View style={[styles.vectorContainer, { opacity: 0 }]} />
     </View>

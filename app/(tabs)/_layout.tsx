@@ -1,5 +1,5 @@
 import { Tabs, useRouter } from "expo-router";
-import React from "react";
+import React, { useContext } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import HomeVector from "@/assets/vectors/tab/HomeVector";
@@ -7,8 +7,10 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import ProfileVector from "@/assets/vectors/tab/ProfileVector";
 import NotificationIcon from "@expo/vector-icons/Ionicons";
 import HeaderTabs from "@/components/common/header-tabs";
+import { CartContext } from "@/context/cart-context";
 
 export default function TabLayout() {
+  const cartContext = useContext(CartContext);
   return (
     <Tabs
       screenOptions={{
@@ -87,6 +89,32 @@ export default function TabLayout() {
                 size={22}
                 color={!focused ? "#747785" : "#FF6B57"}
               />
+              {(cartContext?.cart.length ?? 0) > 0 && (
+                <View
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: -10,
+                    backgroundColor: "rgba(255, 197, 41, 1)",
+                    borderRadius: 6,
+                    paddingHorizontal: 4,
+                    minWidth: 18,
+                    height: 18,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                      fontFamily: "Poppins-SemiBold",
+                    }}
+                  >
+                    {cartContext?.cart.length}
+                  </Text>
+                </View>
+              )}
             </View>
           ),
         }}
