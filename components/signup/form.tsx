@@ -14,7 +14,8 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { register } from "@/services/users";
-import { useRouter } from "expo-router";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "@/types/navigation";
 
 const schema = z.object({
   fullName: z
@@ -32,7 +33,7 @@ const schema = z.object({
 export type FormRegisterType = z.infer<typeof schema>;
 
 const SignUpForm = () => {
-  const router = useRouter();
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const {
     control,
     formState: { errors },
@@ -45,7 +46,10 @@ const SignUpForm = () => {
     try {
       const res = await register(data);
       if (res) {
-        router.replace("/screens/login"); // thay the url hien tai (sign up) thanh` login
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "login" }],
+        });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -53,7 +57,7 @@ const SignUpForm = () => {
   };
 
   const redirectLogin = async () => {
-    router.replace("/screens/login");
+    navigation.navigate("login");
   };
 
   return (

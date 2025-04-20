@@ -23,9 +23,11 @@ const HeaderTabs = () => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 20,
   },
   menuVector: {
     width: 40,

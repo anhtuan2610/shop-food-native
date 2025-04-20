@@ -1,11 +1,12 @@
 import BackScreenVector from "@/assets/vectors/introduce/BackScreenVector";
-import { useRouter } from "expo-router";
+import { RootStackParamList } from "@/types/navigation";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const CartHeader = () => {
-  const router = useRouter();
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const handleBackScreen = () => {
-    router.back();
+    navigation.goBack();
   };
 
   return (

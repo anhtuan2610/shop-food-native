@@ -5,22 +5,24 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
 import InputOtp from "../common/input-otp";
 import { useRef } from "react";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "@/types/navigation";
 
 const VerificationForm = () => {
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
+
   const inputsRef = [
     useRef<TextInput>(null),
     useRef<TextInput>(null),
     useRef<TextInput>(null),
     useRef<TextInput>(null),
   ];
-  const router = useRouter();
 
   const handleClickSendCode = () => {
     try {
-      router.push("/screens/verification"); // thay the url hien tai (sign up) thanh` login
+      navigation.navigate("verification"); // thay the url hien tai (sign up) thanh` login
     } catch (error) {
       console.error("Error:", error);
     }

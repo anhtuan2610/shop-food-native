@@ -1,11 +1,23 @@
 import { CartContext } from "@/context/cart-context";
 import { TFoodInCart } from "@/types";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet } from "react-native";
-import "react-native-reanimated";
+import SignUp from "./screens/signup";
+import Login from "./screens/login";
+import ForgotPassword from "./screens/forgot-password";
+import Verification from "./screens/verification";
+import TabbarLayout from "@/components/common/layout-tabbar";
+import NotFoundScreen from "./+not-found";
+import Home from "./screens/home";
+import Cart from "./screens/cart";
+import Notification from "./screens/notification";
+import Profile from "./screens/profile";
+import IntroduceScreen from "./screens";
+
+const Stack = createNativeStackNavigator();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -55,30 +67,42 @@ export default function RootLayout() {
   return (
     <CartContext.Provider value={{ cart, setCart }}>
       <>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="index"
+        >
+          <Stack.Screen name="index" component={IntroduceScreen} />
+          <Stack.Screen name="signup" component={SignUp} />
+          <Stack.Screen name="login" component={Login} />
+          <Stack.Screen name="forgot-password" component={ForgotPassword} />
+          <Stack.Screen name="verification" component={Verification} />
           <Stack.Screen
-            name="screens/signup"
-            options={{ headerShown: false }}
+            name="home"
+            children={() => (
+              <TabbarLayout>
+                <Home />
+              </TabbarLayout>
+            )}
           />
-          <Stack.Screen name="screens/login" options={{ headerShown: false }} />
+          <Stack.Screen name="cart" component={Cart} />
           <Stack.Screen
-            name="screens/forgot-password"
-            options={{ headerShown: false }}
+            name="notification"
+            children={() => (
+              <TabbarLayout>
+                <Notification />
+              </TabbarLayout>
+            )}
           />
           <Stack.Screen
-            name="screens/verification"
-            options={{ headerShown: false }}
+            name="profile"
+            children={() => (
+              <TabbarLayout>
+                <Profile />
+              </TabbarLayout>
+            )}
           />
-          <Stack.Screen
-            name="(tabs)"
-            options={{
-              headerShown: false,
-              // gestureEnabled: false,
-            }}
-          />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+          {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
+        </Stack.Navigator>
         <StatusBar style="auto" />
       </>
     </CartContext.Provider>

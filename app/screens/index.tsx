@@ -1,7 +1,8 @@
 import Banner1 from "@/components/introduce/banner-1";
 import Banner2 from "@/components/introduce/banner-2";
 import Banner3 from "@/components/introduce/banner-3";
-import { useRouter } from "expo-router";
+import { RootStackParamList } from "@/types/navigation";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
@@ -17,16 +18,16 @@ const { width } = Dimensions.get("window"); // lay chieu dai man hinh de scroll
 const BANNERS = [<Banner1 />, <Banner2 />, <Banner3 />];
 
 const IntroduceScreen = () => {
-  const scrollRef = useRef<ScrollView>(null); // bien dung de cho? den ham` scrollTo de? thay doi gia tri scrollTo
-  const router = useRouter();
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
+  const scrollRef = useRef<ScrollView>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSignUp = () => {
-    router.push("/screens/signup");
+    navigation.navigate("signup");
   };
 
   const handleLogin = () => {
-    router.push("/screens/login");
+    navigation.navigate("login");
   };
 
   const handleClickCarouselDot = (index: number) => {
@@ -61,6 +62,7 @@ const IntroduceScreen = () => {
       <View style={styles.carouselDotsContainer}>
         {BANNERS.map((_, index) => (
           <Pressable
+            key={index}
             style={[
               styles.carouselDot,
               currentIndex == index && styles.carouselDotSelected,

@@ -5,7 +5,8 @@ import ButtonForm from "../common/button-form";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRouter } from "expo-router";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "@/types/navigation";
 
 const schema = z.object({
   email: z
@@ -17,7 +18,7 @@ const schema = z.object({
 export type FormForgotPassword = z.infer<typeof schema>;
 
 const ForgotPasswordForm = () => {
-  const router = useRouter();
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const {
     control,
     formState: { errors },
@@ -27,7 +28,7 @@ const ForgotPasswordForm = () => {
   });
   const handleClickSendCode = async () => {
     try {
-      router.push("/screens/verification"); // thay the url hien tai (sign up) thanh` login
+      navigation.navigate("verification"); // thay the url hien tai (sign up) thanh` login
     } catch (error) {
       console.error("Error:", error);
     }

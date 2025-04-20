@@ -14,8 +14,9 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { login } from "@/services/users";
-import { useRouter } from "expo-router";
 import { useState } from "react";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "@/types/navigation";
 
 const schema = z.object({
   email: z
@@ -30,8 +31,8 @@ const schema = z.object({
 export type FormRegisterType = z.infer<typeof schema>;
 
 const LoginForm = () => {
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const [message, setMessage] = useState<string | undefined>();
-  const router = useRouter();
   const {
     control,
     formState: { errors },
@@ -41,11 +42,11 @@ const LoginForm = () => {
   });
 
   const redirectSignUp = async () => {
-    router.replace("/screens/signup");
+    navigation.navigate("signup");
   };
 
   const redirectForgotPassword = async () => {
-    router.push("/screens/forgot-password");
+    navigation.navigate("forgot-password");
   };
 
   const handleLogin = async (data: FormRegisterType) => {
@@ -53,7 +54,11 @@ const LoginForm = () => {
       // const res = await login(data);
       if (true) {
         //res.length > 0
-        router.replace("/(tabs)/home/home"); // de la home thi duoc , de la index thi lai khong duoc
+        navigation.reset({
+          // thay the cho replace
+          index: 0,
+          routes: [{ name: "home" }],
+        }); // de la home thi duoc , de la index thi lai khong duoc
         return;
       }
       setMessage("Your email or password is incorrect");

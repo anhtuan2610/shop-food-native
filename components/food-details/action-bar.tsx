@@ -8,8 +8,9 @@ import {
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useContext, useState } from "react";
 import { TFood } from "@/types";
-import { useRouter } from "expo-router";
 import { CartContext } from "@/context/cart-context";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "@/types/navigation";
 
 const FoodActionBar = ({
   food,
@@ -18,7 +19,7 @@ const FoodActionBar = ({
   food: TFood | undefined;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const router = useRouter();
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const cartContext = useContext(CartContext);
   const [quantity, setQuantity] = useState<number>(1);
   const decreaseQuantity = () => {
@@ -37,7 +38,7 @@ const FoodActionBar = ({
     }
     cartContext?.setCart((prev) => [...prev, { food, quantity: quantity }]);
     setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
-    router.navigate("/cart/cart");
+    navigation.navigate("cart");
   };
 
   return (
