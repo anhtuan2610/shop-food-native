@@ -51,13 +51,11 @@ const LoginForm = () => {
 
   const handleLogin = async (data: FormRegisterType) => {
     try {
-      // const res = await login(data);
-      if (true) {
-        //res.length > 0
+      const res = await login(data);
+      if (res.length > 0) {
         navigation.reset({
-          // thay the cho replace
           index: 0,
-          routes: [{ name: "home" }],
+          routes: [{ name: "tabs" }],
         }); // de la home thi duoc , de la index thi lai khong duoc
         return;
       }

@@ -1,23 +1,32 @@
 import MenuVector from "@/assets/vectors/home/menu-vector";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+  View,
+} from "react-native";
 
 const HeaderTabs = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.menuVector}>
-        <MenuVector />
+    <TouchableNativeFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <View style={styles.menuVector}>
+          <MenuVector />
+        </View>
+        <View style={styles.midContent}>
+          <Text style={styles.text1}>Deliver to</Text>
+          <Text style={styles.text2}>387 Merdina</Text>
+        </View>
+        <View>
+          <Image
+            style={styles.avatar}
+            source={require("../../assets/images/home/avatar.png")}
+          />
+        </View>
       </View>
-      <View style={styles.midContent}>
-        <Text style={styles.text1}>Deliver to</Text>
-        <Text style={styles.text2}>387 Merdina</Text>
-      </View>
-      <View>
-        <Image
-          style={styles.avatar}
-          source={require("../../assets/images/home/avatar.png")}
-        />
-      </View>
-    </View>
+    </TouchableNativeFeedback>
   );
 };
 

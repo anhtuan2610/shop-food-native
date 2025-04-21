@@ -55,20 +55,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FF6B57",
     borderRadius: 15,
+    // backgroundColor: "#FF6B57",
 
-    // iOS shadow
-    shadowColor: "rgba(254, 117, 76, 1)", // màu tương ứng
-    shadowOffset: {
-      width: 10,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 30,
+    // // iOS shadow
+    // shadowColor: "rgba(254, 117, 76, 1)", // màu tương ứng
+    // shadowOffset: {
+    //   width: 10,
+    //   height: 10,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 30,
 
-    // Android shadow
-    elevation: 10, // tăng số nếu muốn bóng đậm hơn
+    // // Android shadow
+    // elevation: 10, // tăng số nếu muốn bóng đậm hơn
   },
   specialOffersImage: {
     width: 120,

@@ -1,6 +1,7 @@
 import { CartContext } from "@/context/cart-context";
 import { TFoodInCart } from "@/types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
@@ -10,14 +11,15 @@ import Login from "./screens/login";
 import ForgotPassword from "./screens/forgot-password";
 import Verification from "./screens/verification";
 import TabbarLayout from "@/components/common/layout-tabbar";
-import NotFoundScreen from "./+not-found";
 import Home from "./screens/home";
 import Cart from "./screens/cart";
 import Notification from "./screens/notification";
 import Profile from "./screens/profile";
 import IntroduceScreen from "./screens";
+import TabbarNavigation from "@/navigations/tabbar-navigation";
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -76,31 +78,9 @@ export default function RootLayout() {
           <Stack.Screen name="login" component={Login} />
           <Stack.Screen name="forgot-password" component={ForgotPassword} />
           <Stack.Screen name="verification" component={Verification} />
-          <Stack.Screen
-            name="home"
-            children={() => (
-              <TabbarLayout>
-                <Home />
-              </TabbarLayout>
-            )}
-          />
+          <Stack.Screen name="tabs" component={TabbarNavigation} />
           <Stack.Screen name="cart" component={Cart} />
-          <Stack.Screen
-            name="notification"
-            children={() => (
-              <TabbarLayout>
-                <Notification />
-              </TabbarLayout>
-            )}
-          />
-          <Stack.Screen
-            name="profile"
-            children={() => (
-              <TabbarLayout>
-                <Profile />
-              </TabbarLayout>
-            )}
-          />
+
           {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
         </Stack.Navigator>
         <StatusBar style="auto" />

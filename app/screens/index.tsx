@@ -52,6 +52,11 @@ const IntroduceScreen = () => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        onScroll={(e) => {
+          const offsetX = e.nativeEvent.contentOffset.x;
+          const index = Math.round(offsetX / width);
+          setCurrentIndex(index);
+        }}
       >
         {BANNERS.map((Banner, index) => (
           <View key={index} style={{ width }}>

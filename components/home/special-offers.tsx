@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Keyboard,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import FoodDetailsModal from "../food-details/food-details-modal";
 import { TFood } from "@/types";
 import SpecialFoodCard from "./special-food-card";
@@ -55,21 +63,28 @@ const SpecialOffers = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title1}>Special Offers</Text>
-        <Text style={styles.title2}>View All</Text>
-      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title1}>Special Offers</Text>
+          <Text style={styles.title2}>View All</Text>
+        </View>
+      </TouchableWithoutFeedback>
+
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={styles.specialOffersContainer}>
-          {offerSpecials.map((food) => (
+        <FlatList
+          data={offerSpecials}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
             <SpecialFoodCard
-              key={food.id}
+              key={item.id}
               setIsShowDetails={setIsShowDetails}
               setFoodSelectedId={setFoodSelectedId}
-              food={food}
+              food={item}
             />
-          ))}
-        </View>
+          )}
+          contentContainerStyle={styles.specialOffersContainer}
+          scrollEnabled={false}
+        />
       </ScrollView>
       {isShowDetails && foodSelectedId && (
         <FoodDetailsModal

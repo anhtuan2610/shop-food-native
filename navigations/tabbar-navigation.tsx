@@ -1,56 +1,27 @@
-// // TabbarNavigation.tsx (dù tên là Tabbar, bạn đang dùng Stack)
-// import React from "react";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import Home from "@/app/screens/home";
-// import Cart from "@/app/screens/cart";
-// import Notification from "@/app/screens/notification";
-// import Profile from "@/app/screens/profile";
-// import Login from "@/app/screens/login"; // nếu cần
-// import TabbarLayout from "@/components/common/layout-tabbar";
+import React from "react";
+import Home from "@/app/screens/home";
+import Notification from "@/app/screens/notification";
+import Profile from "@/app/screens/profile";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import CustomTabBar from "@/components/common/custom-tabbar";
+import TabbarLayout from "@/components/common/layout-tabbar";
 
-// const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-// const TabbarNavigation = () => {
-//   return (
-//     <Stack.Navigator screenOptions={{ headerShown: false }}>
-//       {/* Màn hình không có tabbar */}
-//       <Stack.Screen name="Login" component={Login} />
+const TabbarNavigation = () => {
+  return (
+    <TabbarLayout>
+      <Tab.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="home"
+        tabBar={() => <CustomTabBar />}
+      >
+        <Tab.Screen name="home" component={Home} />
+        <Tab.Screen name="notification" component={Notification} />
+        <Tab.Screen name="profile" component={Profile} />
+      </Tab.Navigator>
+    </TabbarLayout>
+  );
+};
 
-//       {/* Các màn có tabbar */}
-//       <Stack.Screen
-//         name="Home"
-//         children={() => (
-//           <TabbarLayout>
-//             <Home />
-//           </TabbarLayout>
-//         )}
-//       />
-//       <Stack.Screen
-//         name="Cart"
-//         children={() => (
-//           <TabbarLayout>
-//             <Cart />
-//           </TabbarLayout>
-//         )}
-//       />
-//       <Stack.Screen
-//         name="Notification"
-//         children={() => (
-//           <TabbarLayout>
-//             <Notification />
-//           </TabbarLayout>
-//         )}
-//       />
-//       <Stack.Screen
-//         name="Profile"
-//         children={() => (
-//           <TabbarLayout>
-//             <Profile />
-//           </TabbarLayout>
-//         )}
-//       />
-//     </Stack.Navigator>
-//   );
-// };
-
-// export default TabbarNavigation;
+export default TabbarNavigation;

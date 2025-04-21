@@ -1,36 +1,45 @@
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import SearchInputVector from "@/assets/vectors/home/search-input-vector";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 const TitleSearch = () => {
   return (
-    <View style={styles.titleContainer}>
-      <MaskedView
-        maskElement={
-          <Text style={[styles.title1, { backgroundColor: "transparent" }]}>
-            Good Afternoon!
-          </Text>
-        }
-      >
-        <LinearGradient
-          colors={["#FE724D", "#FFC529"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.gradientText} // thêm style cố định chiều rộng / cao
-        />
-      </MaskedView>
-      <View style={styles.searchContainer}>
-        <View style={styles.searchVector}>
-          <SearchInputVector />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.titleContainer}>
+        <MaskedView
+          maskElement={
+            <Text style={[styles.title1, { backgroundColor: "transparent" }]}>
+              Good Afternoon!
+            </Text>
+          }
+        >
+          <LinearGradient
+            colors={["#FE724D", "#FFC529"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.gradientText} // thêm style cố định chiều rộng / cao
+          />
+        </MaskedView>
+        <View style={styles.searchContainer}>
+          <View style={styles.searchVector}>
+            <SearchInputVector />
+          </View>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search dishes, restaurants"
+            placeholderTextColor="#A9ABB4"
+          />
         </View>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search dishes, restaurants"
-          placeholderTextColor="#A9ABB4"
-        />
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

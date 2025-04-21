@@ -1,7 +1,16 @@
 import ClockVector from "@/assets/vectors/home/clock-vector";
 import DeliveryVector2 from "@/assets/vectors/home/delivery-vector2";
 import StarVector from "@/assets/vectors/home/star-vector";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  Keyboard,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const restaurants = [
@@ -24,26 +33,27 @@ const restaurants = [
 const Restaurants = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title1}>Restaurants</Text>
-        <Text style={styles.title2}>View All</Text>
-      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title1}>Restaurants</Text>
+          <Text style={styles.title2}>View All</Text>
+        </View>
+      </TouchableWithoutFeedback>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={styles.restaurantsContainer}>
-          {restaurants.map((restaurant) => (
-            <View key={restaurant.id} style={styles.restaurantCard}>
+        <FlatList
+          data={restaurants}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View key={item.id} style={styles.restaurantCard}>
               <View style={{ position: "relative" }}>
-                <Image
-                  style={styles.restaurantImage}
-                  source={restaurant.imageUrl}
-                />
+                <Image style={styles.restaurantImage} source={item.imageUrl} />
                 <View style={styles.favoriteIconContainer}>
                   <AntDesign name="heart" size={16} color="white" />
                 </View>
               </View>
               <View style={styles.restaurantDescription}>
                 <View style={styles.restaurantTitleContainer}>
-                  <Text style={styles.restaurantsName}>{restaurant.name}</Text>
+                  <Text style={styles.restaurantsName}>{item.name}</Text>
                   <View style={styles.rateContainer}>
                     <StarVector />
                     <Text>4.5</Text>
@@ -65,8 +75,10 @@ const Restaurants = () => {
                 </View>
               </View>
             </View>
-          ))}
-        </View>
+          )}
+          contentContainerStyle={styles.restaurantsContainer}
+          scrollEnabled={false}
+        />
       </ScrollView>
     </View>
   );

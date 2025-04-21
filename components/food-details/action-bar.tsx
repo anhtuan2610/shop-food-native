@@ -36,7 +36,23 @@ const FoodActionBar = ({
     if (!food) {
       return;
     }
-    cartContext?.setCart((prev) => [...prev, { food, quantity: quantity }]);
+
+    const itemIndex = cartContext?.cart.findIndex(
+      (item) => item.food.id === food.id
+    ); // khong tim thay index thi tra ve -1
+
+    if (itemIndex !== -1) {
+      cartContext?.setCart((prev) =>
+        prev.map((item, index) =>
+          index === itemIndex
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        )
+      );
+    } else {
+      cartContext?.setCart((prev) => [...prev, { food, quantity }]);
+    }
+
     setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
     navigation.navigate("cart");
   };

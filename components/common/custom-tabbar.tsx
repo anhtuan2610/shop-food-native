@@ -4,23 +4,29 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import NotificationIcon from "@expo/vector-icons/Ionicons";
 import HomeVector from "@/assets/vectors/tab/HomeVector";
 import ProfileVector from "@/assets/vectors/tab/ProfileVector";
-import {
-  NavigationProp,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { CartContext } from "@/context/cart-context";
-import { RootStackParamList } from "@/types/navigation";
+import { RootStackParamList, TabsParamList } from "@/types/navigation";
 
 const CustomTabBar = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
-  const route = useRoute();
   const cartContext = useContext(CartContext);
 
-  const currentRoute = route.name;
+  const navState = navigation.getState();
+
+  const tabState = navState.routes.find((r) => r.name === "tabs")?.state;
+  // console.log("🚀 ~ CustomTabBar ~ tabState:", tabState?.routeNames);
+
+  const currentTabRoute =
+    tabState &&
+    "index" in tabState &&
+    Array.isArray(tabState.routes) &&
+    typeof tabState.index === "number"
+      ? tabState.routes[tabState.index].name
+      : "home";
 
   const tabs = [
-    { name: "home", icon: <HomeVector isFocus={currentRoute === "home"} /> },
+    { name: "home", icon: <HomeVector isFocus={currentTabRoute === "home"} /> },
     {
       name: "cart",
       icon: (
@@ -28,7 +34,7 @@ const CustomTabBar = () => {
           <FontAwesome5
             name="shopping-cart"
             size={22}
-            color={currentRoute === "cart" ? "#FF6B57" : "#747785"}
+            color={currentTabRoute === "cart" ? "#FF6B57" : "#747785"}
           />
           {(cartContext?.cart.length ?? 0) > 0 && (
             <View style={styles.cartIconContainer}>
@@ -46,13 +52,13 @@ const CustomTabBar = () => {
         <NotificationIcon
           name="notifications"
           size={26}
-          color={currentRoute === "notification" ? "#FF6B57" : "#747785"}
+          color={currentTabRoute === "notification" ? "#FF6B57" : "#747785"}
         />
       ),
     },
     {
       name: "profile",
-      icon: <ProfileVector isFocus={currentRoute === "profile"} />,
+      icon: <ProfileVector isFocus={currentTabRoute === "profile"} />,
     },
   ];
 
@@ -63,10 +69,14 @@ const CustomTabBar = () => {
           key={tab.name}
           style={[
             styles.iconContainer,
-            currentRoute === tab.name && styles.bottomHighlight,
+            currentTabRoute === tab.name && styles.bottomHighlight,
           ]}
           onPress={() =>
-            navigation.navigate(tab.name as keyof RootStackParamList)
+            tab.name != "cart"
+              ? navigation.navigate("tabs", {
+                  screen: tab.name as keyof TabsParamList,
+                })
+              : navigation.navigate("cart")
           }
         >
           {tab.icon}
@@ -112,7 +122,7 @@ const styles = StyleSheet.create({
   },
   cartIconContainer: {
     position: "absolute",
-    top: 0,
+    top: -8,
     right: -6,
     backgroundColor: "rgba(255, 197, 41, 1)",
     borderRadius: 6,
