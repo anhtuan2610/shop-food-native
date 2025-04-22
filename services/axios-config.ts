@@ -13,6 +13,10 @@ apiClient.interceptors.response.use(
   },
 );
 
+apiClient.interceptors.request.use(
+  (config) => config
+)
+
 export const get = <T>({
   url,
   params,

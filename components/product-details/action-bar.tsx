@@ -11,12 +11,13 @@ import { TFood } from "@/types";
 import { CartContext } from "@/context/cart-context";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
+import { TProduct } from "@/services/products";
 
-const FoodActionBar = ({
-  food,
+const ProductActionBar = ({
+  product,
   setIsShowDetails,
 }: {
-  food: TFood | undefined;
+  product: TProduct | undefined;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
@@ -33,28 +34,25 @@ const FoodActionBar = ({
   };
 
   const handleAddToCart = () => {
-    if (!food) {
-      return;
-    }
-
-    const itemIndex = cartContext?.cart.findIndex(
-      (item) => item.food.id === food.id
-    ); // khong tim thay index thi tra ve -1
-
-    if (itemIndex !== -1) {
-      cartContext?.setCart((prev) =>
-        prev.map((item, index) =>
-          index === itemIndex
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
-      );
-    } else {
-      cartContext?.setCart((prev) => [...prev, { food, quantity }]);
-    }
-
-    setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
-    navigation.navigate("cart");
+    // if (!product) {
+    //   return;
+    // }
+    // const itemIndex = cartContext?.cart.findIndex(
+    //   (item) => item.food.id === food.id
+    // ); // khong tim thay index thi tra ve -1
+    // if (itemIndex !== -1) {
+    //   cartContext?.setCart((prev) =>
+    //     prev.map((item, index) =>
+    //       index === itemIndex
+    //         ? { ...item, quantity: item.quantity + quantity }
+    //         : item
+    //     )
+    //   );
+    // } else {
+    //   cartContext?.setCart((prev) => [...prev, { food, quantity }]);
+    // }
+    // setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
+    // navigation.navigate("cart");
   };
 
   return (
@@ -84,7 +82,7 @@ const FoodActionBar = ({
           Add <Text style={styles.quantityText}>{quantity}</Text> to cart
         </Text>
         <Text style={styles.buttonText2}>
-          ${Number(food?.price) * quantity}
+          ${(Number(product?.price) * quantity).toFixed(2)}
         </Text>
       </TouchableOpacity>
     </View>
@@ -132,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FoodActionBar;
+export default ProductActionBar;

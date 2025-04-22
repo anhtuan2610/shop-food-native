@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
 import { Modal, StyleSheet, View } from "react-native";
-import { offerSpecials } from "../home/special-offers";
-import { TFood } from "@/types";
-import FoodInformation from "./information";
-import FoodTopping from "./topping";
-import FoodActionBar from "./action-bar";
+import ProductInformation from "./information";
+import ProductTopping from "./topping";
+import ProductActionBar from "./action-bar";
+import { TProduct } from "@/services/products";
 
-const FoodDetailsModal = ({
+const ProductDetailsModal = ({
+  products,
   isShowDetails,
   setIsShowDetails,
-  foodSelectedId,
+  productSelectedId,
 }: {
+  products: TProduct[];
   isShowDetails: boolean;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  foodSelectedId: string;
+  productSelectedId: number;
 }) => {
-  const [food, setFood] = useState<TFood>();
+  const [product, setProduct] = useState<TProduct>();
   useEffect(() => {
-    const findFood = offerSpecials.find((food) => food.id === foodSelectedId);
-    setFood(findFood);
-  }, [foodSelectedId]);
+    const findProduct = products.find(
+      (product) => product.id === productSelectedId
+    );
+    setProduct(findProduct);
+  }, [productSelectedId]);
 
   return (
     <Modal
@@ -30,9 +33,15 @@ const FoodDetailsModal = ({
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <FoodInformation food={food} setIsShowDetails={setIsShowDetails} />
-          <FoodTopping />
-          <FoodActionBar food={food} setIsShowDetails={setIsShowDetails} />
+          <ProductInformation
+            product={product}
+            setIsShowDetails={setIsShowDetails}
+          />
+          <ProductTopping />
+          <ProductActionBar
+            product={product}
+            setIsShowDetails={setIsShowDetails}
+          />
         </View>
       </View>
     </Modal>
@@ -53,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FoodDetailsModal;
+export default ProductDetailsModal;

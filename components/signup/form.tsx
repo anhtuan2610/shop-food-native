@@ -13,7 +13,7 @@ import GoogleVector from "@/assets/vectors/introduce/GoogleVector";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { register } from "@/services/users";
+// import { register } from "@/services/users";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 
@@ -23,7 +23,7 @@ const schema = z.object({
     .min(0, "Full name can't not empty"),
   email: z
     .string({ required_error: "Email can't not empty" })
-    .email("must follow example abc@gmail.com")
+    // .email("must follow example abc@gmail.com")
     .min(0, "Email can't not empty"),
   password: z
     .string({ required_error: "Password can't not empty" })
@@ -44,8 +44,8 @@ const SignUpForm = () => {
 
   const handleSignUp = async (data: FormRegisterType) => {
     try {
-      const res = await register(data);
-      if (res) {
+      // const res = await register(data);
+      if (true) {
         navigation.reset({
           index: 0,
           routes: [{ name: "login" }],

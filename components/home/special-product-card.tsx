@@ -1,34 +1,36 @@
 import DeliveryVector from "@/assets/vectors/home/delivery-vector";
 import StarVector from "@/assets/vectors/home/star-vector";
-import { TFood } from "@/types";
+import { TProduct } from "@/services/products";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const SpecialFoodCard = ({
+const SpecialProductCard = ({
   setIsShowDetails,
-  setFoodSelectedId,
-  food,
+  setProductSelectedId,
+  product,
 }: {
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  setFoodSelectedId: React.Dispatch<React.SetStateAction<string | undefined>>;
-  food: TFood;
+  setProductSelectedId: React.Dispatch<
+    React.SetStateAction<number | undefined>
+  >;
+  product: TProduct;
 }) => {
-  const handleClickBuyNow = (id: string) => {
+  const handleClickBuyNow = (id: number) => {
     setIsShowDetails(true);
-    setFoodSelectedId(id);
+    setProductSelectedId(id);
   };
 
   return (
-    <View
-      key={food.id}
-      style={[styles.specialOffersCard, food.backgroundColorOffer]}
-    >
-      <Image style={styles.specialOffersImage} source={food.imageUrl} />
+    <View key={product.id} style={[styles.specialOffersCard]}>
+      <Image
+        style={styles.specialOffersImage}
+        source={{ uri: product.images[0] }}
+      />
       <View style={styles.specialOffersDescription}>
         <View style={styles.rateContainer}>
           <StarVector />
-          <Text style={{ color: "#FFB8AE" }}>{food.star}</Text>
+          <Text style={{ color: "#FFB8AE" }}>4.5</Text>
         </View>
-        <Text style={styles.offerName}>{food.name}</Text>
+        <Text style={styles.offerName}>{product.brand}</Text>
         <View style={styles.deliveryContainer}>
           <DeliveryVector />
           <Text style={styles.deliveryText}>Free delivery</Text>
@@ -36,13 +38,13 @@ const SpecialFoodCard = ({
         <View style={styles.buyContainer}>
           <TouchableOpacity
             style={styles.buyButton}
-            onPress={() => handleClickBuyNow(food.id)}
+            onPress={() => handleClickBuyNow(product.id)}
           >
             <Text style={styles.buyButtonText}>Buy Now</Text>
           </TouchableOpacity>
           <View style={styles.priceContainer}>
             <Text style={{ color: "#FFB8AE" }}>$</Text>
-            <Text style={{ color: "#FFFFFF" }}>{food.price}</Text>
+            <Text style={{ color: "#FFFFFF" }}>{product.price}</Text>
           </View>
         </View>
       </View>
@@ -121,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SpecialFoodCard;
+export default SpecialProductCard;

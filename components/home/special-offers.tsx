@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Keyboard,
@@ -8,58 +8,80 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import FoodDetailsModal from "../food-details/food-details-modal";
-import { TFood } from "@/types";
-import SpecialFoodCard from "./special-food-card";
+import ProductDetailsModal from "../product-details/product-details-modal";
+import { getProductsByCategory, TProduct } from "@/services/products";
+import { categories } from "./categories-product";
+import SpecialProductCard from "./special-product-card";
 
-export const offerSpecials: TFood[] = [
-  {
-    id: "1",
-    name: "Burger King",
-    star: "4.5",
-    price: "22.00",
-    imageUrl: require("../../assets/images/home/special-1.png"),
-    backgroundColorOffer: {
-      backgroundColor: "#FF6B57",
-    },
-  },
-  {
-    id: "2",
-    name: "Pizza King",
-    star: "4.4",
-    price: "19.00",
-    imageUrl: require("../../assets/images/home/special-2.png"),
-    backgroundColorOffer: {
-      backgroundColor: "#72CF98",
-    },
-  },
-  {
-    id: "3",
-    name: "Sushi Queen",
-    star: "4.8",
-    price: "25.00",
-    imageUrl: require("../../assets/images/home/special-3.png"),
-    backgroundColorOffer: {
-      backgroundColor: "#5DA3FA",
-    },
-  },
-  {
-    id: "4",
-    name: "Taco Master",
-    star: "4.6",
-    price: "18.50",
-    imageUrl: require("../../assets/images/home/special-4.png"),
-    backgroundColorOffer: {
-      backgroundColor: "#FFC529",
-    },
-  },
-];
+// export const offerSpecials: TFood[] = [
+//   {
+//     id: "1",
+//     name: "Burger King",
+//     star: "4.5",
+//     price: "22.00",
+//     imageUrl: require("../../assets/images/home/special-1.png"),
+//     backgroundColorOffer: {
+//       backgroundColor: "#FF6B57",
+//     },
+//   },
+//   {
+//     id: "2",
+//     name: "Pizza King",
+//     star: "4.4",
+//     price: "19.00",
+//     imageUrl: require("../../assets/images/home/special-2.png"),
+//     backgroundColorOffer: {
+//       backgroundColor: "#72CF98",
+//     },
+//   },
+//   {
+//     id: "3",
+//     name: "Sushi Queen",
+//     star: "4.8",
+//     price: "25.00",
+//     imageUrl: require("../../assets/images/home/special-3.png"),
+//     backgroundColorOffer: {
+//       backgroundColor: "#5DA3FA",
+//     },
+//   },
+//   {
+//     id: "4",
+//     name: "Taco Master",
+//     star: "4.6",
+//     price: "18.50",
+//     imageUrl: require("../../assets/images/home/special-4.png"),
+//     backgroundColorOffer: {
+//       backgroundColor: "#FFC529",
+//     },
+//   },
+// ];
 
-const SpecialOffers = () => {
+const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
+  const [products, setProducts] = useState<TProduct[]>([]);
   const [isShowDetails, setIsShowDetails] = useState<boolean>(false);
-  const [foodSelectedId, setFoodSelectedId] = useState<string | undefined>(
-    undefined
-  );
+  const [productSelectedId, setProductSelectedId] = useState<
+    number | undefined
+  >(undefined);
+
+  const getProduct = async () => {
+    try {
+      const findCat = categories.find((cat) => cat.id === selectedCatId);
+      if (findCat) {
+        const res = await getProductsByCategory({
+          categorySlug: findCat?.slug,
+        });
+        if (res) {
+          setProducts(res.products);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, [selectedCatId]);
 
   return (
     <View style={styles.container}>
@@ -72,25 +94,27 @@ const SpecialOffers = () => {
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <FlatList
-          data={offerSpecials}
-          keyExtractor={(item) => item.id}
+          data={products}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <SpecialFoodCard
+            <SpecialProductCard
               key={item.id}
               setIsShowDetails={setIsShowDetails}
-              setFoodSelectedId={setFoodSelectedId}
-              food={item}
+              setProductSelectedId={setProductSelectedId}
+              product={item}
             />
           )}
           contentContainerStyle={styles.specialOffersContainer}
           scrollEnabled={false}
         />
       </ScrollView>
-      {isShowDetails && foodSelectedId && (
-        <FoodDetailsModal
+
+      {isShowDetails && productSelectedId && (
+        <ProductDetailsModal
+          products={products}
           isShowDetails={isShowDetails}
           setIsShowDetails={setIsShowDetails}
-          foodSelectedId={foodSelectedId}
+          productSelectedId={productSelectedId}
         />
       )}
     </View>

@@ -1,16 +1,27 @@
 import { StyleSheet, View } from "react-native";
 
-import CategoriesFood from "@/components/home/categories-food";
+import CategoriesProduct from "@/components/home/categories-product";
 import SpecialOffers from "@/components/home/special-offers";
 import TitleSearch from "@/components/home/title-search";
 import Restaurants from "@/components/home/restaurants";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [selectedCatId, setSelectedCatId] = useState<string>("3");
+  useEffect(() => {
+    getToken();
+  }, []);
+  const getToken = async () => {
+    // console.log(await AsyncStorage.getItem("accessToken"));
+  };
   return (
     <View style={styles.container}>
       <TitleSearch />
-      <CategoriesFood />
-      <SpecialOffers />
+      <CategoriesProduct
+        selectedCatId={selectedCatId}
+        setSelectedCatId={setSelectedCatId}
+      />
+      <SpecialOffers selectedCatId={selectedCatId} />
       <Restaurants />
     </View>
   );

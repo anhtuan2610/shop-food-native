@@ -3,14 +3,14 @@ import CloseVector from "@/assets/vectors/details/close-vector";
 import DeliveryVector2 from "@/assets/vectors/home/delivery-vector2";
 import ClockVector from "@/assets/vectors/home/clock-vector";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { TFood } from "@/types";
 import StarVector from "@/assets/vectors/details/star-vector";
+import { TProduct } from "@/services/products";
 
-const FoodInformation = ({
-  food,
+const ProductInformation = ({
+  product,
   setIsShowDetails,
 }: {
-  food: TFood | undefined;
+  product: TProduct | undefined;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
@@ -22,15 +22,18 @@ const FoodInformation = ({
         >
           <CloseVector />
         </Pressable>
-        <Image style={styles.imageDetails} source={food?.imageUrl} />
+        <Image
+          style={styles.imageDetails}
+          source={{ uri: product?.images[0] }}
+        />
         <View style={styles.favoriteIconContainer}>
           <HeartVector />
         </View>
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.mainText}>{food?.name}</Text>
-          <Text style={styles.priceText}>${food?.price}</Text>
+          <Text style={styles.mainText}>{product?.brand}</Text>
+          <Text style={styles.priceText}>${product?.price}</Text>
         </View>
         <View style={styles.informationDeliveryRate}>
           <View style={{ flexDirection: "row", gap: 16 }}>
@@ -151,4 +154,4 @@ const styles = StyleSheet.create({
   topingContainer: {},
 });
 
-export default FoodInformation;
+export default ProductInformation;

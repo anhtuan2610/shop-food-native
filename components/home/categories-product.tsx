@@ -1,43 +1,54 @@
+import { TCategory } from "@/types";
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-const categoryData = [
+export const categories: TCategory[] = [
   {
     id: "1",
-    imageUrl: require("../../assets/images/home/cat-1.png"),
-    name: "Burger",
+    name: "Shirts",
+    slug: "mens-shirts",
+    imageUrl: require("../../assets/images/categories/shirt.png"),
   },
   {
     id: "2",
-    imageUrl: require("../../assets/images/home/cat-2.png"),
-    name: "Donats",
+    name: "Shoes",
+    slug: "mens-shoes",
+    imageUrl: require("../../assets/images/categories/shoes.png"),
   },
   {
     id: "3",
-    imageUrl: require("../../assets/images/home/cat-3.png"),
-    name: "Pizza",
+    name: "Watches",
+    slug: "mens-watches",
+    imageUrl: require("../../assets/images/categories/watch.png"),
   },
   {
     id: "4",
-    imageUrl: require("../../assets/images/home/cat-4.png"),
-    name: "Hot Dog",
+    name: "Beauty",
+    slug: "beauty",
+    imageUrl: require("../../assets/images/categories/beauty.png"),
   },
   {
     id: "5",
-    imageUrl: require("../../assets/images/home/cat-5.png"),
-    name: "Pasta",
+    name: "Dresses",
+    slug: "womens-dresses",
+    imageUrl: require("../../assets/images/categories/dress.png"),
   },
 ];
-const CategoriesFood = () => {
-  const [selectedCatId, setSelectedCatId] = useState<string>("3");
 
+const CategoriesProduct = ({
+  selectedCatId,
+  setSelectedCatId,
+}: {
+  selectedCatId: string;
+  setSelectedCatId: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const handleOnClickCategory = (catId: string) => {
     setSelectedCatId(catId);
   };
 
   return (
     <View style={styles.container}>
-      {categoryData.map((cat) => (
+      {categories.map((cat) => (
         <Pressable key={cat.id} onPress={() => handleOnClickCategory(cat.id)}>
           <View style={selectedCatId === cat.id && styles.catHighlight}>
             <View style={styles.catContainer}>
@@ -103,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoriesFood;
+export default CategoriesProduct;

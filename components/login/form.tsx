@@ -17,11 +17,12 @@ import { login } from "@/services/users";
 import { useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const schema = z.object({
   email: z
     .string({ required_error: "Email can't not empty" })
-    .email("must follow example abc@gmail.com")
+    // .email("must follow example abc@gmail.com")
     .min(0, "Email can't not empty"),
   password: z
     .string({ required_error: "Password can't not empty" })
@@ -51,8 +52,12 @@ const LoginForm = () => {
 
   const handleLogin = async (data: FormRegisterType) => {
     try {
-      const res = await login(data);
-      if (res.length > 0) {
+      const res = await login({
+        username: data.email,
+        password: data.password,
+      });
+      if (res) {
+        await AsyncStorage.setItem("accessToken", res.accessToken);
         navigation.reset({
           index: 0,
           routes: [{ name: "tabs" }],
@@ -61,7 +66,7 @@ const LoginForm = () => {
       }
       setMessage("Your email or password is incorrect");
     } catch (error) {
-      console.error("Error:", error);
+      setMessage("Your email or password is incorrect");
     }
   };
 

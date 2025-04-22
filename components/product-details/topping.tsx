@@ -30,7 +30,7 @@ const toppings = [
     imageUrl: require("../../assets/images/details/topping-4.png"),
   },
 ];
-const FoodTopping = () => {
+const ProductTopping = () => {
   const [toppingSelectedIds, setToppingSelectedIds] = useState<string[]>([]);
   const handleSelectTopping = (toppingId: string) => {
     setToppingSelectedIds((prev) =>
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FoodTopping;
+export default ProductTopping;
