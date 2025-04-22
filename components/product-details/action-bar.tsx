@@ -7,11 +7,11 @@ import {
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useContext, useState } from "react";
-import { TFood } from "@/types";
-import { CartContext } from "@/context/cart-context";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 import { TProduct } from "@/services/products";
+import { useCartStore } from "@/stores/cart";
+import { TCartItem } from "@/types";
 
 const ProductActionBar = ({
   product,
@@ -21,7 +21,7 @@ const ProductActionBar = ({
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
-  const cartContext = useContext(CartContext);
+  const addToCart = useCartStore((state) => state.addToCart);
   const [quantity, setQuantity] = useState<number>(1);
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -34,25 +34,19 @@ const ProductActionBar = ({
   };
 
   const handleAddToCart = () => {
-    // if (!product) {
-    //   return;
-    // }
-    // const itemIndex = cartContext?.cart.findIndex(
-    //   (item) => item.food.id === food.id
-    // ); // khong tim thay index thi tra ve -1
-    // if (itemIndex !== -1) {
-    //   cartContext?.setCart((prev) =>
-    //     prev.map((item, index) =>
-    //       index === itemIndex
-    //         ? { ...item, quantity: item.quantity + quantity }
-    //         : item
-    //     )
-    //   );
-    // } else {
-    //   cartContext?.setCart((prev) => [...prev, { food, quantity }]);
-    // }
-    // setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
-    // navigation.navigate("cart");
+    if (!product) {
+      return;
+    }
+
+    const newItem: TCartItem = {
+      product: product,
+      quantity: quantity,
+      totalPrice: quantity * product.price,
+    };
+
+    addToCart(newItem);
+    setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
+    navigation.navigate("cart");
   };
 
   return (

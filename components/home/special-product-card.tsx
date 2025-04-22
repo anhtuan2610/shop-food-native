@@ -30,7 +30,7 @@ const SpecialProductCard = ({
           <StarVector />
           <Text style={{ color: "#FFB8AE" }}>4.5</Text>
         </View>
-        <Text style={styles.offerName}>{product.brand}</Text>
+        <Text style={styles.offerName}>{product.title}</Text>
         <View style={styles.deliveryContainer}>
           <DeliveryVector />
           <Text style={styles.deliveryText}>Free delivery</Text>
@@ -58,19 +58,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
-    // backgroundColor: "#FF6B57",
-
-    // // iOS shadow
-    // shadowColor: "rgba(254, 117, 76, 1)", // màu tương ứng
-    // shadowOffset: {
-    //   width: 10,
-    //   height: 10,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 30,
-
-    // // Android shadow
-    // elevation: 10, // tăng số nếu muốn bóng đậm hơn
+    backgroundColor: "#ECECEC",
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 2,
+    height: 140, // Chiều cao cố định
   },
   specialOffersImage: {
     width: 120,
@@ -86,7 +81,7 @@ const styles = StyleSheet.create({
   },
   offerName: {
     fontFamily: "Poppins-SemiBold",
-    color: "#FFFFFF",
+    color: "#1E1E1E",
     fontSize: 16,
   },
   deliveryContainer: {

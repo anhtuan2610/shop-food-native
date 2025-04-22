@@ -31,7 +31,7 @@ export type TCartItem = {
 }
 
 export type TCartState = {
-  items: TCartItem,
+  items: TCartItem[],
   totalItems: number,
   totalAmount: number,
 }

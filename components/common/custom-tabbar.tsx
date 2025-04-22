@@ -5,12 +5,12 @@ import NotificationIcon from "@expo/vector-icons/Ionicons";
 import HomeVector from "@/assets/vectors/tab/HomeVector";
 import ProfileVector from "@/assets/vectors/tab/ProfileVector";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { CartContext } from "@/context/cart-context";
 import { RootStackParamList, TabsParamList } from "@/types/navigation";
+import { useCartStore } from "@/stores/cart";
 
 const CustomTabBar = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
-  const cartContext = useContext(CartContext);
+  const cart = useCartStore((state) => state.cart);
 
   const navState = navigation.getState();
 
@@ -36,11 +36,9 @@ const CustomTabBar = () => {
             size={22}
             color={currentTabRoute === "cart" ? "#FF6B57" : "#747785"}
           />
-          {(cartContext?.cart.length ?? 0) > 0 && (
+          {cart && (
             <View style={styles.cartIconContainer}>
-              <Text style={styles.cartTextQuantity}>
-                {cartContext?.cart.length}
-              </Text>
+              <Text style={styles.cartTextQuantity}>{cart?.items.length}</Text>
             </View>
           )}
         </View>

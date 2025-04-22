@@ -1,22 +1,21 @@
 import ActionBar from "@/components/cart/action-bar";
 import Address from "@/components/cart/address";
 import CartEmpty from "@/components/cart/cart-empty";
-import FoodCard from "@/components/cart/food-card";
+import FoodCard from "@/components/cart/product-card";
 import CartHeader from "@/components/cart/header";
 import InputPromo from "@/components/cart/input-promo";
 import PriceDetails from "@/components/cart/price-details";
-import { CartContext } from "@/context/cart-context";
-import { useContext } from "react";
+import { useCartStore } from "@/stores/cart";
 import { StyleSheet, View } from "react-native";
 
 const Cart = () => {
-  const cartContext = useContext(CartContext);
-  const subTotal = cartContext?.cart.reduce((subTotal, item) => {
-    const total = parseFloat(item.food.price) * item.quantity;
+  const cart = useCartStore((store) => store.cart);
+  const subTotal = cart?.items.reduce((subTotal, item) => {
+    const total = item.totalPrice * item.quantity;
     return subTotal + total;
   }, 0);
 
-  if (cartContext?.cart.length == 0) {
+  if (!cart) {
     return <CartEmpty />;
   }
 
@@ -25,8 +24,8 @@ const Cart = () => {
       <View style={styles.contentContainer}>
         <CartHeader />
         <View style={styles.foodCardsContainer}>
-          {cartContext?.cart.map((item) => (
-            <FoodCard key={item.food.id} item={item} />
+          {cart.items.map((item) => (
+            <FoodCard key={item.product.id} item={item} />
           ))}
         </View>
         <InputPromo />

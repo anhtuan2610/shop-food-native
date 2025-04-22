@@ -1,5 +1,3 @@
-import { CartContext } from "@/context/cart-context";
-import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const PriceDetails = ({ subTotal }: { subTotal: number | undefined }) => {

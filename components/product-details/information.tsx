@@ -32,7 +32,7 @@ const ProductInformation = ({
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.mainText}>{product?.brand}</Text>
+          <Text style={styles.mainText}>{product?.title}</Text>
           <Text style={styles.priceText}>${product?.price}</Text>
         </View>
         <View style={styles.informationDeliveryRate}>
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontSize: 26,
+    maxWidth: "70%",
     fontFamily: "Poppins-Bold",
   },
   priceText: {

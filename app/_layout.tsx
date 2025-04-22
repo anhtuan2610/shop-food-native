@@ -1,4 +1,3 @@
-import { CartContext } from "@/context/cart-context";
 import { TFoodInCart } from "@/types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,11 +9,7 @@ import SignUp from "./screens/signup";
 import Login from "./screens/login";
 import ForgotPassword from "./screens/forgot-password";
 import Verification from "./screens/verification";
-import TabbarLayout from "@/components/common/layout-tabbar";
-import Home from "./screens/home";
 import Cart from "./screens/cart";
-import Notification from "./screens/notification";
-import Profile from "./screens/profile";
 import IntroduceScreen from "./screens";
 import TabbarNavigation from "@/navigations/tabbar-navigation";
 
@@ -45,7 +40,6 @@ export default function RootLayout() {
   });
 
   const [isReady, setIsReady] = useState(false);
-  const [cart, setCart] = useState<TFoodInCart[]>([]);
 
   useEffect(() => {
     if (loaded) {
@@ -67,25 +61,22 @@ export default function RootLayout() {
   }
 
   return (
-    <CartContext.Provider value={{ cart, setCart }}>
-      <>
-        <Stack.Navigator
-          screenOptions={{ headerShown: false }}
-          initialRouteName="index"
-        >
-          <Stack.Screen name="index" component={IntroduceScreen} />
-          <Stack.Screen name="signup" component={SignUp} />
-          <Stack.Screen name="login" component={Login} />
-          <Stack.Screen name="forgot-password" component={ForgotPassword} />
-          <Stack.Screen name="verification" component={Verification} />
-          <Stack.Screen name="tabs" component={TabbarNavigation} />
-          <Stack.Screen name="cart" component={Cart} />
-
-          {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
-        </Stack.Navigator>
-        <StatusBar style="auto" />
-      </>
-    </CartContext.Provider>
+    <>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="index"
+      >
+        <Stack.Screen name="index" component={IntroduceScreen} />
+        <Stack.Screen name="signup" component={SignUp} />
+        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="forgot-password" component={ForgotPassword} />
+        <Stack.Screen name="verification" component={Verification} />
+        <Stack.Screen name="tabs" component={TabbarNavigation} />
+        <Stack.Screen name="cart" component={Cart} />
+        {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
+      </Stack.Navigator>
+      <StatusBar style="auto" />
+    </>
   );
 }
 

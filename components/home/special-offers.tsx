@@ -13,49 +13,6 @@ import { getProductsByCategory, TProduct } from "@/services/products";
 import { categories } from "./categories-product";
 import SpecialProductCard from "./special-product-card";
 
-// export const offerSpecials: TFood[] = [
-//   {
-//     id: "1",
-//     name: "Burger King",
-//     star: "4.5",
-//     price: "22.00",
-//     imageUrl: require("../../assets/images/home/special-1.png"),
-//     backgroundColorOffer: {
-//       backgroundColor: "#FF6B57",
-//     },
-//   },
-//   {
-//     id: "2",
-//     name: "Pizza King",
-//     star: "4.4",
-//     price: "19.00",
-//     imageUrl: require("../../assets/images/home/special-2.png"),
-//     backgroundColorOffer: {
-//       backgroundColor: "#72CF98",
-//     },
-//   },
-//   {
-//     id: "3",
-//     name: "Sushi Queen",
-//     star: "4.8",
-//     price: "25.00",
-//     imageUrl: require("../../assets/images/home/special-3.png"),
-//     backgroundColorOffer: {
-//       backgroundColor: "#5DA3FA",
-//     },
-//   },
-//   {
-//     id: "4",
-//     name: "Taco Master",
-//     star: "4.6",
-//     price: "18.50",
-//     imageUrl: require("../../assets/images/home/special-4.png"),
-//     backgroundColorOffer: {
-//       backgroundColor: "#FFC529",
-//     },
-//   },
-// ];
-
 const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [isShowDetails, setIsShowDetails] = useState<boolean>(false);
