@@ -91,13 +91,13 @@ export const useCartStore = create<TCartStore & TCartAction>((set) => ({
         return state;
       }
       const updateItem = state.cart.items.map((itemCart) =>
-        item.product.id === item.product.id
+        itemCart.product.id === item.product.id
           ? {
               ...item,
               totalPrice: itemCart.totalPrice - itemCart.product.price,
               quantity: itemCart.quantity - 1,
             }
-          : item
+          : itemCart
       );
       return {
         ...state,
@@ -115,13 +115,13 @@ export const useCartStore = create<TCartStore & TCartAction>((set) => ({
         return state;
       }
       const updateItem = state.cart.items.map((itemCart) =>
-        item.product.id === item.product.id
+        itemCart.product.id === item.product.id
           ? {
               ...item,
               totalPrice: itemCart.totalPrice + itemCart.product.price,
               quantity: itemCart.quantity + 1,
             }
-          : item
+          : itemCart
       );
       return {
         ...state,

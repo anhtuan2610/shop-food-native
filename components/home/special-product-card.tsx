@@ -32,7 +32,7 @@ const SpecialProductCard = ({
           <Text style={{ color: "#FFB8AE" }}>4.5</Text>
         </View>
         <Text style={styles.offerName} numberOfLines={2} ellipsizeMode="tail">
-          {product.brand}
+          {product.title}
         </Text>
         <View style={styles.deliveryContainer}>
           <DeliveryVector />
