@@ -2,39 +2,25 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import CloseVector from "@/assets/vectors/cart/close-vector";
 import Entypo from "@expo/vector-icons/Entypo";
 import { TCartItem } from "@/types";
+import { useCartStore } from "@/stores/cart";
 
 const ProductCart = ({ item }: { item: TCartItem }) => {
-  const decreaseQuantity = (productId: number) => {
-    // setCart((prev) => {
-    //   const findItem = prev.find((item) => item.food.id === foodId);
-    //   if (!findItem) return prev;
-    //   const newQuantity = findItem.quantity - 1;
-    //   if (newQuantity <= 0) {
-    //     removeFoodFromCart(foodId);
-    //   }
-    //   return prev.map((item) =>
-    //     item.food.id === foodId ? { ...item, quantity: newQuantity } : item
-    //   );
-    // });
+  const decreaseItemQuantity = useCartStore(
+    (state) => state.decreaseItemQuantity
+  );
+  const increaseQuantity = useCartStore((state) => state.increaseQuantity);
+  const removeFormCart = useCartStore((state) => state.removeFormCart);
+
+  const handleDecreaseQuantity = (item: TCartItem) => {
+    decreaseItemQuantity(item);
   };
 
-  const increaseQuantity = (productId: number) => {
-    // cartContext?.setCart((prev) =>
-    //   prev.map((item) =>
-    //     item.food.id === foodId
-    //       ? { ...item, quantity: item.quantity + 1 }
-    //       : item
-    //   )
-    // );
+  const handleIncreaseQuantity = (item: TCartItem) => {
+    increaseQuantity(item);
   };
 
-  const removeFoodFromCart = (productId: number) => {
-    // const updateCart = cartContext?.cart.filter(
-    //   (item) => item.food.id !== foodId
-    // );
-    // if (updateCart) {
-    //   cartContext?.setCart(updateCart);
-    // }
+  const handleRemoveProductFormCart = (item: TCartItem) => {
+    removeFormCart(item);
   };
 
   return (
@@ -46,23 +32,23 @@ const ProductCart = ({ item }: { item: TCartItem }) => {
       <View style={styles.contentContainer}>
         <View style={styles.titleRow}>
           <Text style={styles.foodName}>{item.product.title}</Text>
-          <Pressable onPress={() => removeFoodFromCart(item.product.id)}>
+          <Pressable onPress={() => handleRemoveProductFormCart(item)}>
             <CloseVector />
           </Pressable>
         </View>
         <View style={styles.actionRow}>
-          <Text style={styles.priceText}>${item.product.price}</Text>
+          <Text style={styles.priceText}>${item.totalPrice.toFixed(2)}</Text>
           <View style={styles.quantityContainer}>
             <Pressable
               style={styles.quantityBtn}
-              onPress={() => decreaseQuantity(item.product.id)}
+              onPress={() => handleDecreaseQuantity(item)}
             >
               <Entypo name="minus" size={22} color="black" />
             </Pressable>
             <Text style={styles.quantityText}>{item.quantity}</Text>
             <Pressable
               style={styles.quantityBtn}
-              onPress={() => increaseQuantity(item.product.id)}
+              onPress={() => handleIncreaseQuantity(item)}
             >
               <Entypo name="plus" size={22} color="black" />
             </Pressable>

@@ -1,5 +1,4 @@
 import { TCategory } from "@/types";
-import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export const categories: TCategory[] = [

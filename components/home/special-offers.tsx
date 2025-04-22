@@ -16,9 +16,9 @@ import SpecialProductCard from "./special-product-card";
 const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [isShowDetails, setIsShowDetails] = useState<boolean>(false);
-  const [productSelectedId, setProductSelectedId] = useState<
-    number | undefined
-  >(undefined);
+  const [productSelected, setProductSelected] = useState<TProduct | undefined>(
+    undefined
+  );
 
   const getProduct = async () => {
     try {
@@ -57,7 +57,7 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
             <SpecialProductCard
               key={item.id}
               setIsShowDetails={setIsShowDetails}
-              setProductSelectedId={setProductSelectedId}
+              setProductSelected={setProductSelected}
               product={item}
             />
           )}
@@ -66,12 +66,11 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
         />
       </ScrollView>
 
-      {isShowDetails && productSelectedId && (
+      {isShowDetails && productSelected && (
         <ProductDetailsModal
-          products={products}
           isShowDetails={isShowDetails}
           setIsShowDetails={setIsShowDetails}
-          productSelectedId={productSelectedId}
+          productSelected={productSelected}
         />
       )}
     </View>

@@ -8,6 +8,9 @@ type TCartStore = {
 
 type TCartAction = {
   addToCart: (item: TCartItem) => void;
+  removeFormCart: (item: TCartItem) => void;
+  decreaseItemQuantity: (item: TCartItem) => void;
+  increaseQuantity: (item: TCartItem) => void;
 };
 
 export const useCartStore = create<TCartStore & TCartAction>((set) => ({
@@ -22,7 +25,7 @@ export const useCartStore = create<TCartStore & TCartAction>((set) => ({
           cart: {
             items: [item],
             totalItems: 1,
-            totalAmount: item.totalPrice * item.quantity,
+            totalAmount: item.totalPrice,
           },
         };
       }
@@ -36,8 +39,7 @@ export const useCartStore = create<TCartStore & TCartAction>((set) => ({
             ? {
                 ...itemCart,
                 quantity: itemCart.quantity + item.quantity,
-                totalPrice:
-                  itemCart.totalPrice * (itemCart.quantity + item.quantity),
+                totalPrice: itemCart.totalPrice + item.totalPrice,
               }
             : itemCart
         );
@@ -46,9 +48,7 @@ export const useCartStore = create<TCartStore & TCartAction>((set) => ({
           cart: {
             ...state.cart,
             items: updateItems,
-            totalItems: state.cart.totalItems + item.quantity,
-            totalAmount:
-              state.cart.totalAmount + item.totalPrice * item.quantity,
+            totalAmount: state.cart.totalAmount + item.totalPrice,
           },
         };
       }
@@ -62,7 +62,73 @@ export const useCartStore = create<TCartStore & TCartAction>((set) => ({
             item,
           ],
           totalItems: state.cart.totalItems + 1,
-          totalAmount: state.cart.totalAmount + item.totalPrice * item.quantity,
+          totalAmount: state.cart.totalAmount + item.totalPrice,
+        },
+      };
+    });
+  },
+  removeFormCart: (item) => {
+    set((state) => {
+      if (!state.cart) return state;
+      const updateItems = state.cart.items.filter(
+        (itemCart) => itemCart.product.id !== item.product.id
+      );
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          items: updateItems,
+          totalItems: state.cart.totalItems - 1,
+          totalAmount: state.cart.totalAmount - item.totalPrice,
+        },
+      };
+    });
+  },
+  decreaseItemQuantity: (item) => {
+    set((state) => {
+      if (!state.cart) return state;
+      if (item.quantity === 1) {
+        return state;
+      }
+      const updateItem = state.cart.items.map((itemCart) =>
+        item.product.id === item.product.id
+          ? {
+              ...item,
+              totalPrice: itemCart.totalPrice - itemCart.product.price,
+              quantity: itemCart.quantity - 1,
+            }
+          : item
+      );
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          items: updateItem,
+          totalAmount: state.cart.totalAmount - item.product.price,
+        },
+      };
+    });
+  },
+  increaseQuantity: (item) => {
+    set((state) => {
+      if (!state.cart) {
+        return state;
+      }
+      const updateItem = state.cart.items.map((itemCart) =>
+        item.product.id === item.product.id
+          ? {
+              ...item,
+              totalPrice: itemCart.totalPrice + itemCart.product.price,
+              quantity: itemCart.quantity + 1,
+            }
+          : item
+      );
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          items: updateItem,
+          totalAmount: state.cart.totalAmount + item.product.price,
         },
       };
     });

@@ -7,10 +7,10 @@ import StarVector from "@/assets/vectors/details/star-vector";
 import { TProduct } from "@/services/products";
 
 const ProductInformation = ({
-  product,
+  productSelected,
   setIsShowDetails,
 }: {
-  product: TProduct | undefined;
+  productSelected: TProduct;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
@@ -24,7 +24,7 @@ const ProductInformation = ({
         </Pressable>
         <Image
           style={styles.imageDetails}
-          source={{ uri: product?.images[0] }}
+          source={{ uri: productSelected?.images[0] }}
         />
         <View style={styles.favoriteIconContainer}>
           <HeartVector />
@@ -32,8 +32,8 @@ const ProductInformation = ({
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.mainText}>{product?.title}</Text>
-          <Text style={styles.priceText}>${product?.price}</Text>
+          <Text style={styles.mainText}>{productSelected?.title}</Text>
+          <Text style={styles.priceText}>${productSelected?.price}</Text>
         </View>
         <View style={styles.informationDeliveryRate}>
           <View style={{ flexDirection: "row", gap: 16 }}>

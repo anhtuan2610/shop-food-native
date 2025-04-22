@@ -1,12 +1,14 @@
+import { useCartStore } from "@/stores/cart";
 import { StyleSheet, Text, View } from "react-native";
 
-const PriceDetails = ({ subTotal }: { subTotal: number | undefined }) => {
+const PriceDetails = () => {
+  const cart = useCartStore((state) => state.cart);
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Subtotal</Text>
-          <Text style={styles.text}>${subTotal}</Text>
+          <Text style={styles.text}>${cart?.totalAmount.toFixed(2)}</Text>
         </View>
         <View style={styles.horizontalBar} />
       </View>

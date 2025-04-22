@@ -1,7 +1,9 @@
+import { useCartStore } from "@/stores/cart";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const ActionBar = ({ subTotal }: { subTotal: number | undefined }) => {
-  const finalTotal = (subTotal ?? 0) + 2.0 + 1.0;
+const ActionBar = () => {
+  const cart = useCartStore((state) => state.cart);
+  const finalTotal = (Number(cart?.totalAmount.toFixed(2)) ?? 0) + 2.0 + 1.0;
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>

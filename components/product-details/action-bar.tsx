@@ -14,10 +14,10 @@ import { useCartStore } from "@/stores/cart";
 import { TCartItem } from "@/types";
 
 const ProductActionBar = ({
-  product,
+  productSelected,
   setIsShowDetails,
 }: {
-  product: TProduct | undefined;
+  productSelected: TProduct;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
@@ -34,14 +34,10 @@ const ProductActionBar = ({
   };
 
   const handleAddToCart = () => {
-    if (!product) {
-      return;
-    }
-
     const newItem: TCartItem = {
-      product: product,
+      product: productSelected,
       quantity: quantity,
-      totalPrice: quantity * product.price,
+      totalPrice: quantity * productSelected.price,
     };
 
     addToCart(newItem);
@@ -76,7 +72,7 @@ const ProductActionBar = ({
           Add <Text style={styles.quantityText}>{quantity}</Text> to cart
         </Text>
         <Text style={styles.buttonText2}>
-          ${(Number(product?.price) * quantity).toFixed(2)}
+          ${(Number(productSelected?.price) * quantity).toFixed(2)}
         </Text>
       </TouchableOpacity>
     </View>

@@ -6,24 +6,14 @@ import ProductActionBar from "./action-bar";
 import { TProduct } from "@/services/products";
 
 const ProductDetailsModal = ({
-  products,
   isShowDetails,
   setIsShowDetails,
-  productSelectedId,
+  productSelected,
 }: {
-  products: TProduct[];
   isShowDetails: boolean;
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  productSelectedId: number;
+  productSelected: TProduct;
 }) => {
-  const [product, setProduct] = useState<TProduct>();
-  useEffect(() => {
-    const findProduct = products.find(
-      (product) => product.id === productSelectedId
-    );
-    setProduct(findProduct);
-  }, [productSelectedId]);
-
   return (
     <Modal
       transparent
@@ -34,12 +24,12 @@ const ProductDetailsModal = ({
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
           <ProductInformation
-            product={product}
+            productSelected={productSelected}
             setIsShowDetails={setIsShowDetails}
           />
           <ProductTopping />
           <ProductActionBar
-            product={product}
+            productSelected={productSelected}
             setIsShowDetails={setIsShowDetails}
           />
         </View>

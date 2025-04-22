@@ -5,18 +5,18 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const SpecialProductCard = ({
   setIsShowDetails,
-  setProductSelectedId,
+  setProductSelected,
   product,
 }: {
   setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  setProductSelectedId: React.Dispatch<
-    React.SetStateAction<number | undefined>
+  setProductSelected: React.Dispatch<
+    React.SetStateAction<TProduct | undefined>
   >;
   product: TProduct;
 }) => {
-  const handleClickBuyNow = (id: number) => {
+  const handleClickBuyNow = (product: TProduct) => {
     setIsShowDetails(true);
-    setProductSelectedId(id);
+    setProductSelected(product);
   };
 
   return (
@@ -24,13 +24,16 @@ const SpecialProductCard = ({
       <Image
         style={styles.specialOffersImage}
         source={{ uri: product.images[0] }}
+        resizeMode="contain"
       />
       <View style={styles.specialOffersDescription}>
         <View style={styles.rateContainer}>
           <StarVector />
           <Text style={{ color: "#FFB8AE" }}>4.5</Text>
         </View>
-        <Text style={styles.offerName}>{product.title}</Text>
+        <Text style={styles.offerName} numberOfLines={2} ellipsizeMode="tail">
+          {product.brand}
+        </Text>
         <View style={styles.deliveryContainer}>
           <DeliveryVector />
           <Text style={styles.deliveryText}>Free delivery</Text>
@@ -38,7 +41,7 @@ const SpecialProductCard = ({
         <View style={styles.buyContainer}>
           <TouchableOpacity
             style={styles.buyButton}
-            onPress={() => handleClickBuyNow(product.id)}
+            onPress={() => handleClickBuyNow(product)}
           >
             <Text style={styles.buyButtonText}>Buy Now</Text>
           </TouchableOpacity>
@@ -55,7 +58,7 @@ const SpecialProductCard = ({
 const styles = StyleSheet.create({
   specialOffersCard: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     borderRadius: 15,
     backgroundColor: "#ECECEC",
@@ -65,11 +68,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 6,
     elevation: 2,
-    height: 140, // Chiều cao cố định
+    width: 280,
+    overflow: "hidden",
   },
   specialOffersImage: {
-    width: 120,
-    height: 110,
+    width: 100,
+    height: 100,
   },
   specialOffersDescription: {
     padding: 15,
@@ -83,6 +87,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-SemiBold",
     color: "#1E1E1E",
     fontSize: 16,
+    overflow: "hidden", // Ensures that text is clipped
   },
   deliveryContainer: {
     flexDirection: "row",
