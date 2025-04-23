@@ -1,6 +1,4 @@
-import { TFoodInCart } from "@/types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
@@ -12,12 +10,14 @@ import Verification from "./screens/verification";
 import Cart from "./screens/cart";
 import IntroduceScreen from "./screens";
 import TabbarNavigation from "@/navigations/tabbar-navigation";
+import { useAuthStore } from "@/stores/auth";
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  const loadAuthData = useAuthStore((state) => state.loadAuthData);
+  const accessToken = useAuthStore((state) => state.accessToken);
+  useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-BlackItalic": require("../assets/fonts/Poppins-BlackItalic.ttf"),
@@ -42,13 +42,15 @@ export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
+    const init = async () => {
+      await loadAuthData();
       const timeout = setTimeout(() => {
         setIsReady(true);
       }, 1500);
       return () => clearTimeout(timeout);
-    }
-  }, [loaded]);
+    };
+    init();
+  }, []);
 
   if (!isReady) {
     return (
@@ -64,7 +66,7 @@ export default function RootLayout() {
     <>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="index"
+        initialRouteName={accessToken ? "tabs" : "index"}
       >
         <Stack.Screen name="index" component={IntroduceScreen} />
         <Stack.Screen name="signup" component={SignUp} />

@@ -10,7 +10,8 @@ import { StyleSheet, View } from "react-native";
 
 const Cart = () => {
   const cart = useCartStore((store) => store.cart);
-  if (cart?.items.length == 0) {
+
+  if (cart?.items.length == 0 || cart?.items === undefined) {
     return <CartEmpty />;
   }
 
@@ -35,7 +36,7 @@ const Cart = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
+    paddingTop: 50,
     backgroundColor: "white",
   },
   contentContainer: {

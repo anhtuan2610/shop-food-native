@@ -18,6 +18,7 @@ import { useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthStore } from "@/stores/auth";
 
 const schema = z.object({
   email: z
@@ -33,6 +34,7 @@ export type FormRegisterType = z.infer<typeof schema>;
 
 const LoginForm = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
+  const setAuthData = useAuthStore((state) => state.setAuthData);
   const [message, setMessage] = useState<string | undefined>();
   const {
     control,
@@ -57,7 +59,19 @@ const LoginForm = () => {
         password: data.password,
       });
       if (res) {
-        await AsyncStorage.setItem("accessToken", res.accessToken);
+        await setAuthData({
+          accessToken: res.accessToken,
+          refreshToken: res.refreshToken,
+          user: {
+            email: res.email,
+            firstName: res.firstName,
+            gender: res.gender,
+            id: res.id,
+            image: res.image,
+            lastName: res.lastName,
+            username: res.username,
+          },
+        }); // useAuthStore.getState().setAuthData(res);
         navigation.reset({
           index: 0,
           routes: [{ name: "tabs" }],

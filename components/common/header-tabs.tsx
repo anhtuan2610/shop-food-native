@@ -22,7 +22,7 @@ const HeaderTabs = () => {
         <View>
           <Image
             style={styles.avatar}
-            source={require("../../assets/images/home/avatar.png")}
+            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }}
           />
         </View>
       </View>

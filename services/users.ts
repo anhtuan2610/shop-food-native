@@ -1,16 +1,5 @@
+import { TUserLoginResponse } from "@/types";
 import { post } from "./axios-config";
-
-type loginResponse = {
-  accessToken: string;
-  refreshToken: string;
-  id: string;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  gender: string;
-  image: string;
-};
 
 // export const register = async ({
 //   fullName,
@@ -38,7 +27,7 @@ export const login = async ({
   username: string;
   password: string;
 }) => {
-  return await post<loginResponse>({
+  return await post<TUserLoginResponse>({
     url: "auth/login",
     data: {
       username,
