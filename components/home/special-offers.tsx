@@ -50,7 +50,7 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
       </TouchableWithoutFeedback>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {/* <FlatList
+        <FlatList
           data={products}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
@@ -63,8 +63,8 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
           )}
           contentContainerStyle={styles.specialOffersContainer}
           scrollEnabled={false}
-        /> */}
-        <View style={styles.specialOffersContainer}>
+        />
+        {/* <View style={styles.specialOffersContainer}>
           {products.map((item) => (
             <SpecialProductCard
               key={item.id}
@@ -73,7 +73,7 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
               product={item}
             />
           ))}
-        </View>
+        </View> */}
       </ScrollView>
 
       {isShowDetails && productSelected && (

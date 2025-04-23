@@ -1,7 +1,10 @@
 import MenuVector from "@/assets/vectors/home/menu-vector";
+import { RootStackParamList } from "@/types/navigation";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import {
   Image,
   Keyboard,
+  Pressable,
   StyleSheet,
   Text,
   TouchableNativeFeedback,
@@ -9,6 +12,10 @@ import {
 } from "react-native";
 
 const HeaderTabs = () => {
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
+  const handleRedirectProfile = () => {
+    navigation.navigate("tabs", { screen: "profile" });
+  };
   return (
     <TouchableNativeFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
@@ -19,12 +26,12 @@ const HeaderTabs = () => {
           <Text style={styles.text1}>Deliver to</Text>
           <Text style={styles.text2}>387 Merdina</Text>
         </View>
-        <View>
+        <Pressable onPress={handleRedirectProfile}>
           <Image
             style={styles.avatar}
             source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }}
           />
-        </View>
+        </Pressable>
       </View>
     </TouchableNativeFeedback>
   );
