@@ -26,12 +26,12 @@ const SpecialProductCard = ({
         source={{ uri: product.images[0] }}
         resizeMode="contain"
       />
-      <View style={styles.specialOffersDescription}>
+      <View style={styles.specialOffersContent}>
         <View style={styles.rateContainer}>
           <StarVector />
           <Text style={{ color: "#FFB8AE" }}>4.5</Text>
         </View>
-        <Text style={styles.offerName} numberOfLines={2} ellipsizeMode="tail">
+        <Text style={styles.offerName} numberOfLines={1} ellipsizeMode="tail">
           {product.title}
         </Text>
         <View style={styles.deliveryContainer}>
@@ -46,8 +46,8 @@ const SpecialProductCard = ({
             <Text style={styles.buyButtonText}>Buy Now</Text>
           </TouchableOpacity>
           <View style={styles.priceContainer}>
-            <Text style={{ color: "#FFB8AE" }}>$</Text>
-            <Text style={{ color: "#FFFFFF" }}>{product.price}</Text>
+            <Text style={{ color: "#FF6B6B" }}>$</Text>
+            <Text style={{ color: "#1E1E1E" }}>{product.price}</Text>
           </View>
         </View>
       </View>
@@ -58,10 +58,10 @@ const SpecialProductCard = ({
 const styles = StyleSheet.create({
   specialOffersCard: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
     borderRadius: 15,
-    backgroundColor: "#ECECEC",
+    backgroundColor: "#E8ECEF",
     padding: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
-  specialOffersDescription: {
-    padding: 15,
+  specialOffersContent: {
+    paddingRight: 100, // ?
   },
   rateContainer: {
     flexDirection: "row",
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   deliveryText: {
     fontSize: 12,
-    color: "#FFB8AE",
+    color: "#FF6B6B",
     fontWeight: 400,
   },
   buyContainer: {
