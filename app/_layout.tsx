@@ -11,11 +11,13 @@ import Cart from "./screens/cart";
 import IntroduceScreen from "./screens";
 import TabbarNavigation from "@/navigations/tabbar-navigation";
 import { useAuthStore } from "@/stores/auth";
+import { useCartStore } from "@/stores/cart";
 
 const Stack = createNativeStackNavigator();
 
 export default function RootLayout() {
   const loadAuthData = useAuthStore((state) => state.loadAuthData);
+  const loadCartData = useCartStore((state) => state.loadCartData);
   const accessToken = useAuthStore((state) => state.accessToken);
   useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -43,6 +45,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     const init = async () => {
+      await loadCartData();
       await loadAuthData();
       const timeout = setTimeout(() => {
         setIsReady(true);

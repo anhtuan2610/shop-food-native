@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/stores/auth";
+import { useCartStore } from "@/stores/cart";
 import { RootStackParamList } from "@/types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -6,9 +7,11 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const ProfileInformation = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const clearAuthData = useAuthStore((state) => state.clearAuthData);
+  const clearCartData = useCartStore((state) => state.clearCartData);
   const user = useAuthStore((state) => state.user);
 
   const handleSignOut = async () => {
+    await clearCartData();
     await clearAuthData();
     navigation.reset({
       routes: [{ name: "index" }],
