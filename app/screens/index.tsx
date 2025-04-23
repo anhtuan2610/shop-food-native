@@ -20,6 +20,7 @@ const BANNERS = [<Banner1 />, <Banner2 />, <Banner3 />];
 const IntroduceScreen = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const scrollRef = useRef<ScrollView>(null);
+  const currentIndexRef = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSignUp = () => {
@@ -33,17 +34,19 @@ const IntroduceScreen = () => {
   const handleClickCarouselDot = (index: number) => {
     setCurrentIndex(index);
     scrollRef.current?.scrollTo({ x: index * width, animated: true });
+    currentIndexRef.current = index;
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const nextIndex = currentIndex + 1 < 3 ? currentIndex + 1 : 0;
-      setCurrentIndex(nextIndex);
+      const nextIndex = (currentIndexRef.current + 1) % BANNERS.length; // ? 0 -> 0 + 1 = 1
+      setCurrentIndex(nextIndex); // 1
+      currentIndexRef.current = nextIndex; // 1
       scrollRef.current?.scrollTo({ x: nextIndex * width, animated: true }); // lay index phan tu tiep theo nhan voi chieu dai (vi du phan tu tiep theo la 1 va man hinh 1000px thi` de scroll toi phan tu 1 thi` lay 1 * voi chieu dai man hinh de scroll toi no)
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -51,11 +54,11 @@ const IntroduceScreen = () => {
         ref={scrollRef}
         horizontal
         pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={(e) => {
-          const offsetX = e.nativeEvent.contentOffset.x;
-          const index = Math.round(offsetX / width);
-          setCurrentIndex(index);
+        onMomentumScrollEnd={(event) => {
+          const offsetX = event.nativeEvent.contentOffset.x;
+          const newIndex = Math.round(offsetX / width);
+          setCurrentIndex(newIndex);
+          currentIndexRef.current = newIndex;
         }}
       >
         {BANNERS.map((Banner, index) => (
