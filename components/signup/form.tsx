@@ -11,26 +11,18 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import FacebookVector from "@/assets/vectors/introduce/FacebookVector";
 import GoogleVector from "@/assets/vectors/introduce/GoogleVector";
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// import { register } from "@/services/users";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const schema = z.object({
-  fullName: z
-    .string({ required_error: "Full name can't not empty" })
-    .min(0, "Full name can't not empty"),
-  email: z
-    .string({ required_error: "Email can't not empty" })
-    // .email("must follow example abc@gmail.com")
-    .min(0, "Email can't not empty"),
-  password: z
-    .string({ required_error: "Password can't not empty" })
-    .min(0, "Password can't not empty"),
+const schema = yup.object({
+  fullName: yup.string().required("Full name can't not empty"),
+  email: yup.string().required("Email can't not empty"),
+  password: yup.string().required("Password can't not empty"),
 });
 
-export type FormRegisterType = z.infer<typeof schema>;
+export type FormRegisterType = yup.InferType<typeof schema>;
 
 const SignUpForm = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
@@ -39,7 +31,7 @@ const SignUpForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<FormRegisterType>({
-    resolver: zodResolver(schema),
+    resolver: yupResolver(schema),
   });
 
   const handleSignUp = async (data: FormRegisterType) => {

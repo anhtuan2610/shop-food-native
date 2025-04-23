@@ -11,26 +11,21 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import FacebookVector from "@/assets/vectors/introduce/FacebookVector";
 import GoogleVector from "@/assets/vectors/introduce/GoogleVector";
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { login } from "@/services/users";
 import { useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthStore } from "@/stores/auth";
+import * as yup from "yup";
 
-const schema = z.object({
-  email: z
-    .string({ required_error: "Email can't not empty" })
-    // .email("must follow example abc@gmail.com")
-    .min(0, "Email can't not empty"),
-  password: z
-    .string({ required_error: "Password can't not empty" })
-    .min(0, "Password can't not empty"),
+const schema = yup.object({
+  email: yup.string().required("Email can't not empty"),
+  // .email("must follow example abc@gmail.com")
+  password: yup.string().required("Password can't not empty"),
 });
 
-export type FormRegisterType = z.infer<typeof schema>;
+export type FormRegisterType = yup.InferType<typeof schema>;
 
 const LoginForm = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
@@ -41,7 +36,7 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<FormRegisterType>({
-    resolver: zodResolver(schema),
+    resolver: yupResolver(schema),
   });
 
   const redirectSignUp = async () => {
