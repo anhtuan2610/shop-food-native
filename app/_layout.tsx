@@ -23,6 +23,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Modalize } from "react-native-modalize";
 import ProductDetailsModal from "@/components/product-details/product-details-modal";
 import { useModalStore } from "@/stores/modal";
+import ProductActionBar from "@/components/product-details/action-bar";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -107,12 +108,17 @@ export default function RootLayout() {
         modalHeight={height} // full-screen khi vuốt lên
         snapPoint={height * (70 / 100)} // dừng ở 400px khi vuốt xuống
         adjustToContentHeight={false}
-        onClosed={onClose}
+        onClose={onClose}
         rootStyle={{ flex: 1 }}
         modalStyle={{ paddingTop: 10 }}
       >
         <ProductDetailsModal />
       </Modalize>
+      {isOpen && (
+        <View style={{ position: "absolute", bottom: 0, zIndex: 9999 }}>
+          <ProductActionBar />
+        </View>
+      )}
     </GestureHandlerRootView>
   );
 }

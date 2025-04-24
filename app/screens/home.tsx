@@ -3,8 +3,8 @@ import { StyleSheet, View } from "react-native";
 import CategoriesProduct from "@/components/home/categories-product";
 import SpecialOffers from "@/components/home/special-offers";
 import TitleSearch from "@/components/home/title-search";
-import Restaurants from "@/components/home/restaurants";
 import { useEffect, useState } from "react";
+import Products from "@/components/home/products";
 
 const Home = () => {
   console.log("render");
@@ -24,7 +24,7 @@ const Home = () => {
         setSelectedCatId={setSelectedCatId}
       />
       <SpecialOffers selectedCatId={selectedCatId} />
-      <Restaurants />
+      <Products />
     </View>
   );
 };

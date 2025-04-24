@@ -12,21 +12,20 @@ const ProductDetailsModal = () => {
         <ProductInformation />
         <ProductTopping />
       </View>
-      <ProductActionBar />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Chiếm toàn bộ chiều cao
+    flex: 1,
     height: windowHeight,
     flexDirection: "column",
     justifyContent: "space-between",
     backgroundColor: "transparent",
   },
   modalContent: {
-    flex: 1, // Phần nội dung chiếm phần còn lại
+    flex: 1,
     backgroundColor: "#fff",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,

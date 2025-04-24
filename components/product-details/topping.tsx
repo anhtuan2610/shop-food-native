@@ -58,28 +58,35 @@ const ProductTopping = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Toping for you</Text>
-
-      {toppings.map((topping) => (
-        <View key={topping.id} style={styles.toppingContainer}>
-          <View style={styles.toppingInfoContainer}>
-            <Image style={styles.toppingImage} source={topping.imageUrl} />
-            <Text style={styles.toppingName}>{topping.name}</Text>
+      <ScrollView
+        style={styles.scrollViewContainer}
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {toppings.map((topping) => (
+          <View key={topping.id} style={styles.toppingContainer}>
+            <View style={styles.toppingInfoContainer}>
+              <Image style={styles.toppingImage} source={topping.imageUrl} />
+              <Text style={styles.toppingName}>{topping.name}</Text>
+            </View>
+            <Pressable
+              style={[
+                styles.checkTopping,
+                toppingSelectedIds.includes(topping.id) &&
+                  styles.checkedTopping,
+              ]}
+              onPress={() => handleSelectTopping(topping.id)}
+            />
           </View>
-          <Pressable
-            style={[
-              styles.checkTopping,
-              toppingSelectedIds.includes(topping.id) && styles.checkedTopping,
-            ]}
-            onPress={() => handleSelectTopping(topping.id)}
-          />
-        </View>
-      ))}
+        ))}
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    height: 500,
     backgroundColor: "rgba(36, 39, 49, 1)",
     marginTop: 1,
     paddingTop: 20,
@@ -92,7 +99,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollViewContent: {
-    paddingBottom: 20, // Thêm padding bottom cho nội dung
+    paddingBottom: 180, // Thêm padding bottom cho nội dung
+    gap: 15,
   },
   title: {
     fontFamily: "Poppins-SemiBold",

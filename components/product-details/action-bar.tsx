@@ -78,8 +78,6 @@ const ProductActionBar = () => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    position: "absolute",
-    bottom: 0,
     backgroundColor: "rgba(24, 25, 29, 1)",
     padding: 24,
     flexDirection: "row",

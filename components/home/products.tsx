@@ -12,48 +12,52 @@ import {
   View,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { get2Products, TProduct } from "@/services/products";
+import { useEffect, useState } from "react";
 
-const restaurants = [
-  {
-    id: 1,
-    name: "Seafood maki sushi",
-    star: "4.5",
-    price: "22.00",
-    imageUrl: require("../../assets/images/home/restaurant-1.png"),
-  },
-  {
-    id: 2,
-    name: "Noddle maki sushi",
-    star: "4.4",
-    price: "19.00",
-    imageUrl: require("../../assets/images/home/restaurant-2.jpg"),
-  },
-];
-
-const Restaurants = () => {
+const Products = () => {
+  const [products, setProducts] = useState<TProduct[]>([]);
+  const getProducts = async () => {
+    const response = await get2Products();
+    if (response) {
+      setProducts(response.products);
+    }
+  };
+  useEffect(() => {
+    getProducts();
+  }, []);
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title1}>Restaurants</Text>
+          <Text style={styles.title1}>Products</Text>
           <Text style={styles.title2}>View All</Text>
         </View>
       </TouchableWithoutFeedback>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <FlatList
-          data={restaurants}
+          data={products}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View key={item.id} style={styles.restaurantCard}>
               <View style={{ position: "relative" }}>
-                <Image style={styles.restaurantImage} source={item.imageUrl} />
+                <Image
+                  style={styles.restaurantImage}
+                  source={{ uri: item.images[0] }}
+                />
                 <View style={styles.favoriteIconContainer}>
                   <AntDesign name="heart" size={16} color="white" />
                 </View>
               </View>
               <View style={styles.restaurantDescription}>
                 <View style={styles.restaurantTitleContainer}>
-                  <Text style={styles.restaurantsName}>{item.name}</Text>
+                  <Text
+                    style={styles.restaurantsName}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    {item.title}
+                  </Text>
                   <View style={styles.rateContainer}>
                     <StarVector />
                     <Text>4.5</Text>
@@ -110,30 +114,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   restaurantCard: {
-    width: 267,
+    width: 280,
     borderRadius: 15,
     overflow: "hidden",
-    // Shadow for iOS
-    shadowColor: "rgba(211, 209, 216, 1)", // dùng màu gốc, opacity set riêng
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.25, // từ rgba alpha
-    shadowRadius: 30, // spread trong box-shadow
-
-    // Shadow for Android
-    elevation: 10,
-    backgroundColor: "#fff", // bắt buộc để shadow hiển thị đúng trên Android
+    backgroundColor: "#fef6f6",
+    padding: 10,
   },
   restaurantImage: {
     width: "100%",
-    height: 150,
-    resizeMode: "cover",
+    height: 100,
+    resizeMode: "contain",
   },
   restaurantDescription: {
     padding: 12,
-    gap: 2,
+    gap: 10,
+    justifyContent: "space-between",
   },
   restaurantTitleContainer: {
     flexDirection: "row",
@@ -143,6 +138,7 @@ const styles = StyleSheet.create({
   restaurantsName: {
     fontFamily: "Poppins-SemiBold",
     fontSize: 15,
+    flex: 1,
   },
   rateContainer: {
     flexDirection: "row",
@@ -164,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Restaurants;
+export default Products;

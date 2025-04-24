@@ -1,8 +1,8 @@
-import { get } from "./axios-config"
+import { get } from "./axios-config";
 
 export type ProductResponse = {
-    products: TProduct[];
-}
+  products: TProduct[];
+};
 
 export type TProduct = {
   id: number;
@@ -44,8 +44,26 @@ export type TProduct = {
   thumbnail: string;
 };
 
-export const getProductsByCategory = async ({categorySlug}: {categorySlug: string}) => {
-    return await get<ProductResponse>({
-        url: `/products/category/${categorySlug}`
-    })
-}
+export const getProductsByCategory = async ({
+  categorySlug,
+}: {
+  categorySlug: string;
+}) => {
+  return await get<ProductResponse>({
+    url: `/products/category/${categorySlug}`,
+  });
+};
+
+export const get2Products = async () => {
+  return await get<ProductResponse>({
+    url: `/products`,
+    params: { limit: 5 },
+  });
+};
+
+export const getAllProducts = async () => {
+  return await get<ProductResponse>({
+    url: `/products`,
+    params: { limit: 10 },
+  });
+};
