@@ -7,6 +7,8 @@ import Restaurants from "@/components/home/restaurants";
 import { useEffect, useState } from "react";
 
 const Home = () => {
+  console.log("render");
+
   const [selectedCatId, setSelectedCatId] = useState<string>("3");
   useEffect(() => {
     getToken();

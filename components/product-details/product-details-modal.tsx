@@ -1,50 +1,32 @@
-import { useEffect, useState } from "react";
-import { Modal, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import ProductInformation from "./information";
 import ProductTopping from "./topping";
 import ProductActionBar from "./action-bar";
-import { TProduct } from "@/services/products";
 
-const ProductDetailsModal = ({
-  isShowDetails,
-  setIsShowDetails,
-  productSelected,
-}: {
-  isShowDetails: boolean;
-  setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  productSelected: TProduct;
-}) => {
+const windowHeight = Dimensions.get("window").height;
+
+const ProductDetailsModal = () => {
   return (
-    <Modal
-      transparent
-      animationType="slide"
-      visible={isShowDetails}
-      onRequestClose={() => setIsShowDetails(false)}
-    >
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContent}>
-          <ProductInformation
-            productSelected={productSelected}
-            setIsShowDetails={setIsShowDetails}
-          />
-          <ProductTopping />
-          <ProductActionBar
-            productSelected={productSelected}
-            setIsShowDetails={setIsShowDetails}
-          />
-        </View>
+    <View style={styles.container}>
+      <View style={styles.modalContent}>
+        <ProductInformation />
+        <ProductTopping />
       </View>
-    </Modal>
+      <ProductActionBar />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "flex-end",
-    backgroundColor: "rgba(25, 27, 47, 0.4)",
+  container: {
+    flex: 1, // Chiếm toàn bộ chiều cao
+    height: windowHeight,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    backgroundColor: "transparent",
   },
   modalContent: {
+    flex: 1, // Phần nội dung chiếm phần còn lại
     backgroundColor: "#fff",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,

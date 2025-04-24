@@ -29,6 +29,21 @@ const toppings = [
     name: "Grape",
     imageUrl: require("../../assets/images/details/topping-4.png"),
   },
+  {
+    id: "5",
+    name: "Grape",
+    imageUrl: require("../../assets/images/details/topping-4.png"),
+  },
+  {
+    id: "6",
+    name: "Grape",
+    imageUrl: require("../../assets/images/details/topping-4.png"),
+  },
+  {
+    id: "7",
+    name: "Grape",
+    imageUrl: require("../../assets/images/details/topping-4.png"),
+  },
 ];
 const ProductTopping = () => {
   const [toppingSelectedIds, setToppingSelectedIds] = useState<string[]>([]);
@@ -43,42 +58,35 @@ const ProductTopping = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Toping for you</Text>
-      <ScrollView
-        style={styles.scrollViewContainer}
-        contentContainerStyle={styles.scrollViewContent}
-        showsVerticalScrollIndicator={false}
-      >
-        {toppings.map((topping) => (
-          <View key={topping.id} style={styles.toppingContainer}>
-            <View style={styles.toppingInfoContainer}>
-              <Image style={styles.toppingImage} source={topping.imageUrl} />
-              <Text style={styles.toppingName}>{topping.name}</Text>
-            </View>
-            <Pressable
-              style={[
-                styles.checkTopping,
-                toppingSelectedIds.includes(topping.id) &&
-                  styles.checkedTopping,
-              ]}
-              onPress={() => handleSelectTopping(topping.id)}
-            />
+
+      {toppings.map((topping) => (
+        <View key={topping.id} style={styles.toppingContainer}>
+          <View style={styles.toppingInfoContainer}>
+            <Image style={styles.toppingImage} source={topping.imageUrl} />
+            <Text style={styles.toppingName}>{topping.name}</Text>
           </View>
-        ))}
-      </ScrollView>
+          <Pressable
+            style={[
+              styles.checkTopping,
+              toppingSelectedIds.includes(topping.id) && styles.checkedTopping,
+            ]}
+            onPress={() => handleSelectTopping(topping.id)}
+          />
+        </View>
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 260,
     backgroundColor: "rgba(36, 39, 49, 1)",
     marginTop: 1,
     paddingTop: 20,
-    paddingBottom: 100,
     paddingHorizontal: 20,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+    gap: 10,
   },
   scrollViewContainer: {
     flex: 1,

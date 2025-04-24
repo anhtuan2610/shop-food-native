@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FlatList,
   Keyboard,
@@ -8,17 +8,12 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import ProductDetailsModal from "../product-details/product-details-modal";
 import { getProductsByCategory, TProduct } from "@/services/products";
 import { categories } from "./categories-product";
 import SpecialProductCard from "./special-product-card";
 
 const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
   const [products, setProducts] = useState<TProduct[]>([]);
-  const [isShowDetails, setIsShowDetails] = useState<boolean>(false);
-  const [productSelected, setProductSelected] = useState<TProduct | undefined>(
-    undefined
-  );
 
   const getProduct = async () => {
     try {
@@ -54,35 +49,18 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
           data={products}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <SpecialProductCard
-              key={item.id}
-              setIsShowDetails={setIsShowDetails}
-              setProductSelected={setProductSelected}
-              product={item}
-            />
+            <SpecialProductCard key={item.id} product={item} />
           )}
           contentContainerStyle={styles.specialOffersContainer}
           scrollEnabled={false}
         />
-        {/* <View style={styles.specialOffersContainer}>
-          {products.map((item) => (
-            <SpecialProductCard
-              key={item.id}
-              setIsShowDetails={setIsShowDetails}
-              setProductSelected={setProductSelected}
-              product={item}
-            />
-          ))}
-        </View> */}
       </ScrollView>
-
-      {isShowDetails && productSelected && (
-        <ProductDetailsModal
-          isShowDetails={isShowDetails}
-          setIsShowDetails={setIsShowDetails}
-          productSelected={productSelected}
-        />
-      )}
+      {/* {productSelected && (
+          <ProductDetailsModal
+            onClose={onClose}
+            productSelected={productSelected}
+          />
+        )} */}
     </View>
   );
 };

@@ -1,8 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Dimensions,
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import SignUp from "./screens/signup";
 import Login from "./screens/login";
 import ForgotPassword from "./screens/forgot-password";
@@ -12,13 +19,20 @@ import IntroduceScreen from "./screens";
 import TabbarNavigation from "@/navigations/tabbar-navigation";
 import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Modalize } from "react-native-modalize";
+import ProductDetailsModal from "@/components/product-details/product-details-modal";
+import { useModalStore } from "@/stores/modal";
 
 const Stack = createNativeStackNavigator();
+const { height } = Dimensions.get("window");
 
 export default function RootLayout() {
+  const modalizeRef = useRef<Modalize>(null);
   const loadAuthData = useAuthStore((state) => state.loadAuthData);
   const loadCartData = useCartStore((state) => state.loadCartData);
   const accessToken = useAuthStore((state) => state.accessToken);
+  const { isOpen, onClose } = useModalStore();
   useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
@@ -38,7 +52,6 @@ export default function RootLayout() {
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
     "Poppins-SemiBoldItalic": require("../assets/fonts/Poppins-SemiBoldItalic.ttf"),
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
-    // IntroduceImage1: require("../assets/images/introduce/introduce-1.png"),
   });
 
   const [isReady, setIsReady] = useState(false);
@@ -55,6 +68,14 @@ export default function RootLayout() {
     init();
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      modalizeRef.current?.open();
+    } else {
+      modalizeRef.current?.close();
+    }
+  }, [isOpen]);
+
   if (!isReady) {
     return (
       <ImageBackground
@@ -66,7 +87,7 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
         initialRouteName={accessToken ? "tabs" : "index"}
@@ -81,7 +102,18 @@ export default function RootLayout() {
         {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
       </Stack.Navigator>
       <StatusBar style="auto" />
-    </>
+      <Modalize
+        ref={modalizeRef}
+        modalHeight={height} // full-screen khi vuốt lên
+        snapPoint={height * (70 / 100)} // dừng ở 400px khi vuốt xuống
+        adjustToContentHeight={false}
+        onClosed={onClose}
+        rootStyle={{ flex: 1 }}
+        modalStyle={{ paddingTop: 10 }}
+      >
+        <ProductDetailsModal />
+      </Modalize>
+    </GestureHandlerRootView>
   );
 }
 

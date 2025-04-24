@@ -6,22 +6,17 @@ import {
   View,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
-import { TProduct } from "@/services/products";
 import { useCartStore } from "@/stores/cart";
 import { TCartItem } from "@/types";
+import { useModalStore } from "@/stores/modal";
 
-const ProductActionBar = ({
-  productSelected,
-  setIsShowDetails,
-}: {
-  productSelected: TProduct;
-  setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const ProductActionBar = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const addToCart = useCartStore((state) => state.addToCart);
+  const { onClose, productSelected } = useModalStore();
   const [quantity, setQuantity] = useState<number>(1);
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -34,15 +29,16 @@ const ProductActionBar = ({
   };
 
   const handleAddToCart = () => {
-    const newItem: TCartItem = {
-      product: productSelected,
-      quantity: quantity,
-      totalPrice: quantity * productSelected.price,
-    };
-
-    addToCart(newItem);
-    setIsShowDetails(false); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
-    navigation.navigate("cart");
+    if (productSelected) {
+      const newItem: TCartItem = {
+        product: productSelected,
+        quantity: quantity,
+        totalPrice: quantity * productSelected.price,
+      };
+      addToCart(newItem);
+      onClose(); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
+      navigation.navigate("cart");
+    }
   };
 
   return (

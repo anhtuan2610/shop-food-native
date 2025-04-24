@@ -1,22 +1,14 @@
 import DeliveryVector from "@/assets/vectors/home/delivery-vector";
 import StarVector from "@/assets/vectors/home/star-vector";
 import { TProduct } from "@/services/products";
+import { useModalStore } from "@/stores/modal";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const SpecialProductCard = ({
-  setIsShowDetails,
-  setProductSelected,
-  product,
-}: {
-  setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  setProductSelected: React.Dispatch<
-    React.SetStateAction<TProduct | undefined>
-  >;
-  product: TProduct;
-}) => {
+const SpecialProductCard = ({ product }: { product: TProduct }) => {
+  const { onOpen } = useModalStore();
+
   const handleClickBuyNow = (product: TProduct) => {
-    setIsShowDetails(true);
-    setProductSelected(product);
+    onOpen({ productSelected: product });
   };
 
   return (

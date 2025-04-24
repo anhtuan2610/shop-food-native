@@ -4,21 +4,17 @@ import DeliveryVector2 from "@/assets/vectors/home/delivery-vector2";
 import ClockVector from "@/assets/vectors/home/clock-vector";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import StarVector from "@/assets/vectors/details/star-vector";
-import { TProduct } from "@/services/products";
+import { useModalStore } from "@/stores/modal";
 
-const ProductInformation = ({
-  productSelected,
-  setIsShowDetails,
-}: {
-  productSelected: TProduct;
-  setIsShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const ProductInformation = () => {
+  const { onClose, productSelected } = useModalStore();
+
   return (
     <>
       <View style={styles.headerDetails}>
         <Pressable
           style={styles.closeButtonContainer}
-          onPress={() => setIsShowDetails(false)}
+          onPress={() => onClose()}
         >
           <CloseVector />
         </Pressable>
