@@ -54,16 +54,9 @@ export const getProductsByCategory = async ({
   });
 };
 
-export const get2Products = async () => {
+export const getAllProducts = async ({ limit, skip }: {limit: number, skip: number}) => {
   return await get<ProductResponse>({
     url: `/products`,
-    params: { limit: 5 },
-  });
-};
-
-export const getAllProducts = async () => {
-  return await get<ProductResponse>({
-    url: `/products`,
-    params: { limit: 10 },
+    params: { limit, skip },
   });
 };

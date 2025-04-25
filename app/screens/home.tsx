@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import Products from "@/components/home/products";
 
 const Home = () => {
-  console.log("render");
-
   const [selectedCatId, setSelectedCatId] = useState<string>("3");
   useEffect(() => {
     getToken();

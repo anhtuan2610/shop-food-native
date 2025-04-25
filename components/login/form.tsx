@@ -69,8 +69,18 @@ const LoginForm = () => {
         }); // useAuthStore.getState().setAuthData(res);
         navigation.reset({
           index: 0,
-          routes: [{ name: "tabs" }],
-        }); // de la home thi duoc , de la index thi lai khong duoc
+          routes: [
+            {
+              name: "tabs",
+              params: {
+                screen: "home",
+                params: {
+                  screen: "home-main",
+                },
+              },
+            },
+          ],
+        });
         return;
       }
       setMessage("Your email or password is incorrect");

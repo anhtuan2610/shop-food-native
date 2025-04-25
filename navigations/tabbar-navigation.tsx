@@ -5,6 +5,7 @@ import Profile from "@/app/screens/profile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CustomTabBar from "@/components/common/custom-tabbar";
 import TabbarLayout from "@/components/common/layout-tabbar";
+import HomeNavigation from "./home-navigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +17,7 @@ const TabbarNavigation = () => {
         initialRouteName="home"
         tabBar={() => <CustomTabBar />}
       >
-        <Tab.Screen name="home" component={Home} />
+        <Tab.Screen name="home" component={HomeNavigation} />
         <Tab.Screen name="notification" component={Notification} />
         <Tab.Screen name="profile" component={Profile} />
       </Tab.Navigator>

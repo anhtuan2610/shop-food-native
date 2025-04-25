@@ -5,6 +5,7 @@ import {
   FlatList,
   Image,
   Keyboard,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,26 +13,42 @@ import {
   View,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { get2Products, TProduct } from "@/services/products";
+import { getAllProducts, TProduct } from "@/services/products";
 import { useEffect, useState } from "react";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "@/types/navigation";
 
 const Products = () => {
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const [products, setProducts] = useState<TProduct[]>([]);
-  const getProducts = async () => {
-    const response = await get2Products();
-    if (response) {
-      setProducts(response.products);
-    }
+
+  const redirectViewAllProducts = () => {
+    navigation.navigate("tabs", {
+      screen: "home",
+      params: {
+        screen: "all-products",
+      },
+    });
   };
+
   useEffect(() => {
+    const getProducts = async () => {
+      const response = await getAllProducts({ limit: 5, skip: 10 });
+      if (response) {
+        setProducts(response.products);
+      }
+    };
     getProducts();
   }, []);
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.titleContainer}>
           <Text style={styles.title1}>Products</Text>
-          <Text style={styles.title2}>View All</Text>
+          <Pressable onPress={redirectViewAllProducts}>
+            <Text style={styles.title2}>View All</Text>
+          </Pressable>
         </View>
       </TouchableWithoutFeedback>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -43,7 +60,7 @@ const Products = () => {
               <View style={{ position: "relative" }}>
                 <Image
                   style={styles.restaurantImage}
-                  source={{ uri: item.images[0] }}
+                  source={{ uri: item.thumbnail }}
                 />
                 <View style={styles.favoriteIconContainer}>
                   <AntDesign name="heart" size={16} color="white" />

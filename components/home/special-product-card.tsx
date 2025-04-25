@@ -15,7 +15,7 @@ const SpecialProductCard = ({ product }: { product: TProduct }) => {
     <View key={product.id} style={[styles.specialOffersCard]}>
       <Image
         style={styles.specialOffersImage}
-        source={{ uri: product.images[0] }}
+        source={{ uri: product.thumbnail }}
         resizeMode="contain"
       />
       <View style={styles.specialOffersContent}>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderRadius: 15,
-    backgroundColor: "#E8ECEF",
+    backgroundColor: "#fef6f6",
     padding: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

@@ -20,7 +20,7 @@ const ProductInformation = () => {
         </Pressable>
         <Image
           style={styles.imageDetails}
-          source={{ uri: productSelected?.images[0] }}
+          source={{ uri: productSelected?.thumbnail }}
         />
         <View style={styles.favoriteIconContainer}>
           <HeartVector />

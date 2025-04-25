@@ -24,6 +24,7 @@ import { Modalize } from "react-native-modalize";
 import ProductDetailsModal from "@/components/product-details/product-details-modal";
 import { useModalStore } from "@/stores/modal";
 import ProductActionBar from "@/components/product-details/action-bar";
+import allProducts from "./screens/all-products";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");

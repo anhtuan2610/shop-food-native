@@ -69,13 +69,22 @@ const CustomTabBar = () => {
             styles.iconContainer,
             currentTabRoute === tab.name && styles.bottomHighlight,
           ]}
-          onPress={() =>
-            tab.name != "cart"
-              ? navigation.navigate("tabs", {
-                  screen: tab.name as keyof TabsParamList,
-                })
-              : navigation.navigate("cart")
-          }
+          onPress={() => {
+            if (tab.name === "cart") {
+              navigation.navigate("cart");
+            } else if (tab.name === "home") {
+              navigation.navigate("tabs", {
+                screen: "home",
+                params: {
+                  screen: "home-main", // hoặc bất kỳ screen mặc định nào trong Home stack
+                },
+              });
+            } else {
+              navigation.navigate("tabs", {
+                screen: tab.name as Exclude<keyof TabsParamList, "home">,
+              });
+            }
+          }}
         >
           {tab.icon}
         </Pressable>

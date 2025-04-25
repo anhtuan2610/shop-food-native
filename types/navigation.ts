@@ -11,7 +11,12 @@ export type RootStackParamList = {
 };
 
 export type TabsParamList = {
-  home: undefined;
+  home: NavigatorScreenParams<HomeParamList>;
   notification: undefined;
   profile: undefined;
 };
+
+export type HomeParamList = {
+  "home-main": undefined;
+  "all-products": undefined;
+}
