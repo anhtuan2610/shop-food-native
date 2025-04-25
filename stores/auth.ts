@@ -43,6 +43,7 @@ export const useAuthStore = create<TAuthStore & TAuthAction>((set) => ({
         user: parse.user,
       });
     }
+    return;
   },
   clearAuthData: async () => {
     await AsyncStorage.removeItem("authStorage");

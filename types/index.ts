@@ -31,6 +31,7 @@ export type TCartItem = {
 }
 
 export type TCartState = {
+  id?: number, // trường hợp cart chưa có cái nào, thì tạo cái đầu tiên không cần tới id để đẩy lên server tự tạo id
   items: TCartItem[],
   totalItems: number,
   totalAmount: number,
@@ -57,3 +58,32 @@ export type TUserLoginResponse = {
   accessToken: string;
   refreshToken: string;
 }
+
+export type TCartsResponse = {
+  carts: TCart[]; // pick thằng đầu thôi
+  total: number;
+  skip: number;
+  limit: number;
+};
+
+type TCart = {
+  id: number;
+  products: TCartProduct[];
+  total: number;
+  discountedTotal: number;
+  userId: number;
+  totalProducts: number;
+  totalQuantity: number;
+};
+
+type TCartProduct = {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  total: number;
+  discountPercentage: number;
+  discountedTotal: number;
+  thumbnail: string;
+};
+

@@ -18,6 +18,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 import { useAuthStore } from "@/stores/auth";
 import * as yup from "yup";
+import { useCartStore } from "@/stores/cart";
 
 const schema = yup.object({
   email: yup.string().required("Email can't not empty"),
@@ -30,6 +31,7 @@ export type FormRegisterType = yup.InferType<typeof schema>;
 const LoginForm = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const setAuthData = useAuthStore((state) => state.setAuthData);
+  const loadCartData = useCartStore((state) => state.loadCartData);
   const [message, setMessage] = useState<string | undefined>();
   const {
     control,
@@ -67,6 +69,7 @@ const LoginForm = () => {
             username: res.username,
           },
         }); // useAuthStore.getState().setAuthData(res);
+        await loadCartData();
         navigation.reset({
           index: 0,
           routes: [

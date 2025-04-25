@@ -59,12 +59,16 @@ export default function RootLayout() {
 
   useEffect(() => {
     const init = async () => {
-      await loadCartData();
-      await loadAuthData();
-      const timeout = setTimeout(() => {
-        setIsReady(true);
-      }, 1500);
-      return () => clearTimeout(timeout);
+      try {
+        await loadAuthData();
+        await loadCartData();
+        const timeout = setTimeout(() => {
+          setIsReady(true);
+        }, 1500);
+        return () => clearTimeout(timeout);
+      } catch (error) {
+        console.log(error);
+      }
     };
     init();
   }, []);
@@ -112,6 +116,7 @@ export default function RootLayout() {
         onClose={onClose}
         rootStyle={{ flex: 1 }}
         modalStyle={{ paddingTop: 10 }}
+        disableScrollIfPossible={true}
       >
         <ProductDetailsModal />
       </Modalize>

@@ -3,25 +3,58 @@ import CloseVector from "@/assets/vectors/cart/close-vector";
 import Entypo from "@expo/vector-icons/Entypo";
 import { TCartItem } from "@/types";
 import { useCartStore } from "@/stores/cart";
+import { useDebounceQuantity } from "@/hooks/useDebounceQuantity";
+import { useEffect, useState } from "react";
+import { updateCartByCartId } from "@/services/cart";
 
 const ProductCart = ({ item }: { item: TCartItem }) => {
+  const [quantity, setQuantity] = useState<number>(item.quantity);
+  const quantityDebounceValue = useDebounceQuantity({ quantity: quantity });
+
   const decreaseItemQuantity = useCartStore(
     (state) => state.decreaseItemQuantity
   );
-  const increaseQuantity = useCartStore((state) => state.increaseQuantity);
+  const increaseItemQuantity = useCartStore(
+    (state) => state.increaseItemQuantity
+  );
   const removeFormCart = useCartStore((state) => state.removeFormCart);
+  const cart = useCartStore((state) => state.cart);
 
   const handleDecreaseQuantity = (item: TCartItem) => {
-    decreaseItemQuantity(item);
+    decreaseItemQuantity({
+      ...item,
+    });
+    setQuantity(item.quantity - 1);
   };
-
   const handleIncreaseQuantity = (item: TCartItem) => {
-    increaseQuantity(item);
+    increaseItemQuantity({
+      ...item,
+    });
+    setQuantity(item.quantity + 1);
   };
-
   const handleRemoveProductFormCart = (item: TCartItem) => {
     removeFormCart(item);
   };
+
+  useEffect(() => {
+    const updateCart = async () => {
+      if (cart?.id) {
+        await updateCartByCartId({
+          cartId: cart.id,
+          products: [
+            {
+              id: item.product.id,
+              quantity: quantityDebounceValue,
+            },
+          ],
+        });
+        console.log(
+          `update success productId: ${item.product.id} with quantity: ${item.quantity}`
+        );
+      }
+    };
+    updateCart();
+  }, [quantityDebounceValue]);
 
   return (
     <View style={styles.container}>
