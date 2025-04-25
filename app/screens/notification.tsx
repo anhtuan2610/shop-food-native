@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: "white",
   },
-
   textTitle: {
     textAlign: "center",
     fontFamily: "Poppins-Regular",

@@ -72,13 +72,6 @@ const CustomTabBar = () => {
           onPress={() => {
             if (tab.name === "cart") {
               navigation.navigate("cart");
-            } else if (tab.name === "home") {
-              navigation.navigate("tabs", {
-                screen: "home",
-                params: {
-                  screen: "home-main", // hoặc bất kỳ screen mặc định nào trong Home stack
-                },
-              });
             } else {
               navigation.navigate("tabs", {
                 screen: tab.name as Exclude<keyof TabsParamList, "home">,
@@ -92,6 +85,15 @@ const CustomTabBar = () => {
     </View>
   );
 };
+
+//   else if (tab.name === "home") {
+//   navigation.navigate("tabs", {
+//     screen: "home",
+//     params: {
+//       screen: "home-main", // hoặc bất kỳ screen mặc định nào trong Home stack
+//     },
+//   });
+// }
 
 export default CustomTabBar;
 

@@ -31,11 +31,12 @@ const PriceDetails = () => {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16,
+    gap: 10,
     marginTop: 28,
+    marginBottom: 10,
   },
   titleContainer: {
-    gap: 12,
+    gap: 10,
   },
   textContainer: {
     flexDirection: "row",

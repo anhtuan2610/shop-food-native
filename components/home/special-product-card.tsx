@@ -53,15 +53,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderRadius: 15,
-    backgroundColor: "#fef6f6",
+    backgroundColor: "#fffcfa",
     padding: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    elevation: 2,
     width: 280,
-    overflow: "hidden",
+    elevation: 4, // Đổ bóng cho Android
+    shadowColor: "#000", // Màu bóng cho iOS
+    shadowOffset: { width: 0, height: 2 }, // Vị trí bóng (dưới thẻ)
+    shadowOpacity: 0.15, // Độ mờ của bóng
+    shadowRadius: 6,
+    margin: 4,
   },
   specialOffersImage: {
     width: 100,

@@ -27,7 +27,7 @@ const ProductCart = ({ item }: { item: TCartItem }) => {
     <View style={styles.container}>
       <Image
         style={styles.foodImage}
-        source={{ uri: item.product.images[0] }}
+        source={{ uri: item.product.thumbnail }}
       />
       <View style={styles.contentContainer}>
         <View style={styles.titleRow}>

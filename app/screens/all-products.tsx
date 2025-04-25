@@ -1,38 +1,56 @@
 import { getAllProducts, TProduct } from "@/services/products";
+import { useModalStore } from "@/stores/modal";
 import React, { useEffect, useState } from "react";
-import { Text, View, FlatList, Image, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  Image,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 
 const AllProducts = () => {
+  const { onOpen } = useModalStore();
   const [products, setProducts] = useState<TProduct[]>([]);
+
+  const handlePressProduct = (product: TProduct) => {
+    onOpen({ productSelected: product });
+  };
 
   useEffect(() => {
     const getProducts = async () => {
-      const response = await getAllProducts({ limit: 30, skip: 0 });
+      const response = await getAllProducts({ limit: 30, skip: 10 });
       if (response) {
         setProducts(response.products);
       }
     };
     getProducts();
   }, []);
+
   return (
     <View style={styles.container}>
+      <Text style={styles.textTitle}>All Products</Text>
       <FlatList
+        style={{ marginTop: 20 }}
         data={products}
         renderItem={({ item }) => (
-          <View style={styles.productContainer}>
-            <Image
-              source={{ uri: item.thumbnail }}
-              style={styles.thumbnail}
-              resizeMode="contain"
-            />
-            <View style={styles.productInfo}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <Text style={styles.description} numberOfLines={2}>
-                {item.description}
-              </Text>
+          <Pressable onPress={() => handlePressProduct(item)}>
+            <View style={styles.productContainer}>
+              <Image
+                source={{ uri: item.thumbnail }}
+                style={styles.thumbnail}
+                resizeMode="contain"
+              />
+              <View style={styles.productInfo}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                <Text style={styles.description} numberOfLines={2}>
+                  {item.description}
+                </Text>
+              </View>
             </View>
-          </View>
+          </Pressable>
         )}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
@@ -45,8 +63,14 @@ const AllProducts = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: "#ffffff",
+    paddingTop: 50,
+    paddingHorizontal: 16,
+    backgroundColor: "white",
+  },
+  textTitle: {
+    textAlign: "center",
+    fontFamily: "Poppins-Regular",
+    fontSize: 18,
   },
   productContainer: {
     flexDirection: "row",

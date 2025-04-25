@@ -6,7 +6,7 @@ import CartHeader from "@/components/cart/header";
 import InputPromo from "@/components/cart/input-promo";
 import PriceDetails from "@/components/cart/price-details";
 import { useCartStore } from "@/stores/cart";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 const Cart = () => {
   const cart = useCartStore((store) => store.cart);
@@ -19,11 +19,11 @@ const Cart = () => {
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <CartHeader />
-        <View style={styles.foodCardsContainer}>
+        <ScrollView style={{ gap: 10 }} showsVerticalScrollIndicator={false}>
           {cart?.items.map((item) => (
             <ProductCart key={item.product.id} item={item} />
           ))}
-        </View>
+        </ScrollView>
         <InputPromo />
         <PriceDetails />
       </View>
@@ -42,9 +42,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 26,
     flex: 1,
-  },
-  foodCardsContainer: {
-    gap: 10,
   },
 });
 

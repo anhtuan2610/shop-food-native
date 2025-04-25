@@ -7,16 +7,17 @@ export type RootStackParamList = {
   'forgot-password': undefined;
   verification: undefined;
   tabs: NavigatorScreenParams<TabsParamList>;
-  cart: undefined
+  cart: undefined;
+  'all-products': undefined
 };
 
 export type TabsParamList = {
-  home: NavigatorScreenParams<HomeParamList>;
+  home: undefined;
   notification: undefined;
   profile: undefined;
 };
 
-export type HomeParamList = {
-  "home-main": undefined;
-  "all-products": undefined;
-}
+// export type HomeParamList = {
+//   "home-main": undefined;
+//   "all-products": undefined;
+// }

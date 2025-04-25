@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   ImageBackground,
-  Pressable,
   StyleSheet,
   Text,
   View,
@@ -24,7 +23,7 @@ import { Modalize } from "react-native-modalize";
 import ProductDetailsModal from "@/components/product-details/product-details-modal";
 import { useModalStore } from "@/stores/modal";
 import ProductActionBar from "@/components/product-details/action-bar";
-import allProducts from "./screens/all-products";
+import AllProducts from "./screens/all-products";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -101,6 +100,7 @@ export default function RootLayout() {
         <Stack.Screen name="verification" component={Verification} />
         <Stack.Screen name="tabs" component={TabbarNavigation} />
         <Stack.Screen name="cart" component={Cart} />
+        <Stack.Screen name="all-products" component={AllProducts} />
         {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
       </Stack.Navigator>
       <StatusBar style="auto" />

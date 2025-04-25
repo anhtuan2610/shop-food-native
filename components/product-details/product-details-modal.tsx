@@ -1,7 +1,6 @@
 import { Dimensions, StyleSheet, View } from "react-native";
 import ProductInformation from "./information";
 import ProductTopping from "./topping";
-import ProductActionBar from "./action-bar";
 
 const windowHeight = Dimensions.get("window").height;
 
