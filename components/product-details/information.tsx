@@ -2,31 +2,36 @@ import HeartVector from "@/assets/vectors/details/heart-vector";
 import CloseVector from "@/assets/vectors/details/close-vector";
 import DeliveryVector2 from "@/assets/vectors/home/delivery-vector2";
 import ClockVector from "@/assets/vectors/home/clock-vector";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import StarVector from "@/assets/vectors/details/star-vector";
 import { useModalStore } from "@/stores/modal";
+import ProductTopping from "./topping";
 
 const ProductInformation = () => {
-  const { onClose, productSelected } = useModalStore();
+  const { productSelected } = useModalStore();
 
   return (
-    <>
-      <View style={styles.headerDetails}>
-        <Pressable
-          style={styles.closeButtonContainer}
-          onPress={() => onClose()}
-        >
-          <CloseVector />
-        </Pressable>
-        <Image
-          style={styles.imageDetails}
-          source={{ uri: productSelected?.thumbnail }}
-        />
-        <View style={styles.favoriteIconContainer}>
-          <HeartVector />
-        </View>
-      </View>
+    <View>
       <View style={styles.descriptionContainer}>
+        <View
+          style={{
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            style={styles.imageDetails}
+            source={{ uri: productSelected?.thumbnail }}
+          />
+        </View>
         <View style={styles.titleContainer}>
           <Text style={styles.mainText}>{productSelected?.title}</Text>
           <Text style={styles.priceText}>${productSelected?.price}</Text>
@@ -56,7 +61,8 @@ const ProductInformation = () => {
           </Text>
         </View>
       </View>
-    </>
+      <ProductTopping />
+    </View>
   );
 };
 
@@ -91,7 +97,7 @@ const styles = StyleSheet.create({
 
   imageDetails: {
     width: 260,
-    height: 260,
+    height: 220,
   },
   favoriteIconContainer: {
     width: 38,

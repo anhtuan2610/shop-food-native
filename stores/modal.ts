@@ -4,6 +4,7 @@ import { create } from "zustand";
 type TModalStore = {
   isOpen: boolean | null;
   productSelected: TProduct | null;
+  isFullView: boolean | null;
 };
 
 type TModalAction = {
@@ -14,6 +15,7 @@ type TModalAction = {
 export const useModalStore = create<TModalStore & TModalAction>((set) => ({
   isOpen: null,
   productSelected: null,
+  isFullView: null,
   onOpen: ({ productSelected }) => {
     set({ isOpen: true, productSelected });
   },

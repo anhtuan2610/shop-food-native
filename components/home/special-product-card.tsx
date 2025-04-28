@@ -56,11 +56,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fffcfa",
     padding: 10,
     width: 280,
-    elevation: 4, // Đổ bóng cho Android
-    shadowColor: "#000", // Màu bóng cho iOS
-    shadowOffset: { width: 0, height: 2 }, // Vị trí bóng (dưới thẻ)
-    shadowOpacity: 0.15, // Độ mờ của bóng
-    shadowRadius: 6,
     margin: 4,
   },
   specialOffersImage: {

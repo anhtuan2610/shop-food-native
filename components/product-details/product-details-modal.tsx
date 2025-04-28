@@ -1,6 +1,7 @@
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import ProductInformation from "./information";
 import ProductTopping from "./topping";
+import ProductHeader from "./product-header";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -8,8 +9,10 @@ const ProductDetailsModal = () => {
   return (
     <View style={styles.container}>
       <View style={styles.modalContent}>
-        <ProductInformation />
-        <ProductTopping />
+        <ProductHeader />
+        <ScrollView>
+          <ProductInformation />
+        </ScrollView>
       </View>
     </View>
   );
@@ -29,6 +32,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     paddingTop: 25,
+    marginTop: 15,
   },
 });
 

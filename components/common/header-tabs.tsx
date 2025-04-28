@@ -51,16 +51,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white", // 👈 Bắt buộc cho Android shadow
     padding: 10, // 👈 Tuỳ chỉnh nếu cần khoảng đệm
     borderRadius: 12, // 👈 Để trông đẹp hơn
-    // iOS shadow
-    shadowColor: "rgba(211, 209, 216, 1)",
-    shadowOffset: {
-      width: 5,
-      height: 10,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    // Android shadow
-    elevation: 10,
   },
 
   midContent: {

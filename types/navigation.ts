@@ -8,7 +8,7 @@ export type RootStackParamList = {
   verification: undefined;
   tabs: NavigatorScreenParams<TabsParamList>;
   cart: undefined;
-  'all-products': undefined
+  'all-products'?: { isSearch: boolean }
 };
 
 export type TabsParamList = {

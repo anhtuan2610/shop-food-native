@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   View,

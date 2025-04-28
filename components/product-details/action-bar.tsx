@@ -12,6 +12,7 @@ import { RootStackParamList } from "@/types/navigation";
 import { useCartStore } from "@/stores/cart";
 import { TCartItem } from "@/types";
 import { useModalStore } from "@/stores/modal";
+import { NumericFormat } from "react-number-format";
 
 const ProductActionBar = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
@@ -67,9 +68,18 @@ const ProductActionBar = () => {
         <Text style={styles.buttonText1}>
           Add <Text style={styles.quantityText}>{quantity}</Text> to cart
         </Text>
-        <Text style={styles.buttonText2}>
-          ${(Number(productSelected?.price) * quantity).toFixed(2)}
-        </Text>
+
+        <NumericFormat
+          value={Number(productSelected?.price) * quantity}
+          displayType="text"
+          thousandSeparator=","
+          decimalSeparator="."
+          decimalScale={2}
+          prefix="$"
+          renderText={(formattedValue) => (
+            <Text style={styles.buttonText2}>{formattedValue}</Text>
+          )}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -83,9 +93,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: 20,
   },
   quantityContainer: {
+    width: "30%",
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
     gap: 18,
   },
@@ -101,6 +114,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "rgba(255, 107, 87, 1)",
     gap: 10,
+    textAlign: "center",
+    width: "55%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText1: {
     fontFamily: "Poppins-Medium",

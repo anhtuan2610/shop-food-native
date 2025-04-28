@@ -46,7 +46,7 @@ const Products = () => {
           </Pressable>
         </View>
       </TouchableWithoutFeedback>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView showsHorizontalScrollIndicator={false}>
         <FlatList
           data={products}
           keyExtractor={(item) => item.id.toString()}
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     color: "#FF6B57",
   },
   restaurantsContainer: {
-    flexDirection: "row",
+    paddingBottom: 520,
     alignItems: "center",
     gap: 8,
     paddingHorizontal: 24,
@@ -130,11 +130,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "#fffcfa",
     padding: 10,
-    elevation: 4, // Đổ bóng cho Android
-    shadowColor: "#000", // Màu bóng cho iOS
-    shadowOffset: { width: 0, height: 2 }, // Vị trí bóng (dưới thẻ)
-    shadowOpacity: 0.15, // Độ mờ của bóng
-    shadowRadius: 6,
     margin: 4,
   },
   restaurantImage: {

@@ -1,5 +1,6 @@
 import { useCartStore } from "@/stores/cart";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { NumericFormat } from "react-number-format";
 
 const ActionBar = () => {
   const cart = useCartStore((state) => state.cart);
@@ -8,7 +9,18 @@ const ActionBar = () => {
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.textTotal}>Total</Text>
-        <Text style={styles.textPrice}>${finalTotal}</Text>
+        <NumericFormat
+          value={Number(finalTotal)}
+          displayType="text"
+          thousandSeparator=","
+          decimalSeparator="."
+          decimalScale={2}
+          fixedDecimalScale
+          prefix="$"
+          renderText={(formatText) => (
+            <Text style={styles.textPrice}>{formatText}</Text>
+          )}
+        />
       </View>
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.buttonText}>Go to checkout</Text>

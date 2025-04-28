@@ -22,6 +22,7 @@ const CartHeader = () => {
 
 const styles = StyleSheet.create({
   contentHeader: {
+    paddingBottom: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

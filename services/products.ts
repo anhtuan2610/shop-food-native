@@ -54,9 +54,11 @@ export const getProductsByCategory = async ({
   });
 };
 
-export const getAllProducts = async ({ limit, skip }: {limit: number, skip: number}) => {
+export const getAllProducts = async ({ limit, skip, searchString }: { limit: number, skip: number, searchString?: string }) => {
+  const url = searchString ? `/products/search` : `/products`;
+  const params = searchString ? { q: searchString } : { limit, skip }
   return await get<ProductResponse>({
-    url: `/products`,
-    params: { limit, skip },
+    url: url,
+    params: params,
   });
 };

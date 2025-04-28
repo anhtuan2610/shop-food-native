@@ -6,6 +6,7 @@ import { useCartStore } from "@/stores/cart";
 import { useDebounceQuantity } from "@/hooks/useDebounceQuantity";
 import { useEffect, useState } from "react";
 import { updateCartByCartId } from "@/services/cart";
+import { NumericFormat } from "react-number-format";
 
 const ProductCart = ({ item }: { item: TCartItem }) => {
   const [quantity, setQuantity] = useState<number>(item.quantity);
@@ -48,9 +49,9 @@ const ProductCart = ({ item }: { item: TCartItem }) => {
             },
           ],
         });
-        console.log(
-          `update success productId: ${item.product.id} with quantity: ${item.quantity}`
-        );
+        // console.log(
+        //   `update success productId: ${item.product.id} with quantity: ${item.quantity}`
+        // );
       }
     };
     updateCart();
@@ -70,7 +71,18 @@ const ProductCart = ({ item }: { item: TCartItem }) => {
           </Pressable>
         </View>
         <View style={styles.actionRow}>
-          <Text style={styles.priceText}>${item.totalPrice.toFixed(2)}</Text>
+          <NumericFormat
+            value={Number(item.totalPrice)}
+            displayType="text"
+            thousandSeparator=","
+            decimalSeparator="."
+            decimalScale={2}
+            fixedDecimalScale
+            prefix="$"
+            renderText={(formattedValue) => (
+              <Text style={styles.priceText}>{formattedValue}</Text>
+            )}
+          />
           <View style={styles.quantityContainer}>
             <Pressable
               style={styles.quantityBtn}

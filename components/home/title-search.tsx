@@ -9,8 +9,11 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "@/types/navigation";
 
 const TitleSearch = () => {
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.titleContainer}>
@@ -34,8 +37,11 @@ const TitleSearch = () => {
           </View>
           <TextInput
             style={styles.searchInput}
-            placeholder="Search dishes, restaurants"
+            placeholder="Search products by name"
             placeholderTextColor="#A9ABB4"
+            onPress={() =>
+              navigation.navigate("all-products", { isSearch: true })
+            }
           />
         </View>
       </View>
