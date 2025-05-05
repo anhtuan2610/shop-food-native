@@ -3,37 +3,45 @@ import { RootStackParamList } from "@/types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import {
   Image,
-  Keyboard,
   Pressable,
   StyleSheet,
   Text,
-  TouchableNativeFeedback,
+  TouchableOpacity,
   View,
 } from "react-native";
+import { useState } from "react";
+import MenuDropdown from "../home/menu-dropdown";
 
 const HeaderTabs = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const handleRedirectProfile = () => {
     navigation.navigate("tabs", { screen: "profile" });
   };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <TouchableNativeFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <View style={styles.menuVector}>
-          <MenuVector />
-        </View>
-        <View style={styles.midContent}>
-          <Text style={styles.text1}>Deliver to</Text>
-          <Text style={styles.text2}>387 Merdina</Text>
-        </View>
-        <Pressable onPress={handleRedirectProfile}>
-          <Image
-            style={styles.avatar}
-            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }}
-          />
-        </Pressable>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.menuVector} onPress={toggleMenu}>
+        <MenuVector />
+      </TouchableOpacity>
+      <View style={styles.midContent}>
+        <Text style={styles.text1}>Deliver to</Text>
+        <Text style={styles.text2}>387 Merdina</Text>
       </View>
-    </TouchableNativeFeedback>
+      <Pressable onPress={handleRedirectProfile}>
+        <Image
+          style={styles.avatar}
+          source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }}
+        />
+      </Pressable>
+
+      {isMenuOpen && <MenuDropdown setIsMenuOpen={setIsMenuOpen} />}
+    </View>
   );
 };
 
@@ -44,15 +52,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   menuVector: {
     width: 40,
     height: 40,
-    backgroundColor: "white", // 👈 Bắt buộc cho Android shadow
-    padding: 10, // 👈 Tuỳ chỉnh nếu cần khoảng đệm
-    borderRadius: 12, // 👈 Để trông đẹp hơn
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 12,
   },
-
   midContent: {
     alignItems: "center",
   },
@@ -63,6 +71,7 @@ const styles = StyleSheet.create({
   },
   text2: {
     fontFamily: "Poppins-Medium",
+    fontSize: 15,
   },
   avatar: {
     height: 40,
