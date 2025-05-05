@@ -8,6 +8,7 @@ export type RootStackParamList = {
   verification: undefined;
   tabs: NavigatorScreenParams<TabsParamList>;
   cart: undefined;
+  "post-details": {postId: number};
   'all-products'?: { isSearch: boolean }
 };
 

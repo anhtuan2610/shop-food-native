@@ -27,7 +27,7 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
         }
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -44,17 +44,16 @@ const SpecialOffers = ({ selectedCatId }: { selectedCatId: string }) => {
         </View>
       </TouchableWithoutFeedback>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <SpecialProductCard key={item.id} product={item} />
-          )}
-          contentContainerStyle={styles.specialOffersContainer}
-          scrollEnabled={false}
-        />
-      </ScrollView>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <SpecialProductCard key={item.id} product={item} />
+        )}
+        contentContainerStyle={styles.specialOffersContainer}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />
       {/* {productSelected && (
           <ProductDetailsModal
             onClose={onClose}

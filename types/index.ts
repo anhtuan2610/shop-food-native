@@ -87,3 +87,22 @@ type TCartProduct = {
   thumbnail: string;
 };
 
+export type TPostResponse = {
+  posts: TPost[],
+  total: number,
+  skip: number,
+  limit: number
+}
+
+export type TPost = {
+  id: number;
+  title: string;
+  body: string;
+  tags: string[];
+  reactions: {
+    likes: number;
+    dislikes: number;
+  };
+  views: number;
+  userId: number;
+};

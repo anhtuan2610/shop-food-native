@@ -110,7 +110,7 @@ export const useCartStore = create<TCartStore & TCartAction>((set) => ({
               products: products,
             });
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           }
         }
       }

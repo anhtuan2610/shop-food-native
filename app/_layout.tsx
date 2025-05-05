@@ -2,14 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef, useState } from "react";
-import {
-  Dimensions,
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Dimensions, ImageBackground, StyleSheet, View } from "react-native";
 import SignUp from "./screens/signup";
 import Login from "./screens/login";
 import ForgotPassword from "./screens/forgot-password";
@@ -25,6 +18,7 @@ import ProductDetailsModal from "@/components/product-details/product-details-mo
 import { useModalStore } from "@/stores/modal";
 import ProductActionBar from "@/components/product-details/action-bar";
 import AllProducts from "./screens/all-products";
+import PostDetails from "./screens/post-details";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -68,7 +62,7 @@ export default function RootLayout() {
         }, 1500);
         return () => clearTimeout(timeout);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     init();
@@ -105,6 +99,7 @@ export default function RootLayout() {
         <Stack.Screen name="verification" component={Verification} />
         <Stack.Screen name="tabs" component={TabbarNavigation} />
         <Stack.Screen name="cart" component={Cart} />
+        <Stack.Screen name="post-details" component={PostDetails} />
         <Stack.Screen name="all-products" component={AllProducts} />
         {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
       </Stack.Navigator>
@@ -114,6 +109,8 @@ export default function RootLayout() {
         modalHeight={height} // full-screen khi vuốt lên
         snapPoint={height * (70 / 100)} // dừng ở 400px khi vuốt xuống
         adjustToContentHeight={false}
+        // adjustToContentHeight
+        // childrenStyle={{ height: 370 }}
         onClose={onClose}
         rootStyle={{ flex: 1 }}
         modalStyle={{ paddingTop: 10 }}

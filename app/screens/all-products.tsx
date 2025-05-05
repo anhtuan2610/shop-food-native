@@ -57,7 +57,7 @@ const AllProducts = () => {
           setProducts(response.products);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     getProducts(debouncedStringValue);

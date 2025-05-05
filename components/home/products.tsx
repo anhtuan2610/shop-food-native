@@ -6,7 +6,6 @@ import {
   Image,
   Keyboard,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
@@ -17,13 +16,19 @@ import { getAllProducts, TProduct } from "@/services/products";
 import { useEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
+import { useModalStore } from "@/stores/modal";
 
 const Products = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
+  const { onOpen } = useModalStore();
   const [products, setProducts] = useState<TProduct[]>([]);
 
   const redirectViewAllProducts = () => {
     navigation.navigate("all-products");
+  };
+
+  const handleClickProduct = (product: TProduct) => {
+    onOpen({ productSelected: product });
   };
 
   useEffect(() => {
@@ -46,11 +51,13 @@ const Products = () => {
           </Pressable>
         </View>
       </TouchableWithoutFeedback>
-      <ScrollView showsHorizontalScrollIndicator={false}>
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => handleClickProduct(item)}>
             <View key={item.id} style={styles.restaurantCard}>
               <View style={{ position: "relative" }}>
                 <Image
@@ -91,11 +98,10 @@ const Products = () => {
                 </View>
               </View>
             </View>
-          )}
-          contentContainerStyle={styles.restaurantsContainer}
-          scrollEnabled={false}
-        />
-      </ScrollView>
+          </Pressable>
+        )}
+        contentContainerStyle={styles.restaurantsContainer}
+      />
     </View>
   );
 };
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
     color: "#FF6B57",
   },
   restaurantsContainer: {
-    paddingBottom: 520,
+    flexDirection: "row",
     alignItems: "center",
     gap: 8,
     paddingHorizontal: 24,
