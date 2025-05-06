@@ -18,7 +18,7 @@ const HeaderDrawers = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleRedirectProfile = () => {
-    navigation.navigate("tabs", { screen: "profile" });
+    navigation.getParent()?.navigate("profile");
   };
 
   const toggleMenu = () => {

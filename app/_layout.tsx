@@ -21,6 +21,7 @@ import AllProducts from "./screens/all-products";
 import PostDetails from "./screens/post-details";
 import DrawerNavigation from "@/navigations/drawer-navigation";
 import { NavigationContainer } from "@react-navigation/native";
+import Profile from "./screens/profile";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -103,6 +104,7 @@ export default function RootLayout() {
         <Stack.Screen name="cart" component={Cart} />
         <Stack.Screen name="post-details" component={PostDetails} />
         <Stack.Screen name="all-products" component={AllProducts} />
+        <Stack.Screen name="profile" component={Profile} />
         {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
       </Stack.Navigator>
       <StatusBar style="auto" />

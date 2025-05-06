@@ -8,13 +8,13 @@ export type RootStackParamList = {
   verification: undefined;
   drawers: NavigatorScreenParams<DrawersParamList>;
   cart: undefined;
+  profile: undefined;
   "post-details": {postId: number};
   'all-products'?: { isSearch: boolean }
 };
 
 export type DrawersParamList = {
   tabs: NavigatorScreenParams<TabsParamList>;
-  profile: undefined;
 }
 
 export type TabsParamList = {

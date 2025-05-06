@@ -72,9 +72,24 @@ const CustomTabBar = () => {
           onPress={() => {
             if (tab.name === "cart") {
               navigation.navigate("cart");
-            } else {
-              navigation.navigate("tabs", {
-                screen: tab.name as Exclude<keyof TabsParamList, "home">,
+            }
+            if (tab.name === "profile") {
+              navigation.navigate("profile");
+            }
+            if (tab.name === "notification") {
+              navigation.navigate("drawers", {
+                screen: "tabs",
+                params: {
+                  screen: "notification",
+                },
+              });
+            }
+            if (tab.name === "home") {
+              navigation.navigate("drawers", {
+                screen: "tabs",
+                params: {
+                  screen: "home",
+                },
               });
             }
           }}

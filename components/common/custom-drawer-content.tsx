@@ -45,7 +45,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       icon: <AntDesign name="user" size={32} color="black" />,
       name: "Profile",
       handleRedirect: () => {
-        navigation.navigate("drawers", { screen: "profile" });
+        navigation.navigate("profile");
       },
     },
     {

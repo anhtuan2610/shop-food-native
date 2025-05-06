@@ -19,7 +19,7 @@ const DrawerNavigation = () => {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="tabs" component={TabbarNavigation} />
-      <Drawer.Screen name="profile" component={Profile} />
+      {/* <Drawer.Screen name="profile" component={Profile} /> */}
     </Drawer.Navigator>
   );
 };

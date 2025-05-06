@@ -20,7 +20,6 @@ const TabbarNavigation = () => {
         {/* <Tab.Screen name="home" component={HomeNavigation} /> */}
         <Tab.Screen name="home" component={Home} />
         <Tab.Screen name="notification" component={Notification} />
-        <Tab.Screen name="profile" component={Profile} />
       </Tab.Navigator>
     </TabbarLayout>
   );
