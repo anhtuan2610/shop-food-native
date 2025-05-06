@@ -7,12 +7,8 @@ import InputPromo from "@/components/cart/input-promo";
 import PriceDetails from "@/components/cart/price-details";
 import { useCartStore } from "@/stores/cart";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { useEffect } from "react";
-import { getCartByUserId } from "@/services/cart";
-import { useAuthStore } from "@/stores/auth";
 
 const Cart = () => {
-  const { user } = useAuthStore();
   const cart = useCartStore((store) => store.cart);
 
   if (cart?.items.length == 0 || cart?.items === undefined) {
@@ -27,8 +23,8 @@ const Cart = () => {
           {cart?.items.map((item) => (
             <ProductCart key={item.product.id} item={item} />
           ))}
+          <InputPromo />
         </ScrollView>
-        <InputPromo />
         <PriceDetails />
       </View>
       <Address />

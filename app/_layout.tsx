@@ -20,8 +20,8 @@ import ProductActionBar from "@/components/product-details/action-bar";
 import AllProducts from "./screens/all-products";
 import PostDetails from "./screens/post-details";
 import DrawerNavigation from "@/navigations/drawer-navigation";
-import { NavigationContainer } from "@react-navigation/native";
 import Profile from "./screens/profile";
+import { LogBox } from "react-native";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -58,6 +58,7 @@ export default function RootLayout() {
   useEffect(() => {
     const init = async () => {
       try {
+        LogBox.ignoreAllLogs();
         await loadAuthData();
         await loadCartData();
         const timeout = setTimeout(() => {

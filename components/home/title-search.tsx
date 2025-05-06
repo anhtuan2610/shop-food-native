@@ -3,9 +3,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import SearchInputVector from "@/assets/vectors/home/search-input-vector";
 import {
   Keyboard,
+  Pressable,
   StyleSheet,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
@@ -28,21 +28,21 @@ const TitleSearch = () => {
             colors={["#FE724D", "#FFC529"]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
-            style={styles.gradientText} // thêm style cố định chiều rộng / cao
+            style={styles.gradientText}
           />
         </MaskedView>
         <View style={styles.searchContainer}>
           <View style={styles.searchVector}>
             <SearchInputVector />
           </View>
-          <TextInput
+          <Pressable
             style={styles.searchInput}
-            placeholder="Search products by name"
-            placeholderTextColor="#A9ABB4"
             onPress={() =>
               navigation.navigate("all-products", { isSearch: true })
             }
-          />
+          >
+            <Text style={{ color: "#A9ABB4" }}>Search products by name</Text>
+          </Pressable>
         </View>
       </View>
     </TouchableWithoutFeedback>

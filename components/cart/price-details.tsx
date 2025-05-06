@@ -32,6 +32,7 @@ const PriceDetails = () => {
 const styles = StyleSheet.create({
   container: {
     gap: 10,
+    paddingBottom: 10,
     marginTop: 28,
     marginBottom: 10,
   },

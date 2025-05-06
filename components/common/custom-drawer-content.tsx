@@ -63,21 +63,34 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   ];
 
   return (
-    <DrawerContentScrollView
-      {...props}
-      contentContainerStyle={styles.container}
-    >
+    <View {...props} style={styles.container}>
       <View style={styles.header}>
         <Image
-          style={styles.avatar}
+          style={styles.logo}
           source={require("../../assets/images/common/oke-min.png")}
         />
-        <Text style={styles.username}>
-          Hello, {user?.firstName + " " + user?.lastName}!
-        </Text>
       </View>
 
       <View style={styles.menu}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 14,
+            marginBottom: 10,
+          }}
+        >
+          <Image
+            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }}
+            style={styles.avatar}
+          />
+          <View style={{ gap: 2 }}>
+            <Text style={styles.username}>
+              {user?.firstName + " " + user?.lastName}!
+            </Text>
+            <Text style={{ color: "#535763" }}>{user?.email}</Text>
+          </View>
+        </View>
         {drawerItems.map((item) => (
           <DrawerItem
             key={item.id}
@@ -89,7 +102,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       </View>
 
       <View style={styles.footer}></View>
-    </DrawerContentScrollView>
+    </View>
   );
 };
 
@@ -102,11 +115,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 30,
   },
-  avatar: {
+  logo: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    marginBottom: 10,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
   },
   username: {
     fontSize: 18,
