@@ -15,7 +15,7 @@ import { useModalStore } from "@/stores/modal";
 import { NumericFormat } from "react-number-format";
 
 const ProductActionBar = () => {
-  const navigation: NavigationProp<RootStackParamList> = useNavigation();
+  const { navigationContext } = useModalStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const { onClose, productSelected } = useModalStore();
   const [quantity, setQuantity] = useState<number>(1);
@@ -30,7 +30,7 @@ const ProductActionBar = () => {
   };
 
   const handleAddToCart = () => {
-    if (productSelected) {
+    if (productSelected && navigationContext) {
       const newItem: TCartItem = {
         product: productSelected,
         quantity: quantity,
@@ -38,7 +38,7 @@ const ProductActionBar = () => {
       };
       addToCart(newItem);
       onClose(); // khong tat di thi no bi loi khi back ve khong click lai dc (kha nang la do modal van ton tai nhung khong hien thi)
-      navigation.navigate("cart");
+      navigationContext.navigate("cart");
     }
   };
 
