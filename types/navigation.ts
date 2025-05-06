@@ -6,11 +6,16 @@ export type RootStackParamList = {
   login: undefined;
   'forgot-password': undefined;
   verification: undefined;
-  tabs: NavigatorScreenParams<TabsParamList>;
+  drawers: NavigatorScreenParams<DrawersParamList>;
   cart: undefined;
   "post-details": {postId: number};
   'all-products'?: { isSearch: boolean }
 };
+
+export type DrawersParamList = {
+  tabs: NavigatorScreenParams<TabsParamList>;
+  profile: undefined;
+}
 
 export type TabsParamList = {
   home: undefined;

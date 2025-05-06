@@ -1,7 +1,6 @@
 // MainLayout.tsx
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import HeaderTabs from "./header-tabs";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 
@@ -22,7 +21,7 @@ const TabbarLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <View style={styles.container}>
-      {currentTabRoute === "home" && <HeaderTabs />}
+      {/* {currentTabRoute === "home" && <HeaderTabs />} */}
       <View style={styles.content}>{children}</View>
     </View>
   );
@@ -33,7 +32,6 @@ export default TabbarLayout;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
     backgroundColor: "white",
   },
   content: {

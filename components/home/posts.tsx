@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 
   containerPostList: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
   },
   postCard: {
     width: "49.5%",

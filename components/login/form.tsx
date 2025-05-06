@@ -74,12 +74,9 @@ const LoginForm = () => {
           index: 0,
           routes: [
             {
-              name: "tabs",
+              name: "drawers",
               params: {
-                screen: "home",
-                params: {
-                  screen: "home-main",
-                },
+                screen: "tabs",
               },
             },
           ],

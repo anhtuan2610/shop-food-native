@@ -3,14 +3,11 @@ import Home from "@/app/screens/home";
 import Notification from "@/app/screens/notification";
 import Profile from "@/app/screens/profile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomTabBar from "@/components/common/custom-tabbar";
 import TabbarLayout from "@/components/common/layout-tabbar";
 // import HomeNavigation from "./home-navigation";
 
 const Tab = createBottomTabNavigator();
-
-const Drawer = createDrawerNavigator();
 
 const TabbarNavigation = () => {
   return (

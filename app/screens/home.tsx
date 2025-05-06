@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-    paddingTop: 20, // dung` margin bi an mau cua thang cha
+    // paddingTop: 20, // dung` margin bi an mau cua thang cha
     backgroundColor: "#ffffff",
     paddingBottom: 80,
   },

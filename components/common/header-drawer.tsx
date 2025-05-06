@@ -1,6 +1,6 @@
 import MenuVector from "@/assets/vectors/home/menu-vector";
-import { RootStackParamList } from "@/types/navigation";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { DrawersParamList } from "@/types/navigation";
+import { useNavigation } from "@react-navigation/native";
 import {
   Image,
   Pressable,
@@ -11,17 +11,19 @@ import {
 } from "react-native";
 import { useState } from "react";
 import MenuDropdown from "../home/menu-dropdown";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
-const HeaderTabs = () => {
-  const navigation: NavigationProp<RootStackParamList> = useNavigation();
+const HeaderDrawers = () => {
+  const navigation = useNavigation<DrawerNavigationProp<DrawersParamList>>();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const handleRedirectProfile = () => {
     navigation.navigate("tabs", { screen: "profile" });
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    // setIsMenuOpen(!isMenuOpen);
+    navigation.toggleDrawer();
   };
 
   return (
@@ -53,6 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 10,
+    paddingTop: 50,
   },
   menuVector: {
     width: 40,
@@ -80,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HeaderTabs;
+export default HeaderDrawers;

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   postCard: {
     width: cardWidth,
     height: 260,
-    backgroundColor: "#fffcfa",
+    backgroundColor: "#FFF9F5",
     borderRadius: 10,
     padding: 15,
     justifyContent: "space-between",

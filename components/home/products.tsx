@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   restaurantCard: {
     width: 280,
     borderRadius: 15,
-    backgroundColor: "#fffcfa",
+    backgroundColor: "#FFF9F5",
     padding: 10,
     margin: 4,
   },

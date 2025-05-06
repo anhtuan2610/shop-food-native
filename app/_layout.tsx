@@ -19,6 +19,8 @@ import { useModalStore } from "@/stores/modal";
 import ProductActionBar from "@/components/product-details/action-bar";
 import AllProducts from "./screens/all-products";
 import PostDetails from "./screens/post-details";
+import DrawerNavigation from "@/navigations/drawer-navigation";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -90,14 +92,14 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={accessToken ? "tabs" : "index"}
+        initialRouteName={accessToken ? "drawers" : "index"}
       >
         <Stack.Screen name="index" component={IntroduceScreen} />
         <Stack.Screen name="signup" component={SignUp} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="forgot-password" component={ForgotPassword} />
         <Stack.Screen name="verification" component={Verification} />
-        <Stack.Screen name="tabs" component={TabbarNavigation} />
+        <Stack.Screen name="drawers" component={DrawerNavigation} />
         <Stack.Screen name="cart" component={Cart} />
         <Stack.Screen name="post-details" component={PostDetails} />
         <Stack.Screen name="all-products" component={AllProducts} />
