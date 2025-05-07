@@ -28,6 +28,7 @@ const { height } = Dimensions.get("window");
 
 export default function RootLayout() {
   const modalizeRef = useRef<Modalize>(null);
+  const [panGestureEnabled, setPanGestureEnabled] = useState(true);
   const loadAuthData = useAuthStore((state) => state.loadAuthData);
   const loadCartData = useCartStore((state) => state.loadCartData);
   const accessToken = useAuthStore((state) => state.accessToken);
@@ -75,10 +76,17 @@ export default function RootLayout() {
   useEffect(() => {
     if (isOpen) {
       modalizeRef.current?.open();
+      setPanGestureEnabled(true);
     } else {
       modalizeRef.current?.close();
     }
   }, [isOpen]);
+
+  const handlePositionChange = (position: string) => {
+    if (position === "top") {
+      setPanGestureEnabled(false);
+    }
+  };
 
   if (!isReady) {
     return (
@@ -113,13 +121,14 @@ export default function RootLayout() {
         ref={modalizeRef}
         modalHeight={height} // full-screen khi vuốt lên
         snapPoint={height * (70 / 100)} // dừng ở 400px khi vuốt xuống
-        adjustToContentHeight={false}
+        disableScrollIfPossible={true}
+        panGestureEnabled={panGestureEnabled}
+        onPositionChange={handlePositionChange}
         // adjustToContentHeight
         // childrenStyle={{ height: 370 }}
         onClose={onClose}
         rootStyle={{ flex: 1 }}
         modalStyle={{ paddingTop: 10 }}
-        disableScrollIfPossible={true}
       >
         <ProductDetailsModal />
       </Modalize>

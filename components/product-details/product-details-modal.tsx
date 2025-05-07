@@ -1,6 +1,11 @@
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Dimensions,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import ProductInformation from "./information";
-import ProductTopping from "./topping";
 import ProductHeader from "./product-header";
 
 const windowHeight = Dimensions.get("window").height;
@@ -10,7 +15,12 @@ const ProductDetailsModal = () => {
     <View style={styles.container}>
       <View style={styles.modalContent}>
         <ProductHeader />
-        <ScrollView>
+        <ScrollView
+          nestedScrollEnabled={true}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1 }}
+          bounces={Platform.OS === "ios" ? false : true}
+        >
           <ProductInformation />
         </ScrollView>
       </View>
