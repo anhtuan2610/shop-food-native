@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+
 const ProfileMenuItem = ({
   itemIcon,
   itemName,

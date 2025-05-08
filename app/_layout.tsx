@@ -22,6 +22,7 @@ import PostDetails from "./screens/post-details";
 import DrawerNavigation from "@/navigations/drawer-navigation";
 import Profile from "./screens/profile";
 import { LogBox } from "react-native";
+import ProfileDetails from "./screens/profile-details";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -114,6 +115,7 @@ export default function RootLayout() {
         <Stack.Screen name="post-details" component={PostDetails} />
         <Stack.Screen name="all-products" component={AllProducts} />
         <Stack.Screen name="profile" component={Profile} />
+        <Stack.Screen name="profile-details" component={ProfileDetails} />
         {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
       </Stack.Navigator>
       <StatusBar style="auto" />

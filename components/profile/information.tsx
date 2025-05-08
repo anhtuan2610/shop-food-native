@@ -11,12 +11,14 @@ import ProfileMenuItem from "./menu-item";
 type TProfileItem = {
   itemIcon: React.JSX.Element;
   itemName: string;
+  redirectName?: keyof RootStackParamList;
 };
 
 const profileItems: TProfileItem[] = [
   {
     itemIcon: <AntDesign name="user" size={24} color="black" />,
     itemName: "Your profile",
+    redirectName: "profile-details",
   },
   {
     itemIcon: <MaterialIcons name="payments" size={24} color="black" />,
@@ -58,6 +60,14 @@ const ProfileInformation = () => {
     });
   };
 
+  const handleRedirect = (redirectName?: keyof RootStackParamList) => {
+    if (redirectName) {
+      if (redirectName == "profile-details") {
+        navigation.navigate("profile-details");
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -74,7 +84,9 @@ const ProfileInformation = () => {
             itemIcon={item.itemIcon}
             itemName={item.itemName}
             actionFunction={
-              item.itemName === "Log out" ? handleSignOut : undefined
+              item.itemName === "Log out"
+                ? handleSignOut
+                : () => handleRedirect(item?.redirectName)
             }
           />
         ))}
