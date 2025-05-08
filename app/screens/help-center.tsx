@@ -86,13 +86,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 50,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#1F2A44",
-    marginBottom: 20,
-  },
   listContainer: {
+    marginTop: 10,
     backgroundColor: "#ffffff",
     borderRadius: 12,
     paddingVertical: 10,

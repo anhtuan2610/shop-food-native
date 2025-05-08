@@ -25,6 +25,8 @@ import ProfileDetails from "./screens/profile-details";
 import PaymentMethods from "./screens/payment-methods";
 import Settings from "./screens/settings";
 import HelpCenter from "./screens/help-center";
+import PrivacyPolicy from "./screens/privacy-policy";
+import InviteFriends from "./screens/invites-friends";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -121,6 +123,8 @@ export default function RootLayout() {
         <Stack.Screen name="payment-methods" component={PaymentMethods} />
         <Stack.Screen name="settings" component={Settings} />
         <Stack.Screen name="help-center" component={HelpCenter} />
+        <Stack.Screen name="privacy-policy" component={PrivacyPolicy} />
+        <Stack.Screen name="invites-friends" component={InviteFriends} />
         {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
       </Stack.Navigator>
       <StatusBar style="auto" />

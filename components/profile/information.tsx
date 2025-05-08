@@ -38,10 +38,12 @@ const profileItems: TProfileItem[] = [
   {
     itemIcon: <AntDesign name="lock" size={24} color="black" />,
     itemName: "Privacy Policy",
+    redirectName: "privacy-policy",
   },
   {
     itemIcon: <AntDesign name="addusergroup" size={24} color="black" />,
     itemName: "Invites Friends",
+    redirectName: "invites-friends",
   },
   {
     itemIcon: <AntDesign name="logout" size={24} color="black" />,
@@ -76,6 +78,12 @@ const ProfileInformation = () => {
       }
       if (redirectName == "help-center") {
         navigation.navigate("help-center");
+      }
+      if (redirectName == "privacy-policy") {
+        navigation.navigate("privacy-policy");
+      }
+      if (redirectName == "invites-friends") {
+        navigation.navigate("invites-friends");
       }
     }
   };

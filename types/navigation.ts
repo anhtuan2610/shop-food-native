@@ -13,6 +13,8 @@ export type RootStackParamList = {
   "payment-methods": undefined;
   settings: undefined;
   "help-center": undefined;
+  "privacy-policy": undefined;
+  "invites-friends": undefined;
   "post-details": {postId: number};
   'all-products'?: { isSearch: boolean }
 };
