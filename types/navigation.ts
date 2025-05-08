@@ -11,6 +11,8 @@ export type RootStackParamList = {
   profile: undefined;
   "profile-details": undefined;
   "payment-methods": undefined;
+  settings: undefined;
+  "help-center": undefined;
   "post-details": {postId: number};
   'all-products'?: { isSearch: boolean }
 };

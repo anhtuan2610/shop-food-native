@@ -132,9 +132,8 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#1F2A44",
+    fontFamily: "Poppins-Regular",
+    fontSize: 18,
   },
   infoContainer: {
     padding: 20,

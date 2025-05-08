@@ -28,10 +28,12 @@ const profileItems: TProfileItem[] = [
   {
     itemIcon: <AntDesign name="setting" size={24} color="black" />,
     itemName: "Settings",
+    redirectName: "settings",
   },
   {
     itemIcon: <Feather name="help-circle" size={24} color="black" />,
     itemName: "Help Center",
+    redirectName: "help-center",
   },
   {
     itemIcon: <AntDesign name="lock" size={24} color="black" />,
@@ -68,6 +70,12 @@ const ProfileInformation = () => {
       }
       if (redirectName == "payment-methods") {
         navigation.navigate("payment-methods");
+      }
+      if (redirectName == "settings") {
+        navigation.navigate("settings");
+      }
+      if (redirectName == "help-center") {
+        navigation.navigate("help-center");
       }
     }
   };

@@ -9,7 +9,6 @@ import ForgotPassword from "./screens/forgot-password";
 import Verification from "./screens/verification";
 import Cart from "./screens/cart";
 import IntroduceScreen from "./screens";
-import TabbarNavigation from "@/navigations/tabbar-navigation";
 import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -24,6 +23,8 @@ import Profile from "./screens/profile";
 import { LogBox } from "react-native";
 import ProfileDetails from "./screens/profile-details";
 import PaymentMethods from "./screens/payment-methods";
+import Settings from "./screens/settings";
+import HelpCenter from "./screens/help-center";
 
 const Stack = createNativeStackNavigator();
 const { height } = Dimensions.get("window");
@@ -118,6 +119,8 @@ export default function RootLayout() {
         <Stack.Screen name="profile" component={Profile} />
         <Stack.Screen name="profile-details" component={ProfileDetails} />
         <Stack.Screen name="payment-methods" component={PaymentMethods} />
+        <Stack.Screen name="settings" component={Settings} />
+        <Stack.Screen name="help-center" component={HelpCenter} />
         {/* <Stack.Screen name="+not-found" component={NotFoundScreen} /> */}
       </Stack.Navigator>
       <StatusBar style="auto" />
