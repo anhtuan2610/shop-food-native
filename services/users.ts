@@ -1,5 +1,5 @@
-import { TUserLoginResponse } from "@/types";
-import { post } from "./axios-config";
+import { TUser, TUserLoginResponse } from "@/types";
+import { get, post } from "./axios-config";
 
 // export const register = async ({
 //   fullName,
@@ -35,3 +35,9 @@ export const login = async ({
     }
   });
 };
+
+export const getSingleUser = async ({userId}: {userId: number}) => {
+  return await get<TUser>({
+    url: `user/${userId}`
+  })
+}

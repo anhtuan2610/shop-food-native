@@ -10,6 +10,7 @@ export type RootStackParamList = {
   cart: undefined;
   profile: undefined;
   "profile-details": undefined;
+  "payment-methods": undefined;
   "post-details": {postId: number};
   'all-products'?: { isSearch: boolean }
 };

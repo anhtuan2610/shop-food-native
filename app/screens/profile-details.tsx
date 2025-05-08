@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,24 +12,56 @@ import { Ionicons } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 import BackScreenVector from "@/assets/vectors/introduce/BackScreenVector";
+import { useAuthStore } from "@/stores/auth";
+import { TUser } from "@/types";
+import { getSingleUser } from "@/services/users";
 
 const ProfileDetails = () => {
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
+  const { user } = useAuthStore();
+  const [userInfo, setUserInfo] = useState<TUser>();
+
+  // const user = {
+  //   firstName: "Carter",
+  //   lastName: "Baker",
+  //   age: 31,
+  //   gender: "Male",
+  //   email: "carter.baker@x.dummyjson.com",
+  //   phone: "+49 787-512-9117",
+  //   address: "625 Third Street, Denver, Oregon, 74622, United States",
+  //   university: "Washington University in St. Louis",
+  //   company: "Luettgen and Sons",
+  //   title: "Software Engineer",
+  //   image: "https://randomuser.me/api/portraits/men/32.jpg",
+  // };
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      if (user?.id) {
+        const response = await getSingleUser({ userId: user?.id });
+        if (response) {
+          setUserInfo(response);
+        }
+      }
+    };
+    getUserInfo();
+  }, []);
+
+  if (!userInfo) {
+    return (
+      <View
+        style={[
+          styles.container,
+          { justifyContent: "center", alignItems: "center" },
+        ]}
+      >
+        <Text>...is loading</Text>
+      </View>
+    );
+  }
+
   const handleGoBack = () => {
     navigation.goBack();
-  };
-  const user = {
-    firstName: "Carter",
-    lastName: "Baker",
-    age: 31,
-    gender: "Male",
-    email: "carter.baker@x.dummyjson.com",
-    phone: "+49 787-512-9117",
-    address: "625 Third Street, Denver, Oregon, 74622, United States",
-    university: "Washington University in St. Louis",
-    company: "Luettgen and Sons",
-    title: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
   };
 
   return (
@@ -39,21 +71,38 @@ const ProfileDetails = () => {
           <Pressable style={styles.vectorContainer} onPress={handleGoBack}>
             <BackScreenVector />
           </Pressable>
-          <Image source={{ uri: user.image }} style={styles.avatar} />
+          <Image
+            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }}
+            style={styles.avatar}
+          />
           <View style={[styles.vectorContainer, { opacity: 0 }]} />
         </View>
-        <Text style={styles.name}>{`${user.firstName} ${user.lastName}`}</Text>
-        <Text style={styles.title}>{user.title}</Text>
+        <Text
+          style={styles.name}
+        >{`${userInfo.firstName} ${userInfo.lastName}`}</Text>
+        <Text style={styles.title}>{userInfo.email}</Text>
       </View>
 
       <View style={styles.infoContainer}>
-        <InfoItem icon="person" label="Age" value={user.age.toString()} />
-        <InfoItem icon="male-female" label="Gender" value={user.gender} />
-        <InfoItem icon="mail" label="Email" value={user.email} />
-        <InfoItem icon="call" label="Phone" value={user.phone} />
-        <InfoItem icon="location" label="Address" value={user.address} />
-        <InfoItem icon="school" label="University" value={user.university} />
-        <InfoItem icon="briefcase" label="Company" value={user.company} />
+        <InfoItem icon="person" label="Age" value={userInfo.age.toString()} />
+        <InfoItem icon="male-female" label="Gender" value={userInfo.gender} />
+        <InfoItem icon="mail" label="Email" value={userInfo.email} />
+        <InfoItem icon="call" label="Phone" value={userInfo.phone} />
+        <InfoItem
+          icon="location"
+          label="Address"
+          value={`${userInfo.address.address}, ${userInfo.address.city}, ${userInfo.address.state}, ${userInfo.address.postalCode}, ${userInfo.address.country}`}
+        />
+        <InfoItem
+          icon="school"
+          label="University"
+          value={userInfo.university}
+        />
+        <InfoItem
+          icon="briefcase"
+          label="Company"
+          value={`${userInfo.company.title} at ${userInfo.company.name}`}
+        />
       </View>
     </ScrollView>
   );
