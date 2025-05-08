@@ -13,8 +13,9 @@ import { useAuthStore } from "@/stores/auth";
 
 const { width } = Dimensions.get("window");
 
-const CreditCard = () => {
+const CreditCard = ({ images }: { images: number[] }) => {
   const { user } = useAuthStore();
+
   return (
     <LinearGradient
       colors={["#2B2B2B", "#1978BA"]}
@@ -23,7 +24,7 @@ const CreditCard = () => {
       style={styles.card}
     >
       <ImageBackground
-        source={require("../../assets/images/profile/bg-card.png")} // hoặc từ URL: { uri: "https://..." }
+        source={images[0]} // hoặc từ URL: { uri: "https://..." }
         resizeMode="cover"
         style={{ padding: 20 }}
       >
@@ -33,12 +34,10 @@ const CreditCard = () => {
 
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.bankName}>Finaci</Text>
-          <Image
-            source={require("../../assets/images/profile/name-card.png")}
-          />
+          <Image source={images[1]} />
         </View>
         <Text style={styles.cardNumber}>**** **** **** 1234</Text>
-        <Image source={require("../../assets/images/profile/chip-card.png")} />
+        <Image source={images[2]} />
         <View style={styles.footer}>
           <View>
             <Text style={styles.label}>Card Holder</Text>

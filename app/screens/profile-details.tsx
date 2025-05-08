@@ -21,20 +21,6 @@ const ProfileDetails = () => {
   const { user } = useAuthStore();
   const [userInfo, setUserInfo] = useState<TUser>();
 
-  // const user = {
-  //   firstName: "Carter",
-  //   lastName: "Baker",
-  //   age: 31,
-  //   gender: "Male",
-  //   email: "carter.baker@x.dummyjson.com",
-  //   phone: "+49 787-512-9117",
-  //   address: "625 Third Street, Denver, Oregon, 74622, United States",
-  //   university: "Washington University in St. Louis",
-  //   company: "Luettgen and Sons",
-  //   title: "Software Engineer",
-  //   image: "https://randomuser.me/api/portraits/men/32.jpg",
-  // };
-
   useEffect(() => {
     const getUserInfo = async () => {
       if (user?.id) {

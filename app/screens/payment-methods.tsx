@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,14 +12,12 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 import BackScreenVector from "@/assets/vectors/introduce/BackScreenVector";
 import CreditCard from "@/components/profile/credit-card";
+import { Asset } from "expo-asset";
 
 const PaymentMethods = () => {
+  const [isReady, setIsReady] = useState(false);
+
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
-
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
   const paymentMethods = [
     {
       id: "1",
@@ -43,6 +41,33 @@ const PaymentMethods = () => {
     },
   ];
 
+  const images: number[] = [
+    require("../../assets/images/profile/bg-card.png"),
+    require("../../assets/images/profile/name-card.png"),
+    require("../../assets/images/profile/chip-card.png"),
+  ];
+
+  useEffect(() => {
+    const loadImage = async () => {
+      await Asset.loadAsync(images);
+      setIsReady(true);
+    };
+
+    loadImage();
+  }, []);
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
+  if (!isReady) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>...is loading</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -55,7 +80,7 @@ const PaymentMethods = () => {
         </View>
       </View>
       <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
-        <CreditCard />
+        <CreditCard images={images} />
       </View>
       <View style={styles.infoContainer}>
         {paymentMethods.map((method) => (
