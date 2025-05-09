@@ -2,11 +2,11 @@ import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
 import { RootStackParamList } from "@/types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Feather from "@expo/vector-icons/Feather";
 import ProfileMenuItem from "./menu-item";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type TProfileItem = {
   itemIcon: React.JSX.Element;
@@ -31,7 +31,7 @@ const profileItems: TProfileItem[] = [
     redirectName: "settings",
   },
   {
-    itemIcon: <Feather name="help-circle" size={24} color="black" />,
+    itemIcon: <Ionicons name="help-circle-outline" size={24} color="black" />,
     itemName: "Help Center",
     redirectName: "help-center",
   },
